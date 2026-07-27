@@ -1,0 +1,521 @@
+{
+  "fetchedAt": "2026-07-27T10:33:28.207Z",
+  "commodity": {
+    "hsCode": "7108",
+    "label": "黄金（未锻造、半制成或粉末）"
+  },
+  "headline": {
+    "period": "202605",
+    "swissExportsTonnes": 107.78701099999999,
+    "chinaHongKongTonnes": 41.834,
+    "chinaHongKongSharePct": 38.811726581786374
+  },
+  "swiss": {
+    "period": "202605",
+    "routes": [
+      {
+        "partnerCode": 826,
+        "destination": "United Kingdom",
+        "tonnes": 39.402,
+        "valueUsd": 5840610457.508,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 156,
+        "destination": "China",
+        "tonnes": 31.549,
+        "valueUsd": 4688528379.876,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 344,
+        "destination": "China, Hong Kong SAR",
+        "tonnes": 10.285,
+        "valueUsd": 1546654039.17,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 764,
+        "destination": "Thailand",
+        "tonnes": 3.528,
+        "valueUsd": 517900605.807,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 276,
+        "destination": "Germany",
+        "tonnes": 2.955,
+        "valueUsd": 437757798.497,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 792,
+        "destination": "Türkiye",
+        "tonnes": 2.875,
+        "valueUsd": 422468929.818,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 682,
+        "destination": "Saudi Arabia",
+        "tonnes": 2.613,
+        "valueUsd": 384406777.144,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 842,
+        "destination": "USA",
+        "tonnes": 2.543,
+        "valueUsd": 364608195.382,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 380,
+        "destination": "Italy",
+        "tonnes": 2.353,
+        "valueUsd": 319655791.143,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 784,
+        "destination": "United Arab Emirates",
+        "tonnes": 2.186,
+        "valueUsd": 322944393.295,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 702,
+        "destination": "Singapore",
+        "tonnes": 1.717,
+        "valueUsd": 254105530.169,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 251,
+        "destination": "France",
+        "tonnes": 1.415,
+        "valueUsd": 189437564.437,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 699,
+        "destination": "India",
+        "tonnes": 0.955,
+        "valueUsd": 142444977.036,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 458,
+        "destination": "Malaysia",
+        "tonnes": 0.83,
+        "valueUsd": 124004520.619,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 490,
+        "destination": "Other Asia, nes",
+        "tonnes": 0.726,
+        "valueUsd": 108735613.613,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 40,
+        "destination": "Austria",
+        "tonnes": 0.713,
+        "valueUsd": 107419561.743,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 762,
+        "destination": "Tajikistan",
+        "tonnes": 0.36,
+        "valueUsd": 60497328.342,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 422,
+        "destination": "Lebanon",
+        "tonnes": 0.193,
+        "valueUsd": 28175028.446,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 634,
+        "destination": "Qatar",
+        "tonnes": 0.088,
+        "valueUsd": 13100011.71,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 124,
+        "destination": "Canada",
+        "tonnes": 0.07101,
+        "valueUsd": 10640193.701,
+        "estimatedWeight": true
+      },
+      {
+        "partnerCode": 233,
+        "destination": "Estonia",
+        "tonnes": 0.057,
+        "valueUsd": 8338851.901,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 410,
+        "destination": "Rep. of Korea",
+        "tonnes": 0.051,
+        "valueUsd": 7441951.831,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 616,
+        "destination": "Poland",
+        "tonnes": 0.047,
+        "valueUsd": 6955295.878,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 56,
+        "destination": "Belgium",
+        "tonnes": 0.044,
+        "valueUsd": 2758776.627,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 36,
+        "destination": "Australia",
+        "tonnes": 0.042,
+        "valueUsd": 6278426.669,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 348,
+        "destination": "Hungary",
+        "tonnes": 0.034,
+        "valueUsd": 5242437.25,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 724,
+        "destination": "Spain",
+        "tonnes": 0.031,
+        "valueUsd": 4655390.472,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 818,
+        "destination": "Egypt",
+        "tonnes": 0.029,
+        "valueUsd": 4278402.64,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 752,
+        "destination": "Sweden",
+        "tonnes": 0.02,
+        "valueUsd": 2858576.071,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 300,
+        "destination": "Greece",
+        "tonnes": 0.018,
+        "valueUsd": 2643774.602,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 642,
+        "destination": "Romania",
+        "tonnes": 0.014,
+        "valueUsd": 2310384.583,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 392,
+        "destination": "Japan",
+        "tonnes": 0.012,
+        "valueUsd": 909851.834,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 246,
+        "destination": "Finland",
+        "tonnes": 0.011,
+        "valueUsd": 1732270.979,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 860,
+        "destination": "Uzbekistan",
+        "tonnes": 0.011,
+        "valueUsd": 1569968.633,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 807,
+        "destination": "North Macedonia",
+        "tonnes": 0.004,
+        "valueUsd": 578114.879,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 203,
+        "destination": "Czechia",
+        "tonnes": 0.002,
+        "valueUsd": 634799.556,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 442,
+        "destination": "Luxembourg",
+        "tonnes": 0.002,
+        "valueUsd": 232155.456,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 208,
+        "destination": "Denmark",
+        "tonnes": 0.001,
+        "valueUsd": 98426.776,
+        "estimatedWeight": false
+      },
+      {
+        "partnerCode": 372,
+        "destination": "Ireland",
+        "tonnes": 0.000001,
+        "valueUsd": 89.217,
+        "estimatedWeight": true
+      }
+    ],
+    "history": [
+      {
+        "period": "202506",
+        "tonnes": null,
+        "valueUsd": 15047832140.102,
+        "estimatedWeight": false
+      },
+      {
+        "period": "202507",
+        "tonnes": 139.549257,
+        "valueUsd": 15028492681.01,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202508",
+        "tonnes": 113.52663700000001,
+        "valueUsd": 12084606601.144,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202509",
+        "tonnes": 156.08516699999998,
+        "valueUsd": 17919676911.514,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202510",
+        "tonnes": 147.97676199999998,
+        "valueUsd": 19190924856.861,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202511",
+        "tonnes": 125.31796700000001,
+        "valueUsd": 16269526907.654,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202512",
+        "tonnes": 148.43207800000002,
+        "valueUsd": 20267043353.028,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202601",
+        "tonnes": 138.603846,
+        "valueUsd": 20989071733.295,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202602",
+        "tonnes": 120.86855800000001,
+        "valueUsd": 19461502365.203,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202603",
+        "tonnes": 152.528932,
+        "valueUsd": 24440606796.773,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202604",
+        "tonnes": 123.735049,
+        "valueUsd": 18731904526.713,
+        "estimatedWeight": true
+      },
+      {
+        "period": "202605",
+        "tonnes": 107.78701099999999,
+        "valueUsd": 15943613699.387,
+        "estimatedWeight": true
+      }
+    ],
+    "sourceUrl": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500"
+  },
+  "markets": {
+    "hongKong": {
+      "label": "中国香港",
+      "period": "202605",
+      "importsTonnes": 116.685,
+      "exportsTonnes": null,
+      "importValueUsd": 16857281179.618,
+      "exportValueUsd": 11004146147.796,
+      "estimatedWeight": false
+    },
+    "india": {
+      "label": "印度",
+      "period": "202603",
+      "importsTonnes": 32.866298,
+      "exportsTonnes": 0.181135,
+      "importValueUsd": 3060607628.4,
+      "exportValueUsd": 27447213.958,
+      "estimatedWeight": true
+    },
+    "unitedKingdom": {
+      "label": "英国",
+      "period": "202605",
+      "importsTonnes": 100.424102,
+      "exportsTonnes": 60.405977,
+      "importValueUsd": 14903840295.734,
+      "exportValueUsd": 8922049225.145,
+      "estimatedWeight": false
+    },
+    "china": {
+      "label": "中国",
+      "period": "202412",
+      "importsTonnes": 104.287436,
+      "exportsTonnes": 20.263454000000003,
+      "importValueUsd": 8855779820,
+      "exportValueUsd": 1754845301,
+      "estimatedWeight": false
+    }
+  },
+  "vaults": {
+    "london": {
+      "period": "2026-06",
+      "tonnes": 9464.321438088,
+      "monthlyChangePct": 0.7673992425580423,
+      "history": [
+        {
+          "period": "2025-06",
+          "tonnes": 8775.552179223943
+        },
+        {
+          "period": "2025-07",
+          "tonnes": 8864.957440152
+        },
+        {
+          "period": "2025-08",
+          "tonnes": 8831.3345817312
+        },
+        {
+          "period": "2025-09",
+          "tonnes": 8840.8833491088
+        },
+        {
+          "period": "2025-10",
+          "tonnes": 8858.487916977601
+        },
+        {
+          "period": "2025-11",
+          "tonnes": 8906.791616448001
+        },
+        {
+          "period": "2025-12",
+          "tonnes": 9106.395923498896
+        },
+        {
+          "period": "2026-01",
+          "tonnes": 9158.116177317905
+        },
+        {
+          "period": "2026-02",
+          "tonnes": 9209.606997242296
+        },
+        {
+          "period": "2026-03",
+          "tonnes": 9339.129943968
+        },
+        {
+          "period": "2026-04",
+          "tonnes": 9372.099629376
+        },
+        {
+          "period": "2026-05",
+          "tonnes": 9392.245417891905
+        },
+        {
+          "period": "2026-06",
+          "tonnes": 9464.321438088
+        }
+      ],
+      "sourceUrl": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
+      "workbookUrl": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-June-2026.xlsx"
+    },
+    "newYork": {
+      "period": "2026-07-22",
+      "tonnes": 840.104908368,
+      "ouncesMillions": 27.01,
+      "thirtyDayChangePct": -3.1,
+      "sourceQuality": "CME日报的第三方结构化提取",
+      "rawSourceUrl": "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
+      "extractionSourceUrl": "https://thevaultreport.com/briefing/2026-07-24"
+    },
+    "shanghai": {
+      "period": "2026-06",
+      "withdrawalsTonnes": 86.6824,
+      "previousWithdrawalsTonnes": 63.58446,
+      "deliveryTonnes": 565.6723,
+      "previousDeliveryTonnes": 582.66738,
+      "sourceUrl": "https://www.sge.com.cn/upload/file/202607/02/9a1fd9b9be654e46a96d6e5a9754e638.pdf",
+      "previousSourceUrl": "https://www.sge.com.cn/upload/file/202607/02/40caa5b58c7e4a9ba45682c3a2731d8f.pdf"
+    }
+  },
+  "priceComparison": {
+    "date": "2026-06-30",
+    "shanghaiAu9999CnyPerGram": 879.03,
+    "lbmaPmUsdPerOunce": 4026.05,
+    "ecbCnyPerEur": 7.7314,
+    "ecbUsdPerEur": 1.1394,
+    "londonEquivalentCnyPerGram": 878.3187501574519,
+    "shanghaiPremiumPct": 0.08097855618141026
+  },
+  "sources": [
+    {
+      "name": "UN Comtrade",
+      "detail": "HS 7108 月度进出口与瑞士出口目的地",
+      "url": "https://uncomtrade.org/docs/un-comtrade-api/"
+    },
+    {
+      "name": "LBMA",
+      "detail": "伦敦金库月末黄金持有量",
+      "url": "https://www.lbma.org.uk/prices-and-data/london-vault-data"
+    },
+    {
+      "name": "上海黄金交易所",
+      "detail": "月度黄金交割与出库量",
+      "url": "https://www.sge.com.cn/sjzx/hqyb"
+    },
+    {
+      "name": "CME Group",
+      "detail": "COMEX批准金库每日库存原始表",
+      "url": "https://www.cmegroup.com/clearing/operations-and-deliveries/registrar-reports.html"
+    },
+    {
+      "name": "ECB / LBMA / SGE",
+      "detail": "上海—伦敦同日指示性溢价换算",
+      "url": "https://data.ecb.europa.eu/data/datasets/EXR"
+    }
+  ]
+}
