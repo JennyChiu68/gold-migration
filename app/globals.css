@@ -198,7 +198,7 @@ footer {
   position: relative;
   z-index: 1;
   margin: 34px 0 10px;
-  font-size: 26px;
+  font-size: clamp(20px, 6.5vw, 26px);
   font-weight: 550;
   letter-spacing: -0.05em;
 }

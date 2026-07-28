@@ -437,7 +437,7 @@ export default function Home() {
           <time>{formatPeriod(data.headline.period)}</time>
         </div>
         <h1>
-          中港承接
+          中国内地及中国香港承接
           <em>{tonnes.format(data.headline.chinaHongKongTonnes)}吨</em>
         </h1>
         <p>
@@ -634,7 +634,7 @@ export default function Home() {
         <span className="eyebrow">迁徙判断</span>
         <h2>亚洲需求强，但不是单向“抽干西方”</h2>
         <p>
-          中港承接瑞士出口近四成、上金所出库环比增加
+          中国内地及中国香港承接瑞士出口近四成、上金所出库环比增加
           {sgeWithdrawalChange.toFixed(1)}%；与此同时，伦敦库存当月也增加
           {tonnes.format(londonChangeTonnes)}吨。更合理的解释是全球流通加速，而非单一地区库存枯竭。
         </p>
