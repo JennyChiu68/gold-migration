@@ -3,44 +3,88 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import rawData from "./data/gold-flows.json";
 
-type GoldRoute = {
-  partnerCode: number;
+type Route = {
+  id: string;
+  period: string;
+  originCode: number;
+  origin: string;
+  originZone: "west" | "east";
+  destinationCode: number;
   destination: string;
   tonnes: number;
   valueUsd: number;
   estimatedWeight: boolean;
 };
 
-type Market = {
+type Origin = {
+  code: number;
+  key: string;
   label: string;
+  zone: "west" | "east";
+  exportsTonnes: number | null;
+  estimatedWeight: boolean;
+};
+
+type MarketBalance = {
+  code: number;
+  key: string;
+  label: string;
+  zone: string;
   period: string;
+  comparable: boolean;
   importsTonnes: number | null;
   exportsTonnes: number | null;
-  importValueUsd: number | null;
-  exportValueUsd: number | null;
+  netImportsTonnes: number | null;
+  previousNetImportsTonnes: number | null;
+  changeTonnes: number | null;
   estimatedWeight: boolean;
 };
 
 type GoldData = {
+  version: number;
   fetchedAt: string;
-  headline: {
+  commodity: { hsCode: string; label: string };
+  network: {
     period: string;
-    swissExportsTonnes: number;
-    chinaHongKongTonnes: number;
-    chinaHongKongSharePct: number;
-  };
-  swiss: {
-    period: string;
-    routes: GoldRoute[];
-    history: Array<{
+    comparisonPeriod: string;
+    coverage: {
+      originCount: number;
+      candidateOriginCount: number;
+      routeCount: number;
+      mappedRouteCount: number;
+      unavailableOrigins: string[];
+      description: string;
+    };
+    origins: Origin[];
+    routes: Route[];
+    direction: {
       period: string;
-      tonnes: number | null;
-      valueUsd: number | null;
-      estimatedWeight: boolean;
-    }>;
-    sourceUrl: string;
+      eastboundTonnes: number;
+      westboundTonnes: number;
+      netEastboundTonnes: number;
+      previousEastboundTonnes: number;
+      eastboundChangeTonnes: number;
+      eastboundChangePct: number;
+      history: Array<{
+        period: string;
+        eastboundTonnes: number;
+        westboundTonnes: number;
+        netEastboundTonnes: number;
+      }>;
+    };
   };
-  markets: Record<string, Market>;
+  marketBalances: {
+    period: string;
+    comparisonPeriod: string;
+    comparable: MarketBalance[];
+    unavailable: Array<{
+      code: number;
+      key: string;
+      label: string;
+      period: string;
+    }>;
+    lagged: MarketBalance[];
+  };
   vaults: {
     london: {
       period: string;
@@ -78,6 +122,11 @@ type GoldData = {
     londonEquivalentCnyPerGram: number;
     shanghaiPremiumPct: number;
   };
+  methodology: {
+    measured: string;
+    inferred: string;
+    comparability: string;
+  };
   sources: Array<{ name: string; detail: string; url: string }>;
 };
 
@@ -90,33 +139,52 @@ const money = new Intl.NumberFormat("zh-CN", {
   style: "currency",
   currency: "USD",
   notation: "compact",
-  maximumFractionDigits: 2,
+  maximumFractionDigits: 1,
 });
 
-const routeMeta: Record<
+const locations: Record<
   number,
   { label: string; x: number; y: number; region: string }
 > = {
-  826: { label: "英国", x: 38, y: 29, region: "欧洲金库" },
-  156: { label: "中国内地", x: 79, y: 48, region: "亚洲消费" },
+  36: { label: "澳大利亚", x: 87, y: 79, region: "大洋洲" },
+  40: { label: "奥地利", x: 50, y: 31, region: "欧洲" },
+  56: { label: "比利时", x: 46, y: 28, region: "欧洲" },
+  124: { label: "加拿大", x: 16, y: 27, region: "北美" },
+  156: { label: "中国内地", x: 79, y: 48, region: "亚洲" },
+  250: { label: "法国", x: 44, y: 33, region: "欧洲" },
+  276: { label: "德国", x: 48, y: 29, region: "欧洲" },
   344: { label: "中国香港", x: 81, y: 56, region: "亚洲转口" },
-  764: { label: "泰国", x: 76, y: 63, region: "亚洲消费" },
-  276: { label: "德国", x: 46, y: 31, region: "欧洲精炼" },
-  792: { label: "土耳其", x: 58, y: 43, region: "区域枢纽" },
-  682: { label: "沙特", x: 62, y: 55, region: "中东消费" },
-  842: { label: "美国", x: 18, y: 43, region: "北美金库" },
-  380: { label: "意大利", x: 47, y: 39, region: "欧洲加工" },
-  784: { label: "阿联酋", x: 66, y: 57, region: "中东枢纽" },
-  702: { label: "新加坡", x: 78, y: 71, region: "亚洲枢纽" },
+  380: { label: "意大利", x: 49, y: 38, region: "欧洲" },
+  392: { label: "日本", x: 89, y: 44, region: "亚洲" },
+  410: { label: "韩国", x: 85, y: 45, region: "亚洲" },
+  458: { label: "马来西亚", x: 79, y: 69, region: "亚洲" },
+  682: { label: "沙特", x: 62, y: 54, region: "中东" },
+  699: { label: "印度", x: 69, y: 58, region: "亚洲" },
+  702: { label: "新加坡", x: 79, y: 72, region: "亚洲转口" },
+  724: { label: "西班牙", x: 42, y: 40, region: "欧洲" },
+  757: { label: "瑞士", x: 48, y: 34, region: "精炼中心" },
+  764: { label: "泰国", x: 76, y: 63, region: "亚洲" },
+  784: { label: "阿联酋", x: 65, y: 57, region: "中东转口" },
+  792: { label: "土耳其", x: 57, y: 43, region: "区域枢纽" },
+  826: { label: "英国", x: 41, y: 26, region: "伦敦金库" },
+  842: { label: "美国", x: 19, y: 43, region: "纽约金库" },
 };
 
 function formatPeriod(value: string) {
-  const compactValue = value.replace("-", "");
-  return `${compactValue.slice(0, 4)}.${compactValue.slice(4, 6)}`;
+  const compact = value.replace("-", "");
+  return `${compact.slice(0, 4)}.${compact.slice(4, 6)}`;
 }
 
-function signed(value: number, suffix = "%") {
-  return `${value > 0 ? "+" : ""}${value.toFixed(1)}${suffix}`;
+function signed(value: number, suffix = "t") {
+  return `${value > 0 ? "+" : ""}${tonnes.format(value)}${suffix}`;
+}
+
+function pct(value: number) {
+  return `${value > 0 ? "+" : ""}${value.toFixed(1)}%`;
+}
+
+function destinationLabel(route: Route) {
+  return locations[route.destinationCode]?.label ?? route.destination;
 }
 
 function Sparkline({
@@ -137,7 +205,7 @@ function Sparkline({
     const draw = () => {
       const rect = canvas.getBoundingClientRect();
       const width = Math.max(rect.width, 120);
-      const height = Math.max(rect.height, 48);
+      const height = Math.max(rect.height, 44);
       const ratio = window.devicePixelRatio || 1;
       canvas.width = width * ratio;
       canvas.height = height * ratio;
@@ -148,7 +216,7 @@ function Sparkline({
       const max = Math.max(...values);
       const spread = Math.max(max - min, 1);
       const points = values.map((value, index) => ({
-        x: 2 + (index / (values.length - 1)) * (width - 4),
+        x: 3 + (index / (values.length - 1)) * (width - 6),
         y: 5 + ((max - value) / spread) * (height - 12),
       }));
 
@@ -166,11 +234,8 @@ function Sparkline({
       const last = points.at(-1)!;
       context.beginPath();
       context.arc(last.x, last.y, 3.5, 0, Math.PI * 2);
-      context.fillStyle = "#fffdf6";
+      context.fillStyle = color;
       context.fill();
-      context.strokeStyle = color;
-      context.lineWidth = 2;
-      context.stroke();
     };
 
     const observer = new ResizeObserver(draw);
@@ -179,15 +244,15 @@ function Sparkline({
     return () => observer.disconnect();
   }, [color, values]);
 
-  return <canvas ref={canvasRef} className="sparkline" aria-hidden="true" />;
+  return <canvas className="sparkline" ref={canvasRef} aria-hidden="true" />;
 }
 
-function MigrationMap({
+function NetworkMap({
   routes,
-  selectedCode,
+  selectedId,
 }: {
-  routes: GoldRoute[];
-  selectedCode: number;
+  routes: Route[];
+  selectedId: string;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -199,32 +264,16 @@ function MigrationMap({
 
     const draw = () => {
       const rect = canvas.getBoundingClientRect();
-      const width = Math.max(rect.width, 300);
-      const height = 240;
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      context.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const width = Math.max(rect.width, 280);
+      const height = Math.max(rect.height, 214);
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = width * ratio;
+      canvas.height = height * ratio;
+      context.setTransform(ratio, 0, 0, ratio, 0, 0);
       context.clearRect(0, 0, width, height);
 
       const sx = (value: number) => (value / 100) * width;
       const sy = (value: number) => (value / 100) * height;
-
-      context.strokeStyle = "rgba(255,255,255,.08)";
-      context.lineWidth = 1;
-      [25, 50, 75].forEach((x) => {
-        context.beginPath();
-        context.moveTo(sx(x), 0);
-        context.lineTo(sx(x), height);
-        context.stroke();
-      });
-      [33, 66].forEach((y) => {
-        context.beginPath();
-        context.moveTo(0, sy(y));
-        context.lineTo(width, sy(y));
-        context.stroke();
-      });
-
       const land = (points: Array<[number, number]>) => {
         context.beginPath();
         points.forEach(([x, y], index) => {
@@ -232,9 +281,10 @@ function MigrationMap({
           else context.lineTo(sx(x), sy(y));
         });
         context.closePath();
-        context.fillStyle = "rgba(255,255,255,.065)";
+        context.fillStyle = "rgba(255,255,255,.055)";
         context.fill();
-        context.strokeStyle = "rgba(255,255,255,.10)";
+        context.strokeStyle = "rgba(255,255,255,.08)";
+        context.lineWidth = 0.7;
         context.stroke();
       };
 
@@ -282,134 +332,178 @@ function MigrationMap({
         [80, 82],
       ]);
 
-      const source = { x: sx(45), y: sy(34) };
-      routes.slice(0, 10).forEach((route) => {
-        const meta = routeMeta[route.partnerCode];
-        if (!meta) return;
-        const target = { x: sx(meta.x), y: sy(meta.y) };
-        const selected = route.partnerCode === selectedCode;
-        const controlX = (source.x + target.x) / 2;
+      const visible = [...routes]
+        .sort((left, right) => {
+          if (left.id === selectedId) return 1;
+          if (right.id === selectedId) return -1;
+          return left.tonnes - right.tonnes;
+        })
+        .slice(-16);
+
+      visible.forEach((route) => {
+        const origin = locations[route.originCode];
+        const destination = locations[route.destinationCode];
+        if (!origin || !destination) return;
+        const selected = route.id === selectedId;
+        const start = { x: sx(origin.x), y: sy(origin.y) };
+        const end = { x: sx(destination.x), y: sy(destination.y) };
+        const controlX = (start.x + end.x) / 2;
         const controlY =
-          Math.min(source.y, target.y) -
-          Math.min(42, Math.abs(target.x - source.x) * 0.16 + 10);
+          Math.min(start.y, end.y) -
+          Math.min(46, Math.abs(end.x - start.x) * 0.13 + 8);
 
         context.beginPath();
-        context.moveTo(source.x, source.y);
-        context.quadraticCurveTo(controlX, controlY, target.x, target.y);
+        context.moveTo(start.x, start.y);
+        context.quadraticCurveTo(controlX, controlY, end.x, end.y);
         context.strokeStyle = selected
           ? "#f4c55f"
-          : "rgba(232, 184, 82, .32)";
+          : route.originZone === "west"
+            ? "rgba(238,186,75,.28)"
+            : "rgba(198,214,197,.22)";
         context.lineWidth = selected
           ? 3
-          : Math.max(0.9, Math.min(route.tonnes / 9, 2.2));
+          : Math.max(0.8, Math.min(route.tonnes / 24, 2));
         context.stroke();
 
         context.beginPath();
-        context.arc(target.x, target.y, selected ? 6 : 3, 0, Math.PI * 2);
-        context.fillStyle = selected ? "#f4c55f" : "#c49b48";
+        context.arc(end.x, end.y, selected ? 5.5 : 2.5, 0, Math.PI * 2);
+        context.fillStyle = selected ? "#f4c55f" : "#a69b76";
+        context.fill();
+
+        context.beginPath();
+        context.arc(start.x, start.y, selected ? 5 : 3, 0, Math.PI * 2);
+        context.fillStyle = selected ? "#fff8df" : "#ffffff";
         context.fill();
 
         if (selected) {
-          context.beginPath();
-          context.arc(target.x, target.y, 11, 0, Math.PI * 2);
-          context.strokeStyle = "rgba(244,197,95,.35)";
-          context.lineWidth = 5;
-          context.stroke();
-          context.fillStyle = "#fff8e5";
-          context.font = "600 11px system-ui, sans-serif";
-          context.textAlign = target.x > width * 0.77 ? "right" : "left";
-          context.fillText(
-            meta.label,
-            target.x + (target.x > width * 0.77 ? -10 : 10),
-            target.y - 10,
-          );
+          context.fillStyle = "#fff8df";
+          context.font = "600 10px system-ui, sans-serif";
+          context.textAlign = "center";
+          context.fillText(origin.label, start.x, start.y - 11);
+          context.fillText(destination.label, end.x, end.y - 11);
         }
       });
-
-      context.beginPath();
-      context.arc(source.x, source.y, 5, 0, Math.PI * 2);
-      context.fillStyle = "#ffffff";
-      context.fill();
-      context.beginPath();
-      context.arc(source.x, source.y, 10, 0, Math.PI * 2);
-      context.strokeStyle = "rgba(255,255,255,.28)";
-      context.lineWidth = 4;
-      context.stroke();
-      context.fillStyle = "rgba(255,255,255,.72)";
-      context.font = "600 10px system-ui, sans-serif";
-      context.textAlign = "center";
-      context.fillText("瑞士", source.x, source.y - 13);
     };
 
     const observer = new ResizeObserver(draw);
     observer.observe(canvas);
     draw();
     return () => observer.disconnect();
-  }, [routes, selectedCode]);
+  }, [routes, selectedId]);
 
   return (
     <canvas
       ref={canvasRef}
-      className="migration-canvas"
+      className="network-map"
       role="img"
-      aria-label="瑞士黄金出口目的地地图"
+      aria-label="多个黄金枢纽之间的月度报关流向图"
     />
   );
 }
 
-function MarketCard({ market }: { market: Market }) {
-  const hasNet =
-    market.importsTonnes != null && market.exportsTonnes != null;
-  const net = hasNet
-    ? market.importsTonnes! - market.exportsTonnes!
-    : market.importsTonnes;
+function MarketBalanceBar({
+  market,
+  maxAbsolute,
+}: {
+  market: MarketBalance;
+  maxAbsolute: number;
+}) {
+  const net = market.netImportsTonnes ?? 0;
+  const width = Math.max(2.5, (Math.abs(net) / maxAbsolute) * 48);
+  const style =
+    net >= 0
+      ? { left: "50%", width: `${width}%` }
+      : { left: `${50 - width}%`, width: `${width}%` };
 
   return (
-    <article className="market-card">
-      <div className="market-card-head">
-        <strong>{market.label}</strong>
-        <span>{formatPeriod(market.period)}</span>
+    <article className="balance-row">
+      <div className="balance-head">
+        <div>
+          <strong>{market.label}</strong>
+          {market.estimatedWeight && <span>含估算</span>}
+        </div>
+        <b className={net >= 0 ? "positive" : "negative"}>
+          {signed(net)}
+        </b>
       </div>
-      <div className="market-value">
-        {tonnes.format(net ?? 0)}
-        <small>吨</small>
+      <div className="balance-track" aria-hidden="true">
+        <i className="balance-zero" />
+        <span
+          className={net >= 0 ? "importer" : "exporter"}
+          style={style}
+        />
       </div>
-      <p>{hasNet ? "黄金净进口" : "黄金进口量"}</p>
-      <div className="market-foot">
+      <div className="balance-foot">
         <span>进口 {tonnes.format(market.importsTonnes ?? 0)}t</span>
-        {market.exportsTonnes != null && (
-          <span>出口 {tonnes.format(market.exportsTonnes)}t</span>
-        )}
+        <span>出口 {tonnes.format(market.exportsTonnes ?? 0)}t</span>
+        <span>
+          较上月{" "}
+          {market.changeTonnes == null ? "待补" : signed(market.changeTonnes)}
+        </span>
       </div>
-      {market.estimatedWeight && <i>部分重量为官方估算</i>}
     </article>
   );
 }
 
 export default function Home() {
-  const routes = data.swiss.routes.slice(0, 11);
-  const [selectedCode, setSelectedCode] = useState(routes[0].partnerCode);
+  const [originFilter, setOriginFilter] = useState<number | "all">("all");
+  const [selectedRouteId, setSelectedRouteId] = useState(
+    data.network.routes[0].id,
+  );
+
+  const availableOrigins = data.network.origins.filter(
+    (origin) => origin.exportsTonnes != null,
+  );
+  const filteredRoutes = useMemo(
+    () =>
+      originFilter === "all"
+        ? data.network.routes
+        : data.network.routes.filter(
+            (route) => route.originCode === originFilter,
+          ),
+    [originFilter],
+  );
   const selectedRoute =
-    routes.find((route) => route.partnerCode === selectedCode) ?? routes[0];
-  const selectedMeta = routeMeta[selectedRoute.partnerCode];
-  const routeShare =
-    (selectedRoute.tonnes / data.headline.swissExportsTonnes) * 100;
-  const marketOrder = ["hongKong", "india", "unitedKingdom", "china"];
+    filteredRoutes.find((route) => route.id === selectedRouteId) ??
+    filteredRoutes[0] ??
+    data.network.routes[0];
+  const routeOriginTotal =
+    data.network.origins.find(
+      (origin) => origin.code === selectedRoute.originCode,
+    )?.exportsTonnes ?? selectedRoute.tonnes;
+  const routeShare = (selectedRoute.tonnes / routeOriginTotal) * 100;
+
+  const rankedMarkets = [...data.marketBalances.comparable].sort(
+    (left, right) =>
+      (right.netImportsTonnes ?? 0) - (left.netImportsTonnes ?? 0),
+  );
+  const maxBalance = Math.max(
+    ...rankedMarkets.map((market) =>
+      Math.abs(market.netImportsTonnes ?? 0),
+    ),
+  );
+  const laggedChina = data.marketBalances.lagged[0];
   const londonChangeTonnes =
     data.vaults.london.history.at(-1)!.tonnes -
     data.vaults.london.history.at(-2)!.tonnes;
-  const sgeWithdrawalChange =
+  const shanghaiWithdrawalChange =
     (data.vaults.shanghai.withdrawalsTonnes /
       data.vaults.shanghai.previousWithdrawalsTonnes -
       1) *
     100;
-  const swissHistoryValues = useMemo(
-    () =>
-      data.swiss.history
-        .map((row) => row.tonnes)
-        .filter((value): value is number => value != null),
-    [],
-  );
+  const freshnessDate = new Date(data.fetchedAt).toLocaleDateString("zh-CN", {
+    month: "2-digit",
+    day: "2-digit",
+  });
+
+  const chooseOrigin = (code: number | "all") => {
+    setOriginFilter(code);
+    const next =
+      code === "all"
+        ? data.network.routes[0]
+        : data.network.routes.find((route) => route.originCode === code);
+    if (next) setSelectedRouteId(next.id);
+  };
 
   return (
     <main className="app-shell">
@@ -417,7 +511,7 @@ export default function Home() {
         <div className="brand-mark">AU</div>
         <div className="brand-copy">
           <strong>全球黄金迁徙地图</strong>
-          <span>GLOBAL GOLD MIGRATION</span>
+          <span>PHYSICAL FLOW MONITOR</span>
         </div>
         <a href="#method" className="source-link">
           口径
@@ -426,76 +520,146 @@ export default function Home() {
 
       <div className="status-line">
         <span className="status-dot" />
-        <span>海关流向更新至 {formatPeriod(data.swiss.period)}</span>
+        <span>官方数据快照 {freshnessDate}</span>
         <span className="status-separator" />
-        <span>库存更新至 {formatPeriod(data.vaults.london.period)}</span>
+        <span>共同统计月 {formatPeriod(data.network.period)}</span>
       </div>
 
       <section className="hero">
         <div className="hero-label">
-          <span>真实报关重量</span>
-          <time>{formatPeriod(data.headline.period)}</time>
+          <span>西方枢纽 → 亚洲市场</span>
+          <time>{formatPeriod(data.network.period)}</time>
         </div>
         <h1>
-          中国内地及中国香港承接
-          <em>{tonnes.format(data.headline.chinaHongKongTonnes)}吨</em>
+          监测到东向实物流
+          <em>
+            {tonnes.format(data.network.direction.eastboundTonnes)}
+            <small>吨</small>
+          </em>
         </h1>
         <p>
-          占瑞士当月黄金出口
-          {data.headline.chinaHongKongSharePct.toFixed(1)}%，实物正从精炼中心流向亚洲。
+          汇总瑞士、英国和美国向已识别亚洲目的地的月度报关出口，较上月
+          <b>{pct(data.network.direction.eastboundChangePct)}</b>。
         </p>
-        <div className="hero-metrics">
-          <div>
-            <span>瑞士出口总量</span>
-            <strong>{tonnes.format(data.headline.swissExportsTonnes)}t</strong>
-          </div>
-          <div>
-            <span>第一目的地</span>
-            <strong>英国 {tonnes.format(routes[0].tonnes)}t</strong>
-          </div>
-        </div>
-        <div className="hero-trend">
-          <span>近12个月瑞士出口</span>
-          <Sparkline values={swissHistoryValues} color="#f1c45d" />
-        </div>
-      </section>
 
-      <section className="map-panel">
-        <div className="section-head light">
+        <div className="hero-kpis">
           <div>
-            <span className="eyebrow">实物流向</span>
-            <h2>瑞士出口目的地</h2>
-          </div>
-          <div className="verified-badge">海关已发生</div>
-        </div>
-
-        <MigrationMap routes={routes} selectedCode={selectedCode} />
-
-        <div className="route-detail">
-          <div>
-            <span>瑞士 → {selectedMeta?.label ?? selectedRoute.destination}</span>
+            <span>有效枢纽</span>
             <strong>
-              {tonnes.format(selectedRoute.tonnes)}
-              <small>吨</small>
+              {data.network.coverage.originCount}
+              <small> / {data.network.coverage.candidateOriginCount}</small>
             </strong>
           </div>
-          <div className="route-meta">
-            <span>{selectedMeta?.region ?? "贸易目的地"}</span>
-            <span>占当月出口 {routeShare.toFixed(1)}%</span>
-            <span>{money.format(selectedRoute.valueUsd)}</span>
+          <div>
+            <span>双边路线</span>
+            <strong>{data.network.coverage.routeCount}</strong>
+          </div>
+          <div>
+            <span>亚洲至西方*</span>
+            <strong>{tonnes.format(data.network.direction.westboundTonnes)}t</strong>
           </div>
         </div>
 
-        <div className="route-tabs" aria-label="选择黄金出口目的地">
-          {routes.map((route) => (
+        <div className="direction-history">
+          <div className="mini-head">
+            <span>近3个共同月份东向报关量</span>
+            <small>吨</small>
+          </div>
+          <div className="month-bars">
+            {data.network.direction.history.map((row) => {
+              const max = Math.max(
+                ...data.network.direction.history.map(
+                  (item) => item.eastboundTonnes,
+                ),
+              );
+              return (
+                <div key={row.period}>
+                  <span
+                    style={{ height: `${(row.eastboundTonnes / max) * 100}%` }}
+                  />
+                  <b>{tonnes.format(row.eastboundTonnes)}</b>
+                  <small>{formatPeriod(row.period).slice(5)}</small>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <p className="hero-caveat">
+          *反向观察目前仅中国香港报送完整；新加坡、阿联酋待更新，不用于“全球净流向”结论。
+        </p>
+      </section>
+
+      <section className="section-block network-section">
+        <div className="section-head">
+          <div>
+            <span className="eyebrow">跨境路线网络</span>
+            <h2>黄金从哪里流向哪里</h2>
+          </div>
+          <span className="section-note">
+            {data.network.coverage.mappedRouteCount}条可视路线
+          </span>
+        </div>
+
+        <div className="origin-filter" aria-label="按出口枢纽筛选">
+          <button
+            type="button"
+            className={originFilter === "all" ? "active" : ""}
+            onClick={() => chooseOrigin("all")}
+          >
+            全部
+          </button>
+          {availableOrigins.map((origin) => (
             <button
-              key={route.partnerCode}
               type="button"
-              className={selectedCode === route.partnerCode ? "active" : ""}
-              onClick={() => setSelectedCode(route.partnerCode)}
-              aria-pressed={selectedCode === route.partnerCode}
+              key={origin.code}
+              className={originFilter === origin.code ? "active" : ""}
+              onClick={() => chooseOrigin(origin.code)}
             >
-              <span>{routeMeta[route.partnerCode]?.label ?? route.destination}</span>
+              {origin.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="map-card">
+          <NetworkMap
+            routes={filteredRoutes}
+            selectedId={selectedRoute.id}
+          />
+          <div className="route-focus">
+            <div>
+              <span>
+                {selectedRoute.origin} → {destinationLabel(selectedRoute)}
+              </span>
+              <strong>
+                {tonnes.format(selectedRoute.tonnes)}
+                <small>吨</small>
+              </strong>
+            </div>
+            <div>
+              <span>占该出口地当月 {routeShare.toFixed(1)}%</span>
+              <span>{money.format(selectedRoute.valueUsd)}</span>
+              {selectedRoute.estimatedWeight && <i>重量估算</i>}
+            </div>
+          </div>
+        </div>
+
+        <div className="route-list">
+          {filteredRoutes.slice(0, 7).map((route, index) => (
+            <button
+              type="button"
+              key={route.id}
+              className={route.id === selectedRoute.id ? "active" : ""}
+              onClick={() => setSelectedRouteId(route.id)}
+              aria-pressed={route.id === selectedRoute.id}
+            >
+              <span className="route-rank">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="route-name">
+                <b>{route.origin}</b>
+                <i>→</i>
+                <b>{destinationLabel(route)}</b>
+              </span>
               <strong>{tonnes.format(route.tonnes)}t</strong>
             </button>
           ))}
@@ -505,103 +669,161 @@ export default function Home() {
       <section className="section-block">
         <div className="section-head">
           <div>
-            <span className="eyebrow">消费市场</span>
-            <h2>黄金被谁吸收</h2>
+            <span className="eyebrow">同期市场净流入</span>
+            <h2>谁在净进口，谁在净出口</h2>
           </div>
-          <span className="section-note">各市场最新可得月份</span>
+          <span className="section-note">
+            进口 − 出口 · {formatPeriod(data.marketBalances.period)}
+          </span>
         </div>
-        <div className="market-grid">
-          {marketOrder.map((key) => (
-            <MarketCard key={key} market={data.markets[key]} />
+
+        <div className="balance-legend">
+          <span>← 净出口</span>
+          <span>0</span>
+          <span>净进口 →</span>
+        </div>
+        <div className="balance-list">
+          {rankedMarkets.map((market) => (
+            <MarketBalanceBar
+              key={market.key}
+              market={market}
+              maxAbsolute={maxBalance}
+            />
           ))}
+        </div>
+
+        <article className="lagged-card">
+          <div>
+            <span>非同期观察项</span>
+            <strong>{laggedChina.label}</strong>
+            <small>{formatPeriod(laggedChina.period)} · 不参与同期排名</small>
+          </div>
+          <b>{signed(laggedChina.netImportsTonnes ?? 0)}</b>
+          <p>
+            进口 {tonnes.format(laggedChina.importsTonnes ?? 0)}t · 出口{" "}
+            {tonnes.format(laggedChina.exportsTonnes ?? 0)}t
+          </p>
+        </article>
+
+        <div className="coverage-note">
+          <strong>本期未进入排名</strong>
+          <p>
+            {data.marketBalances.unavailable
+              .map((market) => market.label)
+              .join("、")}
+            ：共同月份未同时提供有效进出口重量。
+          </p>
         </div>
       </section>
 
       <section className="section-block">
         <div className="section-head">
           <div>
-            <span className="eyebrow">库存与出库</span>
-            <h2>三大枢纽温度</h2>
+            <span className="eyebrow">库存交叉验证</span>
+            <h2>实物流与金库是否同向</h2>
           </div>
-          <span className="section-note">吨</span>
+          <span className="section-note">不同频率 · 分别标注</span>
         </div>
 
-        <div className="vault-stack">
-          <article className="vault-card london">
-            <div className="vault-city">
-              <span>LONDON</span>
-              <strong>伦敦金库</strong>
-              <small>{formatPeriod(data.vaults.london.period)}</small>
+        <div className="vault-grid">
+          <article className="vault-card">
+            <div className="vault-head">
+              <div>
+                <span>LONDON</span>
+                <strong>伦敦金库</strong>
+              </div>
+              <time>{formatPeriod(data.vaults.london.period)}</time>
             </div>
             <div className="vault-number">
               <strong>{Math.round(data.vaults.london.tonnes).toLocaleString()}</strong>
-              <span>库存吨</span>
+              <span>吨库存</span>
             </div>
             <Sparkline
               values={data.vaults.london.history.map((row) => row.tonnes)}
             />
-            <div className="vault-change positive">
-              月增 {signed(data.vaults.london.monthlyChangePct)} · +
-              {tonnes.format(londonChangeTonnes)}t
-            </div>
+            <p>
+              月增 {pct(data.vaults.london.monthlyChangePct)} ·{" "}
+              {signed(londonChangeTonnes)}
+            </p>
           </article>
 
-          <article className="vault-card new-york">
-            <div className="vault-city">
-              <span>NEW YORK</span>
-              <strong>COMEX金库</strong>
-              <small>{data.vaults.newYork.period.replaceAll("-", ".")}</small>
+          <article className="vault-card">
+            <div className="vault-head">
+              <div>
+                <span>NEW YORK</span>
+                <strong>COMEX金库</strong>
+              </div>
+              <time>{data.vaults.newYork.period.replaceAll("-", ".")}</time>
             </div>
             <div className="vault-number">
               <strong>{Math.round(data.vaults.newYork.tonnes)}</strong>
-              <span>库存吨</span>
+              <span>吨库存</span>
             </div>
-            <div className="vault-bar" aria-hidden="true">
+            <div className="vault-meter">
               <span style={{ width: "68%" }} />
             </div>
-            <div className="vault-change negative">
-              30日 {signed(data.vaults.newYork.thirtyDayChangePct)}
+            <p>
+              30日 {pct(data.vaults.newYork.thirtyDayChangePct)}
               <i>二次解析</i>
-            </div>
+            </p>
           </article>
 
-          <article className="vault-card shanghai">
-            <div className="vault-city">
-              <span>SHANGHAI</span>
-              <strong>上金所出库</strong>
-              <small>{formatPeriod(data.vaults.shanghai.period)}</small>
+          <article className="vault-card wide">
+            <div className="vault-head">
+              <div>
+                <span>SHANGHAI</span>
+                <strong>上金所出库</strong>
+              </div>
+              <time>{formatPeriod(data.vaults.shanghai.period)}</time>
             </div>
-            <div className="vault-number">
-              <strong>
-                {tonnes.format(data.vaults.shanghai.withdrawalsTonnes)}
-              </strong>
-              <span>当月吨</span>
+            <div className="shanghai-row">
+              <div className="vault-number">
+                <strong>
+                  {tonnes.format(data.vaults.shanghai.withdrawalsTonnes)}
+                </strong>
+                <span>当月吨</span>
+              </div>
+              <div className="withdrawal-pair" aria-hidden="true">
+                <span
+                  style={{
+                    height: `${
+                      (data.vaults.shanghai.previousWithdrawalsTonnes /
+                        data.vaults.shanghai.withdrawalsTonnes) *
+                      100
+                    }%`,
+                  }}
+                />
+                <span style={{ height: "100%" }} />
+              </div>
             </div>
-            <div className="withdrawal-bars" aria-hidden="true">
-              <span
-                style={{
-                  height: `${
-                    (data.vaults.shanghai.previousWithdrawalsTonnes /
-                      data.vaults.shanghai.withdrawalsTonnes) *
-                    100
-                  }%`,
-                }}
-              />
-              <span style={{ height: "100%" }} />
-            </div>
-            <div className="vault-change positive">
-              月增 {signed(sgeWithdrawalChange)} · 交割
+            <p>
+              月增 {pct(shanghaiWithdrawalChange)} · 交割{" "}
               {tonnes.format(data.vaults.shanghai.deliveryTonnes)}t
-            </div>
+            </p>
           </article>
         </div>
+
+        <article className="signal-card">
+          <span className="eyebrow">本期读法</span>
+          <h2>东向流量仍高，但库存信号分化</h2>
+          <p>
+            西方枢纽向亚洲的监测流量为
+            {tonnes.format(data.network.direction.eastboundTonnes)}
+            吨、环比放缓；同时伦敦库存增加、COMEX库存下降、上金所出库上升。它说明多个市场正在重新分配，并不能据此断言“西方库存被抽干”。
+          </p>
+          <div className="signal-tags">
+            <span>海关：东向放缓</span>
+            <span>伦敦：库存增加</span>
+            <span>上海：出库增加</span>
+          </div>
+        </article>
       </section>
 
       <section className="premium-card">
         <div className="section-head light">
           <div>
-            <span className="eyebrow">区域现货信号</span>
-            <h2>上海 vs 伦敦</h2>
+            <span className="eyebrow">区域价格验证</span>
+            <h2>上海相对伦敦</h2>
           </div>
           <time>{data.priceComparison.date.replaceAll("-", ".")}</time>
         </div>
@@ -610,61 +832,56 @@ export default function Home() {
             {data.priceComparison.shanghaiPremiumPct >= 0 ? "+" : ""}
             {data.priceComparison.shanghaiPremiumPct.toFixed(2)}%
           </strong>
-          <span>上海指示性溢价</span>
+          <span>指示性溢价</span>
         </div>
         <div className="premium-scale" aria-hidden="true">
-          <span className="scale-center" />
+          <span className="scale-zero" />
           <span
             className="scale-dot"
             style={{
-              left: `${50 + data.priceComparison.shanghaiPremiumPct * 5}%`,
+              left: `${Math.min(
+                96,
+                Math.max(
+                  4,
+                  50 + data.priceComparison.shanghaiPremiumPct * 5,
+                ),
+              )}%`,
             }}
           />
         </div>
         <div className="premium-labels">
-          <span>伦敦折算 ¥{data.priceComparison.londonEquivalentCnyPerGram.toFixed(2)}/g</span>
-          <span>上海 ¥{data.priceComparison.shanghaiAu9999CnyPerGram.toFixed(2)}/g</span>
+          <span>
+            伦敦折算 ¥
+            {data.priceComparison.londonEquivalentCnyPerGram.toFixed(2)}/g
+          </span>
+          <span>
+            上海 ¥{data.priceComparison.shanghaiAu9999CnyPerGram.toFixed(2)}/g
+          </span>
         </div>
         <p>
-          以LBMA PM、上金所Au99.99收盘价及ECB同日汇率换算，不含税费、运输和升水报价。
+          价格用于验证实物流方向，不把价差直接等同于运输套利空间；换算不含税费、运保与规格差异。
         </p>
-      </section>
-
-      <section className="signal-card">
-        <span className="eyebrow">迁徙判断</span>
-        <h2>亚洲需求强，但不是单向“抽干西方”</h2>
-        <p>
-          中国内地及中国香港承接瑞士出口近四成、上金所出库环比增加
-          {sgeWithdrawalChange.toFixed(1)}%；与此同时，伦敦库存当月也增加
-          {tonnes.format(londonChangeTonnes)}吨。更合理的解释是全球流通加速，而非单一地区库存枯竭。
-        </p>
-        <div className="signal-tags">
-          <span>海关实物流</span>
-          <span>金库库存</span>
-          <span>现货价差</span>
-        </div>
       </section>
 
       <details className="method-card" id="method">
         <summary>
           <span>
-            <strong>数据口径与来源</strong>
-            <small>哪些是事实，哪些是推断</small>
+            <strong>数据口径、覆盖与限制</strong>
+            <small>哪些是直接观测，哪些是组合推断</small>
           </span>
           <b>＋</b>
         </summary>
         <div className="method-body">
           <h3>直接观测</h3>
+          <p>{data.methodology.measured}</p>
+          <h3>同期比较</h3>
+          <p>{data.methodology.comparability}</p>
+          <h3>方向指标</h3>
+          <p>{data.methodology.inferred}</p>
+          <h3>商品边界</h3>
           <p>
-            海关重量使用UN Comtrade HS 7108；伦敦库存来自LBMA月末金库总量；上海交割与出库来自上金所月报。
-          </p>
-          <h3>组合推断</h3>
-          <p>
-            “迁徙方向”由跨境流向、库存变化和区域价差共同判断，不能把库存增减直接等同于同一批金条跨库搬运。
-          </p>
-          <h3>特别说明</h3>
-          <p>
-            COMEX数值为CME每日原始表的第三方结构化提取，界面明确标注；生产版应直接解析CME原始文件。
+            HS {data.commodity.hsCode}：{data.commodity.label}
+            。不包含首饰与私人非申报库存；同一批黄金经转口时可能重复出现在不同国家报关记录中。
           </p>
           <div className="source-list">
             {data.sources.map((source) => (
@@ -683,8 +900,8 @@ export default function Home() {
       </details>
 
       <footer>
-        <span>GLOBAL GOLD MIGRATION · DEMO</span>
-        <span>真实数据快照</span>
+        <span>GLOBAL GOLD MIGRATION · V2</span>
+        <span>公开数据快照 · 非实时行情</span>
       </footer>
     </main>
   );

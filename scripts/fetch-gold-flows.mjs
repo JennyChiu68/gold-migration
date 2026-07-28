@@ -13,11 +13,11 @@ const wait = (milliseconds) =>
 
 async function fetchJson(url, attempt = 1) {
   const response = await fetch(url, {
-    headers: { "user-agent": "GoldMigrationMapDemo/1.0" },
+    headers: { "user-agent": "GoldMigrationMapDemo/2.0" },
   });
   if (!response.ok) {
     if (attempt < 3) {
-      await wait(1500 * attempt);
+      await wait(1400 * attempt);
       return fetchJson(url, attempt + 1);
     }
     throw new Error(`Request failed: ${response.status} ${url}`);
@@ -46,22 +46,17 @@ async function queryComtrade({
   const url = `${API}?${parameters}`;
   const payload = await fetchJson(url);
   if (payload.error) throw new Error(payload.error);
-  await wait(1050);
+  await wait(450);
   return { url, rows: payload.data ?? [] };
-}
-
-function months(startYear, startMonth, count) {
-  return Array.from({ length: count }, (_, index) => {
-    const date = new Date(Date.UTC(startYear, startMonth - 1 + index, 1));
-    return `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(
-      2,
-      "0",
-    )}`;
-  });
 }
 
 function tonnes(row) {
   return row?.netWgt == null ? null : row.netWgt / 1000;
+}
+
+function safeNet(importsTonnes, exportsTonnes) {
+  if (importsTonnes == null || exportsTonnes == null) return null;
+  return importsTonnes - exportsTonnes;
 }
 
 const references = await fetchJson(REPORTERS);
@@ -69,75 +64,233 @@ const countryNames = new Map(
   references.results.map((country) => [country.id, country.text]),
 );
 
-const swissPeriod = "202605";
-const swissRouteResult = await queryComtrade({
-  period: swissPeriod,
-  reporterCode: 757,
-  flowCode: "X",
-  allPartners: true,
-});
+const commonPeriod = "202603";
+const comparisonPeriod = "202602";
+const networkPeriods = ["202601", comparisonPeriod, commonPeriod];
 
-const swissRoutes = swissRouteResult.rows
-  .filter((row) => row.partnerCode !== 0 && row.netWgt > 0)
-  .map((row) => ({
-    partnerCode: row.partnerCode,
-    destination: countryNames.get(row.partnerCode) ?? `Code ${row.partnerCode}`,
-    tonnes: tonnes(row),
-    valueUsd: row.primaryValue,
-    estimatedWeight: Boolean(row.isNetWgtEstimated),
-  }))
-  .sort((left, right) => right.tonnes - left.tonnes);
-
-const historyPeriods = months(2025, 6, 12);
-const swissHistory = [];
-for (const period of historyPeriods) {
-  const result = await queryComtrade({
-    period,
-    reporterCode: 757,
-    flowCode: "X",
-  });
-  const row = result.rows[0];
-  swissHistory.push({
-    period,
-    tonnes: tonnes(row),
-    valueUsd: row?.primaryValue ?? null,
-    estimatedWeight: Boolean(row?.isNetWgtEstimated),
-  });
-}
-
-const marketDefinitions = [
-  { key: "hongKong", label: "中国香港", reporterCode: 344, period: "202605" },
-  { key: "india", label: "印度", reporterCode: 699, period: "202603" },
-  { key: "unitedKingdom", label: "英国", reporterCode: 826, period: "202605" },
-  { key: "china", label: "中国内地", reporterCode: 156, period: "202412" },
+const originDefinitions = [
+  { code: 757, key: "switzerland", label: "瑞士", zone: "west" },
+  { code: 826, key: "unitedKingdom", label: "英国", zone: "west" },
+  { code: 842, key: "unitedStates", label: "美国", zone: "west" },
+  { code: 344, key: "hongKong", label: "中国香港", zone: "east" },
+  { code: 702, key: "singapore", label: "新加坡", zone: "east" },
+  { code: 784, key: "unitedArabEmirates", label: "阿联酋", zone: "east" },
 ];
 
-const markets = {};
-for (const market of marketDefinitions) {
-  const imports = await queryComtrade({
-    period: market.period,
-    reporterCode: market.reporterCode,
-    flowCode: "M",
+const marketDefinitions = [
+  { code: 344, key: "hongKong", label: "中国香港", zone: "asia" },
+  { code: 699, key: "india", label: "印度", zone: "asia" },
+  { code: 764, key: "thailand", label: "泰国", zone: "asia" },
+  { code: 792, key: "turkiye", label: "土耳其", zone: "other" },
+  { code: 784, key: "unitedArabEmirates", label: "阿联酋", zone: "other" },
+  { code: 702, key: "singapore", label: "新加坡", zone: "asia" },
+  { code: 826, key: "unitedKingdom", label: "英国", zone: "west" },
+  { code: 842, key: "unitedStates", label: "美国", zone: "west" },
+  { code: 757, key: "switzerland", label: "瑞士", zone: "west" },
+];
+
+const asianPartnerCodes = new Set([
+  50, 156, 344, 360, 392, 410, 458, 490, 586, 699, 702, 704, 764,
+]);
+const westernPartnerCodes = new Set([
+  36, 40, 56, 124, 250, 276, 380, 528, 616, 724, 752, 757, 826, 842,
+]);
+
+const exportSnapshots = new Map();
+for (const period of networkPeriods) {
+  for (const origin of originDefinitions) {
+    const result = await queryComtrade({
+      period,
+      reporterCode: origin.code,
+      flowCode: "X",
+      allPartners: true,
+    });
+    exportSnapshots.set(`${period}:${origin.code}`, result);
+  }
+}
+
+function makeRoutes(period) {
+  return originDefinitions.flatMap((origin) => {
+    const result = exportSnapshots.get(`${period}:${origin.code}`);
+    return result.rows
+      .filter((row) => row.partnerCode !== 0 && row.netWgt > 0)
+      .map((row) => ({
+        id: `${origin.code}-${row.partnerCode}`,
+        period,
+        originCode: origin.code,
+        origin: origin.label,
+        originZone: origin.zone,
+        destinationCode: row.partnerCode,
+        destination:
+          countryNames.get(row.partnerCode) ?? `Code ${row.partnerCode}`,
+        tonnes: tonnes(row),
+        valueUsd: row.primaryValue,
+        estimatedWeight: Boolean(row.isNetWgtEstimated),
+      }));
   });
-  const exports = await queryComtrade({
-    period: market.period,
-    reporterCode: market.reporterCode,
-    flowCode: "X",
-  });
-  const importRow = imports.rows[0];
-  const exportRow = exports.rows[0];
-  markets[market.key] = {
-    label: market.label,
-    period: market.period,
-    importsTonnes: tonnes(importRow),
-    exportsTonnes: tonnes(exportRow),
-    importValueUsd: importRow?.primaryValue ?? null,
-    exportValueUsd: exportRow?.primaryValue ?? null,
-    estimatedWeight:
-      Boolean(importRow?.isNetWgtEstimated) ||
-      Boolean(exportRow?.isNetWgtEstimated),
+}
+
+function directionFor(route) {
+  if (
+    route.originZone === "west" &&
+    asianPartnerCodes.has(route.destinationCode)
+  ) {
+    return "eastbound";
+  }
+  if (
+    route.originZone === "east" &&
+    westernPartnerCodes.has(route.destinationCode)
+  ) {
+    return "westbound";
+  }
+  return "other";
+}
+
+function directionalSnapshot(period) {
+  const routes = makeRoutes(period);
+  const eastboundTonnes = routes
+    .filter((route) => directionFor(route) === "eastbound")
+    .reduce((sum, route) => sum + route.tonnes, 0);
+  const westboundTonnes = routes
+    .filter((route) => directionFor(route) === "westbound")
+    .reduce((sum, route) => sum + route.tonnes, 0);
+  return {
+    period,
+    eastboundTonnes,
+    westboundTonnes,
+    netEastboundTonnes: eastboundTonnes - westboundTonnes,
   };
 }
+
+const allCurrentRoutes = makeRoutes(commonPeriod).sort(
+  (left, right) => right.tonnes - left.tonnes,
+);
+const routeMapCodes = new Set([
+  36, 40, 56, 124, 156, 250, 276, 344, 380, 392, 410, 458, 682, 699, 702,
+  724, 757, 764, 784, 792, 826, 842,
+]);
+const mappedRoutes = allCurrentRoutes
+  .filter((route) => routeMapCodes.has(route.destinationCode))
+  .slice(0, 40);
+const directionHistory = networkPeriods.map(directionalSnapshot);
+const currentDirection = directionHistory.at(-1);
+const previousDirection = directionHistory.at(-2);
+
+const originSummaries = originDefinitions.map((origin) => {
+  const result = exportSnapshots.get(`${commonPeriod}:${origin.code}`);
+  const total = result.rows.find((row) => row.partnerCode === 0);
+  return {
+    code: origin.code,
+    key: origin.key,
+    label: origin.label,
+    zone: origin.zone,
+    exportsTonnes: tonnes(total),
+    estimatedWeight: Boolean(total?.isNetWgtEstimated),
+  };
+});
+const availableOrigins = originSummaries.filter(
+  (origin) => origin.exportsTonnes != null,
+);
+const unavailableOrigins = originSummaries.filter(
+  (origin) => origin.exportsTonnes == null,
+);
+
+async function totalFlow(period, reporterCode, flowCode) {
+  const result = await queryComtrade({
+    period,
+    reporterCode,
+    flowCode,
+  });
+  return {
+    row: result.rows.find((row) => row.partnerCode === 0) ?? result.rows[0],
+    url: result.url,
+  };
+}
+
+function exportTotalFromSnapshot(period, reporterCode) {
+  const snapshot = exportSnapshots.get(`${period}:${reporterCode}`);
+  const row = snapshot?.rows.find((candidate) => candidate.partnerCode === 0);
+  return row ?? null;
+}
+
+const comparableMarkets = [];
+for (const market of marketDefinitions) {
+  const currentImport = await totalFlow(commonPeriod, market.code, "M");
+  const previousImport = await totalFlow(comparisonPeriod, market.code, "M");
+  const currentExport =
+    exportTotalFromSnapshot(commonPeriod, market.code) ??
+    (await totalFlow(commonPeriod, market.code, "X")).row;
+  const previousExport =
+    exportTotalFromSnapshot(comparisonPeriod, market.code) ??
+    (await totalFlow(comparisonPeriod, market.code, "X")).row;
+
+  const importsTonnes = tonnes(currentImport.row);
+  const exportsTonnes = tonnes(currentExport);
+  const previousImportsTonnes = tonnes(previousImport.row);
+  const previousExportsTonnes = tonnes(previousExport);
+  const netImportsTonnes = safeNet(importsTonnes, exportsTonnes);
+  const previousNetImportsTonnes = safeNet(
+    previousImportsTonnes,
+    previousExportsTonnes,
+  );
+
+  comparableMarkets.push({
+    ...market,
+    period: commonPeriod,
+    comparable: true,
+    importsTonnes,
+    exportsTonnes,
+    netImportsTonnes,
+    previousNetImportsTonnes,
+    changeTonnes:
+      netImportsTonnes == null || previousNetImportsTonnes == null
+        ? null
+        : netImportsTonnes - previousNetImportsTonnes,
+    estimatedWeight:
+      Boolean(currentImport.row?.isNetWgtEstimated) ||
+      Boolean(currentExport?.isNetWgtEstimated),
+  });
+}
+
+const chinaPeriod = "202412";
+const chinaPreviousPeriod = "202411";
+const chinaImport = await totalFlow(chinaPeriod, 156, "M");
+const chinaExport = await totalFlow(chinaPeriod, 156, "X");
+const chinaPreviousImport = await totalFlow(chinaPreviousPeriod, 156, "M");
+const chinaPreviousExport = await totalFlow(chinaPreviousPeriod, 156, "X");
+const chinaNet = safeNet(tonnes(chinaImport.row), tonnes(chinaExport.row));
+const chinaPreviousNet = safeNet(
+  tonnes(chinaPreviousImport.row),
+  tonnes(chinaPreviousExport.row),
+);
+
+const laggedMarkets = [
+  {
+    code: 156,
+    key: "chinaMainland",
+    label: "中国内地",
+    zone: "asia",
+    period: chinaPeriod,
+    comparable: false,
+    importsTonnes: tonnes(chinaImport.row),
+    exportsTonnes: tonnes(chinaExport.row),
+    netImportsTonnes: chinaNet,
+    previousNetImportsTonnes: chinaPreviousNet,
+    changeTonnes:
+      chinaNet == null || chinaPreviousNet == null
+        ? null
+        : chinaNet - chinaPreviousNet,
+    estimatedWeight:
+      Boolean(chinaImport.row?.isNetWgtEstimated) ||
+      Boolean(chinaExport.row?.isNetWgtEstimated),
+  },
+];
+const availableComparableMarkets = comparableMarkets.filter(
+  (market) => market.netImportsTonnes != null,
+);
+const unavailableComparableMarkets = comparableMarkets.filter(
+  (market) => market.netImportsTonnes == null,
+);
 
 const londonTroyOuncesThousands = [
   ["2025-06", 282140.554114],
@@ -154,16 +307,14 @@ const londonTroyOuncesThousands = [
   ["2026-05", 301967.702141],
   ["2026-06", 304285],
 ];
-
 const lbmaHistory = londonTroyOuncesThousands.map(([period, value]) => ({
   period,
   tonnes: value * 0.0311034768,
 }));
-
 const lbmaLatest = lbmaHistory.at(-1);
 const lbmaPrevious = lbmaHistory.at(-2);
 const londonMonthlyChangePct =
-  ((lbmaLatest.tonnes / lbmaPrevious.tonnes) - 1) * 100;
+  (lbmaLatest.tonnes / lbmaPrevious.tonnes - 1) * 100;
 
 const sge = {
   period: "2026-06",
@@ -193,31 +344,55 @@ priceComparison.shanghaiPremiumPct =
     1) *
   100;
 
-const swissTotal = swissRouteResult.rows.find((row) => row.partnerCode === 0);
-const chinaHongKongTonnes = swissRoutes
-  .filter((route) => route.partnerCode === 156 || route.partnerCode === 344)
-  .reduce((sum, route) => sum + route.tonnes, 0);
-
 const output = {
+  version: 2,
   fetchedAt: new Date().toISOString(),
   commodity: {
     hsCode: "7108",
     label: "黄金（未锻造、半制成或粉末）",
   },
-  headline: {
-    period: swissPeriod,
-    swissExportsTonnes: tonnes(swissTotal),
-    chinaHongKongTonnes,
-    chinaHongKongSharePct:
-      (chinaHongKongTonnes / tonnes(swissTotal)) * 100,
+  network: {
+    period: commonPeriod,
+    comparisonPeriod,
+    coverage: {
+      originCount: availableOrigins.length,
+      candidateOriginCount: originDefinitions.length,
+      routeCount: allCurrentRoutes.length,
+      mappedRouteCount: mappedRoutes.length,
+      unavailableOrigins: unavailableOrigins.map((origin) => origin.label),
+      description:
+        "已报送枢纽的月度报关出口网络，不代表全球全量；未报送枢纽不参与方向计算。",
+    },
+    origins: originSummaries,
+    routes: mappedRoutes,
+    direction: {
+      ...currentDirection,
+      previousEastboundTonnes: previousDirection.eastboundTonnes,
+      eastboundChangeTonnes:
+        currentDirection.eastboundTonnes - previousDirection.eastboundTonnes,
+      eastboundChangePct:
+        (currentDirection.eastboundTonnes / previousDirection.eastboundTonnes -
+          1) *
+        100,
+      previousNetEastboundTonnes: previousDirection.netEastboundTonnes,
+      changeTonnes:
+        currentDirection.netEastboundTonnes -
+        previousDirection.netEastboundTonnes,
+      history: directionHistory,
+    },
   },
-  swiss: {
-    period: swissPeriod,
-    routes: swissRoutes,
-    history: swissHistory,
-    sourceUrl: swissRouteResult.url,
+  marketBalances: {
+    period: commonPeriod,
+    comparisonPeriod,
+    comparable: availableComparableMarkets,
+    unavailable: unavailableComparableMarkets.map((market) => ({
+      code: market.code,
+      key: market.key,
+      label: market.label,
+      period: market.period,
+    })),
+    lagged: laggedMarkets,
   },
-  markets,
   vaults: {
     london: {
       period: lbmaLatest.period,
@@ -243,10 +418,18 @@ const output = {
     shanghai: sge,
   },
   priceComparison,
+  methodology: {
+    measured:
+      "跨境路线与市场净进出口来自UN Comtrade HS 7108月度报关重量。",
+    inferred:
+      "东西向指标仅汇总六个监测枢纽的跨区域报关流量；同一批黄金可能因转口而被多次记录。",
+    comparability:
+      "净流入榜只比较共同月份；中国内地因月度数据更新较慢，单列最新可得月份。",
+  },
   sources: [
     {
       name: "UN Comtrade",
-      detail: "HS 7108 月度进出口与瑞士出口目的地",
+      detail: "HS 7108月度双边路线、进口、出口与净流入",
       url: "https://uncomtrade.org/docs/un-comtrade-api/",
     },
     {
@@ -275,5 +458,5 @@ const output = {
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
 console.log(
-  `Saved ${swissRoutes.length} routes and ${swissHistory.length} months to ${outputPath}`,
+  `Saved ${mappedRoutes.length} mapped routes, ${availableComparableMarkets.length} comparable markets and ${directionHistory.length} direction periods to ${outputPath}`,
 );

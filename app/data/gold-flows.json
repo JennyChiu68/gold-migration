@@ -1,405 +1,705 @@
 {
-  "fetchedAt": "2026-07-27T10:33:28.207Z",
+  "version": 2,
+  "fetchedAt": "2026-07-28T08:19:42.745Z",
   "commodity": {
     "hsCode": "7108",
     "label": "黄金（未锻造、半制成或粉末）"
   },
-  "headline": {
-    "period": "202605",
-    "swissExportsTonnes": 107.78701099999999,
-    "chinaHongKongTonnes": 41.834,
-    "chinaHongKongSharePct": 38.811726581786374
-  },
-  "swiss": {
-    "period": "202605",
+  "network": {
+    "period": "202603",
+    "comparisonPeriod": "202602",
+    "coverage": {
+      "originCount": 4,
+      "candidateOriginCount": 6,
+      "routeCount": 152,
+      "mappedRouteCount": 40,
+      "unavailableOrigins": [
+        "新加坡",
+        "阿联酋"
+      ],
+      "description": "已报送枢纽的月度报关出口网络，不代表全球全量；未报送枢纽不参与方向计算。"
+    },
+    "origins": [
+      {
+        "code": 757,
+        "key": "switzerland",
+        "label": "瑞士",
+        "zone": "west",
+        "exportsTonnes": 152.528932,
+        "estimatedWeight": true
+      },
+      {
+        "code": 826,
+        "key": "unitedKingdom",
+        "label": "英国",
+        "zone": "west",
+        "exportsTonnes": 13.668819,
+        "estimatedWeight": true
+      },
+      {
+        "code": 842,
+        "key": "unitedStates",
+        "label": "美国",
+        "zone": "west",
+        "exportsTonnes": 184.78211100000001,
+        "estimatedWeight": true
+      },
+      {
+        "code": 344,
+        "key": "hongKong",
+        "label": "中国香港",
+        "zone": "east",
+        "exportsTonnes": 91.583,
+        "estimatedWeight": false
+      },
+      {
+        "code": 702,
+        "key": "singapore",
+        "label": "新加坡",
+        "zone": "east",
+        "exportsTonnes": null,
+        "estimatedWeight": false
+      },
+      {
+        "code": 784,
+        "key": "unitedArabEmirates",
+        "label": "阿联酋",
+        "zone": "east",
+        "exportsTonnes": null,
+        "estimatedWeight": false
+      }
+    ],
     "routes": [
       {
-        "partnerCode": 826,
-        "destination": "United Kingdom",
-        "tonnes": 39.402,
-        "valueUsd": 5840610457.508,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 156,
-        "destination": "China",
-        "tonnes": 31.549,
-        "valueUsd": 4688528379.876,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 344,
-        "destination": "China, Hong Kong SAR",
-        "tonnes": 10.285,
-        "valueUsd": 1546654039.17,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 764,
-        "destination": "Thailand",
-        "tonnes": 3.528,
-        "valueUsd": 517900605.807,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 276,
-        "destination": "Germany",
-        "tonnes": 2.955,
-        "valueUsd": 437757798.497,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 792,
-        "destination": "Türkiye",
-        "tonnes": 2.875,
-        "valueUsd": 422468929.818,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 682,
-        "destination": "Saudi Arabia",
-        "tonnes": 2.613,
-        "valueUsd": 384406777.144,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 842,
-        "destination": "USA",
-        "tonnes": 2.543,
-        "valueUsd": 364608195.382,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 380,
-        "destination": "Italy",
-        "tonnes": 2.353,
-        "valueUsd": 319655791.143,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 784,
-        "destination": "United Arab Emirates",
-        "tonnes": 2.186,
-        "valueUsd": 322944393.295,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 702,
-        "destination": "Singapore",
-        "tonnes": 1.717,
-        "valueUsd": 254105530.169,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 251,
-        "destination": "France",
-        "tonnes": 1.415,
-        "valueUsd": 189437564.437,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 699,
-        "destination": "India",
-        "tonnes": 0.955,
-        "valueUsd": 142444977.036,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 458,
-        "destination": "Malaysia",
-        "tonnes": 0.83,
-        "valueUsd": 124004520.619,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 490,
-        "destination": "Other Asia, nes",
-        "tonnes": 0.726,
-        "valueUsd": 108735613.613,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 40,
-        "destination": "Austria",
-        "tonnes": 0.713,
-        "valueUsd": 107419561.743,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 762,
-        "destination": "Tajikistan",
-        "tonnes": 0.36,
-        "valueUsd": 60497328.342,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 422,
-        "destination": "Lebanon",
-        "tonnes": 0.193,
-        "valueUsd": 28175028.446,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 634,
-        "destination": "Qatar",
-        "tonnes": 0.088,
-        "valueUsd": 13100011.71,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 124,
-        "destination": "Canada",
-        "tonnes": 0.07101,
-        "valueUsd": 10640193.701,
-        "estimatedWeight": true
-      },
-      {
-        "partnerCode": 233,
-        "destination": "Estonia",
-        "tonnes": 0.057,
-        "valueUsd": 8338851.901,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 410,
-        "destination": "Rep. of Korea",
-        "tonnes": 0.051,
-        "valueUsd": 7441951.831,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 616,
-        "destination": "Poland",
-        "tonnes": 0.047,
-        "valueUsd": 6955295.878,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 56,
-        "destination": "Belgium",
-        "tonnes": 0.044,
-        "valueUsd": 2758776.627,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 36,
-        "destination": "Australia",
-        "tonnes": 0.042,
-        "valueUsd": 6278426.669,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 348,
-        "destination": "Hungary",
-        "tonnes": 0.034,
-        "valueUsd": 5242437.25,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 724,
-        "destination": "Spain",
-        "tonnes": 0.031,
-        "valueUsd": 4655390.472,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 818,
-        "destination": "Egypt",
-        "tonnes": 0.029,
-        "valueUsd": 4278402.64,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 752,
-        "destination": "Sweden",
-        "tonnes": 0.02,
-        "valueUsd": 2858576.071,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 300,
-        "destination": "Greece",
-        "tonnes": 0.018,
-        "valueUsd": 2643774.602,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 642,
-        "destination": "Romania",
-        "tonnes": 0.014,
-        "valueUsd": 2310384.583,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 392,
-        "destination": "Japan",
-        "tonnes": 0.012,
-        "valueUsd": 909851.834,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 246,
-        "destination": "Finland",
-        "tonnes": 0.011,
-        "valueUsd": 1732270.979,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 860,
-        "destination": "Uzbekistan",
-        "tonnes": 0.011,
-        "valueUsd": 1569968.633,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 807,
-        "destination": "North Macedonia",
-        "tonnes": 0.004,
-        "valueUsd": 578114.879,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 203,
-        "destination": "Czechia",
-        "tonnes": 0.002,
-        "valueUsd": 634799.556,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 442,
-        "destination": "Luxembourg",
-        "tonnes": 0.002,
-        "valueUsd": 232155.456,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 208,
-        "destination": "Denmark",
-        "tonnes": 0.001,
-        "valueUsd": 98426.776,
-        "estimatedWeight": false
-      },
-      {
-        "partnerCode": 372,
-        "destination": "Ireland",
-        "tonnes": 0.000001,
-        "valueUsd": 89.217,
-        "estimatedWeight": true
-      }
-    ],
-    "history": [
-      {
-        "period": "202506",
-        "tonnes": null,
-        "valueUsd": 15047832140.102,
-        "estimatedWeight": false
-      },
-      {
-        "period": "202507",
-        "tonnes": 139.549257,
-        "valueUsd": 15028492681.01,
-        "estimatedWeight": true
-      },
-      {
-        "period": "202508",
-        "tonnes": 113.52663700000001,
-        "valueUsd": 12084606601.144,
-        "estimatedWeight": true
-      },
-      {
-        "period": "202509",
-        "tonnes": 156.08516699999998,
-        "valueUsd": 17919676911.514,
-        "estimatedWeight": true
-      },
-      {
-        "period": "202510",
-        "tonnes": 147.97676199999998,
-        "valueUsd": 19190924856.861,
-        "estimatedWeight": true
-      },
-      {
-        "period": "202511",
-        "tonnes": 125.31796700000001,
-        "valueUsd": 16269526907.654,
-        "estimatedWeight": true
-      },
-      {
-        "period": "202512",
-        "tonnes": 148.43207800000002,
-        "valueUsd": 20267043353.028,
-        "estimatedWeight": true
-      },
-      {
-        "period": "202601",
-        "tonnes": 138.603846,
-        "valueUsd": 20989071733.295,
-        "estimatedWeight": true
-      },
-      {
-        "period": "202602",
-        "tonnes": 120.86855800000001,
-        "valueUsd": 19461502365.203,
-        "estimatedWeight": true
-      },
-      {
+        "id": "842-757",
         "period": "202603",
-        "tonnes": 152.528932,
-        "valueUsd": 24440606796.773,
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 757,
+        "destination": "Switzerland",
+        "tonnes": 90.021902,
+        "valueUsd": 7998647336,
         "estimatedWeight": true
       },
       {
-        "period": "202604",
-        "tonnes": 123.735049,
-        "valueUsd": 18731904526.713,
+        "id": "344-156",
+        "period": "202603",
+        "originCode": 344,
+        "origin": "中国香港",
+        "originZone": "east",
+        "destinationCode": 156,
+        "destination": "China",
+        "tonnes": 79.576,
+        "valueUsd": 12667308007.735,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-826",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 826,
+        "destination": "United Kingdom",
+        "tonnes": 60.764229,
+        "valueUsd": 9755292622.876,
         "estimatedWeight": true
       },
       {
-        "period": "202605",
-        "tonnes": 107.78701099999999,
-        "valueUsd": 15943613699.387,
+        "id": "842-826",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 826,
+        "destination": "United Kingdom",
+        "tonnes": 49.465936,
+        "valueUsd": 4506355609,
+        "estimatedWeight": true
+      },
+      {
+        "id": "757-156",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 156,
+        "destination": "China",
+        "tonnes": 37.701,
+        "valueUsd": 6213313759.742,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-344",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 344,
+        "destination": "China, Hong Kong SAR",
+        "tonnes": 27.138724999999997,
+        "valueUsd": 2471766910,
+        "estimatedWeight": true
+      },
+      {
+        "id": "826-156",
+        "period": "202603",
+        "originCode": 826,
+        "origin": "英国",
+        "originZone": "west",
+        "destinationCode": 156,
+        "destination": "China",
+        "tonnes": 9.975121999999999,
+        "valueUsd": 1544503822.197,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-702",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 702,
+        "destination": "Singapore",
+        "tonnes": 8.568200999999998,
+        "valueUsd": 763048660,
+        "estimatedWeight": true
+      },
+      {
+        "id": "757-792",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 792,
+        "destination": "Türkiye",
+        "tonnes": 8.084,
+        "valueUsd": 1335735790.153,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-344",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 344,
+        "destination": "China, Hong Kong SAR",
+        "tonnes": 7.635,
+        "valueUsd": 1191735842.267,
+        "estimatedWeight": false
+      },
+      {
+        "id": "344-764",
+        "period": "202603",
+        "originCode": 344,
+        "origin": "中国香港",
+        "originZone": "east",
+        "destinationCode": 764,
+        "destination": "Thailand",
+        "tonnes": 5.65,
+        "valueUsd": 845818301.52,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-276",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 276,
+        "destination": "Germany",
+        "tonnes": 5.647,
+        "valueUsd": 865403218.161,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-682",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 682,
+        "destination": "Saudi Arabia",
+        "tonnes": 5.074,
+        "valueUsd": 793116863.654,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-764",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 764,
+        "destination": "Thailand",
+        "tonnes": 4.644,
+        "valueUsd": 710185726.617,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-842",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 842,
+        "destination": "USA",
+        "tonnes": 4.069,
+        "valueUsd": 622708550.025,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-699",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 699,
+        "destination": "India",
+        "tonnes": 3.475,
+        "valueUsd": 576747276.227,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-702",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 702,
+        "destination": "Singapore",
+        "tonnes": 2.69,
+        "valueUsd": 414648066.795,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-380",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 380,
+        "destination": "Italy",
+        "tonnes": 2.313,
+        "valueUsd": 351664971.14,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-124",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 124,
+        "destination": "Canada",
+        "tonnes": 2.15105,
+        "valueUsd": 204261639,
+        "estimatedWeight": true
+      },
+      {
+        "id": "757-784",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 784,
+        "destination": "United Arab Emirates",
+        "tonnes": 1.989,
+        "valueUsd": 316036908.659,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-764",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 764,
+        "destination": "Thailand",
+        "tonnes": 1.899918,
+        "valueUsd": 166620196,
+        "estimatedWeight": true
+      },
+      {
+        "id": "826-702",
+        "period": "202603",
+        "originCode": 826,
+        "origin": "英国",
+        "originZone": "west",
+        "destinationCode": 702,
+        "destination": "Singapore",
+        "tonnes": 1.846,
+        "valueUsd": 317666214.016,
+        "estimatedWeight": false
+      },
+      {
+        "id": "344-702",
+        "period": "202603",
+        "originCode": 344,
+        "origin": "中国香港",
+        "originZone": "east",
+        "destinationCode": 702,
+        "destination": "Singapore",
+        "tonnes": 1.765,
+        "valueUsd": 279015182.114,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-380",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 380,
+        "destination": "Italy",
+        "tonnes": 1.4699010000000001,
+        "valueUsd": 171649781,
+        "estimatedWeight": true
+      },
+      {
+        "id": "344-699",
+        "period": "202603",
+        "originCode": 344,
+        "origin": "中国香港",
+        "originZone": "east",
+        "destinationCode": 699,
+        "destination": "India",
+        "tonnes": 1.459,
+        "valueUsd": 226203814.041,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-458",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 458,
+        "destination": "Malaysia",
+        "tonnes": 1.432,
+        "valueUsd": 223333680.312,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-36",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 36,
+        "destination": "Australia",
+        "tonnes": 1.044903,
+        "valueUsd": 147377865,
+        "estimatedWeight": true
+      },
+      {
+        "id": "344-757",
+        "period": "202603",
+        "originCode": 344,
+        "origin": "中国香港",
+        "originZone": "east",
+        "destinationCode": 757,
+        "destination": "Switzerland",
+        "tonnes": 1.025,
+        "valueUsd": 164926923.924,
+        "estimatedWeight": false
+      },
+      {
+        "id": "757-40",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 40,
+        "destination": "Austria",
+        "tonnes": 0.977,
+        "valueUsd": 160429473.293,
+        "estimatedWeight": false
+      },
+      {
+        "id": "826-757",
+        "period": "202603",
+        "originCode": 826,
+        "origin": "英国",
+        "originZone": "west",
+        "destinationCode": 757,
+        "destination": "Switzerland",
+        "tonnes": 0.961,
+        "valueUsd": 81280403.466,
+        "estimatedWeight": false
+      },
+      {
+        "id": "344-458",
+        "period": "202603",
+        "originCode": 344,
+        "origin": "中国香港",
+        "originZone": "east",
+        "destinationCode": 458,
+        "destination": "Malaysia",
+        "tonnes": 0.804,
+        "valueUsd": 125277927.252,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-699",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 699,
+        "destination": "India",
+        "tonnes": 0.701375,
+        "valueUsd": 103409928,
+        "estimatedWeight": true
+      },
+      {
+        "id": "757-124",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 124,
+        "destination": "Canada",
+        "tonnes": 0.66,
+        "valueUsd": 104374647.294,
+        "estimatedWeight": false
+      },
+      {
+        "id": "344-410",
+        "period": "202603",
+        "originCode": 344,
+        "origin": "中国香港",
+        "originZone": "east",
+        "destinationCode": 410,
+        "destination": "Rep. of Korea",
+        "tonnes": 0.63,
+        "valueUsd": 97062912.875,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-792",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 792,
+        "destination": "Türkiye",
+        "tonnes": 0.363124,
+        "valueUsd": 44318929,
+        "estimatedWeight": true
+      },
+      {
+        "id": "757-36",
+        "period": "202603",
+        "originCode": 757,
+        "origin": "瑞士",
+        "originZone": "west",
+        "destinationCode": 36,
+        "destination": "Australia",
+        "tonnes": 0.293,
+        "valueUsd": 47701572.23,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-784",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 784,
+        "destination": "United Arab Emirates",
+        "tonnes": 0.287248,
+        "valueUsd": 36926990,
+        "estimatedWeight": true
+      },
+      {
+        "id": "826-784",
+        "period": "202603",
+        "originCode": 826,
+        "origin": "英国",
+        "originZone": "west",
+        "destinationCode": 784,
+        "destination": "United Arab Emirates",
+        "tonnes": 0.272,
+        "valueUsd": 40480601.702,
+        "estimatedWeight": false
+      },
+      {
+        "id": "842-56",
+        "period": "202603",
+        "originCode": 842,
+        "origin": "美国",
+        "originZone": "west",
+        "destinationCode": 56,
+        "destination": "Belgium",
+        "tonnes": 0.22199700000000003,
+        "valueUsd": 29994866,
+        "estimatedWeight": true
+      },
+      {
+        "id": "826-276",
+        "period": "202603",
+        "originCode": 826,
+        "origin": "英国",
+        "originZone": "west",
+        "destinationCode": 276,
+        "destination": "Germany",
+        "tonnes": 0.19428700000000002,
+        "valueUsd": 30530390.826,
+        "estimatedWeight": false
+      }
+    ],
+    "direction": {
+      "period": "202603",
+      "eastboundTonnes": 109.52665299999998,
+      "westboundTonnes": 1.0829999999999997,
+      "netEastboundTonnes": 108.44365299999998,
+      "previousEastboundTonnes": 121.98962499999999,
+      "eastboundChangeTonnes": -12.462972000000008,
+      "eastboundChangePct": -10.216419634046758,
+      "previousNetEastboundTonnes": 120.888624,
+      "changeTonnes": -12.44497100000001,
+      "history": [
+        {
+          "period": "202601",
+          "eastboundTonnes": 82.32039099999999,
+          "westboundTonnes": 1.144,
+          "netEastboundTonnes": 81.17639099999998
+        },
+        {
+          "period": "202602",
+          "eastboundTonnes": 121.98962499999999,
+          "westboundTonnes": 1.1010010000000001,
+          "netEastboundTonnes": 120.888624
+        },
+        {
+          "period": "202603",
+          "eastboundTonnes": 109.52665299999998,
+          "westboundTonnes": 1.0829999999999997,
+          "netEastboundTonnes": 108.44365299999998
+        }
+      ]
+    }
+  },
+  "marketBalances": {
+    "period": "202603",
+    "comparisonPeriod": "202602",
+    "comparable": [
+      {
+        "code": 344,
+        "key": "hongKong",
+        "label": "中国香港",
+        "zone": "asia",
+        "period": "202603",
+        "comparable": true,
+        "importsTonnes": 105.034,
+        "exportsTonnes": 91.583,
+        "netImportsTonnes": 13.451000000000008,
+        "previousNetImportsTonnes": null,
+        "changeTonnes": null,
+        "estimatedWeight": false
+      },
+      {
+        "code": 699,
+        "key": "india",
+        "label": "印度",
+        "zone": "asia",
+        "period": "202603",
+        "comparable": true,
+        "importsTonnes": 32.866298,
+        "exportsTonnes": 0.181135,
+        "netImportsTonnes": 32.685163,
+        "previousNetImportsTonnes": 66.266975,
+        "changeTonnes": -33.581812,
+        "estimatedWeight": true
+      },
+      {
+        "code": 826,
+        "key": "unitedKingdom",
+        "label": "英国",
+        "zone": "west",
+        "period": "202603",
+        "comparable": true,
+        "importsTonnes": 148.699088,
+        "exportsTonnes": 13.668819,
+        "netImportsTonnes": 135.03026899999998,
+        "previousNetImportsTonnes": 90.430727,
+        "changeTonnes": 44.59954199999997,
+        "estimatedWeight": true
+      },
+      {
+        "code": 842,
+        "key": "unitedStates",
+        "label": "美国",
+        "zone": "west",
+        "period": "202603",
+        "comparable": true,
+        "importsTonnes": 11.800004999999999,
+        "exportsTonnes": 184.78211100000001,
+        "netImportsTonnes": -172.98210600000002,
+        "previousNetImportsTonnes": -182.978297,
+        "changeTonnes": 9.996190999999982,
+        "estimatedWeight": true
+      },
+      {
+        "code": 757,
+        "key": "switzerland",
+        "label": "瑞士",
+        "zone": "west",
+        "period": "202603",
+        "comparable": true,
+        "importsTonnes": 185.12793599999998,
+        "exportsTonnes": 152.528932,
+        "netImportsTonnes": 32.59900399999998,
+        "previousNetImportsTonnes": 73.48908399999999,
+        "changeTonnes": -40.89008000000001,
         "estimatedWeight": true
       }
     ],
-    "sourceUrl": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500"
-  },
-  "markets": {
-    "hongKong": {
-      "label": "中国香港",
-      "period": "202605",
-      "importsTonnes": 116.685,
-      "exportsTonnes": null,
-      "importValueUsd": 16857281179.618,
-      "exportValueUsd": 11004146147.796,
-      "estimatedWeight": false
-    },
-    "india": {
-      "label": "印度",
-      "period": "202603",
-      "importsTonnes": 32.866298,
-      "exportsTonnes": 0.181135,
-      "importValueUsd": 3060607628.4,
-      "exportValueUsd": 27447213.958,
-      "estimatedWeight": true
-    },
-    "unitedKingdom": {
-      "label": "英国",
-      "period": "202605",
-      "importsTonnes": 100.424102,
-      "exportsTonnes": 60.405977,
-      "importValueUsd": 14903840295.734,
-      "exportValueUsd": 8922049225.145,
-      "estimatedWeight": false
-    },
-    "china": {
-      "label": "中国内地",
-      "period": "202412",
-      "importsTonnes": 104.287436,
-      "exportsTonnes": 20.263454000000003,
-      "importValueUsd": 8855779820,
-      "exportValueUsd": 1754845301,
-      "estimatedWeight": false
-    }
+    "unavailable": [
+      {
+        "code": 764,
+        "key": "thailand",
+        "label": "泰国",
+        "period": "202603"
+      },
+      {
+        "code": 792,
+        "key": "turkiye",
+        "label": "土耳其",
+        "period": "202603"
+      },
+      {
+        "code": 784,
+        "key": "unitedArabEmirates",
+        "label": "阿联酋",
+        "period": "202603"
+      },
+      {
+        "code": 702,
+        "key": "singapore",
+        "label": "新加坡",
+        "period": "202603"
+      }
+    ],
+    "lagged": [
+      {
+        "code": 156,
+        "key": "chinaMainland",
+        "label": "中国内地",
+        "zone": "asia",
+        "period": "202412",
+        "comparable": false,
+        "importsTonnes": 104.287436,
+        "exportsTonnes": 20.263454000000003,
+        "netImportsTonnes": 84.02398199999999,
+        "previousNetImportsTonnes": 107.409914,
+        "changeTonnes": -23.38593200000001,
+        "estimatedWeight": false
+      }
+    ]
   },
   "vaults": {
     "london": {
@@ -491,10 +791,15 @@
     "londonEquivalentCnyPerGram": 878.3187501574519,
     "shanghaiPremiumPct": 0.08097855618141026
   },
+  "methodology": {
+    "measured": "跨境路线与市场净进出口来自UN Comtrade HS 7108月度报关重量。",
+    "inferred": "东西向指标仅汇总六个监测枢纽的跨区域报关流量；同一批黄金可能因转口而被多次记录。",
+    "comparability": "净流入榜只比较共同月份；中国内地因月度数据更新较慢，单列最新可得月份。"
+  },
   "sources": [
     {
       "name": "UN Comtrade",
-      "detail": "HS 7108 月度进出口与瑞士出口目的地",
+      "detail": "HS 7108月度双边路线、进口、出口与净流入",
       "url": "https://uncomtrade.org/docs/un-comtrade-api/"
     },
     {
