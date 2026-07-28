@@ -98,7 +98,7 @@ const routeMeta: Record<
   { label: string; x: number; y: number; region: string }
 > = {
   826: { label: "英国", x: 38, y: 29, region: "欧洲金库" },
-  156: { label: "中国", x: 79, y: 48, region: "亚洲消费" },
+  156: { label: "中国内地", x: 79, y: 48, region: "亚洲消费" },
   344: { label: "中国香港", x: 81, y: 56, region: "亚洲转口" },
   764: { label: "泰国", x: 76, y: 63, region: "亚洲消费" },
   276: { label: "德国", x: 46, y: 31, region: "欧洲精炼" },

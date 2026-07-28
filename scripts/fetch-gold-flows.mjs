@@ -109,7 +109,7 @@ const marketDefinitions = [
   { key: "hongKong", label: "中国香港", reporterCode: 344, period: "202605" },
   { key: "india", label: "印度", reporterCode: 699, period: "202603" },
   { key: "unitedKingdom", label: "英国", reporterCode: 826, period: "202605" },
-  { key: "china", label: "中国", reporterCode: 156, period: "202412" },
+  { key: "china", label: "中国内地", reporterCode: 156, period: "202412" },
 ];
 
 const markets = {};
