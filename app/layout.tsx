@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 const title = "全球黄金迁徙地图｜跨境实物流";
 const description =
-  "追踪多枢纽黄金跨境路线、同期市场净流入、伦敦与纽约库存、上金所出库及区域现货溢价。";
+  "用最新库存、瑞士精炼链路、同期跨境路线与区域价格交叉验证黄金实物流方向。";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -25,7 +25,6 @@ export async function generateMetadata(): Promise<Metadata> {
     requestHeaders.get("x-forwarded-proto") ??
     (host?.includes("localhost") ? "http" : "https");
   const origin = host ? `${protocol}://${host}` : "http://localhost:3000";
-  const imageUrl = new URL("/og-v2.png", origin).toString();
 
   return {
     metadataBase: new URL(origin),
@@ -36,13 +35,11 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       type: "website",
       locale: "zh_CN",
-      images: [{ url: imageUrl, width: 1200, height: 630 }],
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
       title,
       description,
-      images: [imageUrl],
     },
   };
 }

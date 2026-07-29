@@ -29,7 +29,11 @@ test("server-renders the global gold migration dashboard", async () => {
 
   const html = await response.text();
   assert.match(html, /全球黄金迁徙地图/);
-  assert.match(html, /监测到东向实物流/);
+  assert.match(html, /伦敦库存回升，东向报关仍高/);
+  assert.match(html, /信号分化/);
+  assert.match(html, /谁把黄金送进瑞士，又流向哪里/);
+  assert.match(html, /进口来源/);
+  assert.match(html, /出口去向/);
   assert.match(html, /黄金从哪里流向哪里/);
   assert.match(html, /谁在净进口，谁在净出口/);
   assert.match(html, /库存交叉验证/);
@@ -45,6 +49,7 @@ test("publishes methodology and official source context", async () => {
 
   assert.match(html, /HS 7108/);
   assert.match(html, /UN Comtrade/);
+  assert.match(html, /瑞士联邦海关/);
   assert.match(html, /LBMA/);
   assert.match(html, /CME Group/);
   assert.match(html, /上海黄金交易所/);

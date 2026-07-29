@@ -40,6 +40,12 @@ type MarketBalance = {
   estimatedWeight: boolean;
 };
 
+type SwissOrigin = {
+  code: number;
+  label: string;
+  tonnes: number;
+};
+
 type GoldData = {
   version: number;
   fetchedAt: string;
@@ -71,6 +77,15 @@ type GoldData = {
         westboundTonnes: number;
         netEastboundTonnes: number;
       }>;
+    };
+  };
+  swissRefinery: {
+    importSnapshot: {
+      period: string;
+      importsTonnes: number;
+      sourceUrl: string;
+      definition: string;
+      topOrigins: SwissOrigin[];
     };
   };
   marketBalances: {
@@ -450,6 +465,9 @@ export default function Home() {
   const [selectedRouteId, setSelectedRouteId] = useState(
     data.network.routes[0].id,
   );
+  const [swissView, setSwissView] = useState<"source" | "destination">(
+    "source",
+  );
 
   const availableOrigins = data.network.origins.filter(
     (origin) => origin.exportsTonnes != null,
@@ -486,6 +504,9 @@ export default function Home() {
   const londonChangeTonnes =
     data.vaults.london.history.at(-1)!.tonnes -
     data.vaults.london.history.at(-2)!.tonnes;
+  const londonSixObservationChange =
+    data.vaults.london.history.at(-1)!.tonnes -
+    data.vaults.london.history.at(-6)!.tonnes;
   const shanghaiWithdrawalChange =
     (data.vaults.shanghai.withdrawalsTonnes /
       data.vaults.shanghai.previousWithdrawalsTonnes -
@@ -495,6 +516,33 @@ export default function Home() {
     month: "2-digit",
     day: "2-digit",
   });
+  const swissExportTotal =
+    data.network.origins.find((origin) => origin.code === 757)?.exportsTonnes ??
+    0;
+  const swissDestinations = data.network.routes
+    .filter((route) => route.originCode === 757)
+    .sort((left, right) => right.tonnes - left.tonnes);
+  const swissRanking =
+    swissView === "source"
+      ? data.swissRefinery.importSnapshot.topOrigins.map((origin) => ({
+          id: `source-${origin.code}`,
+          label: origin.label,
+          tonnes: origin.tonnes,
+          estimated: false,
+        }))
+      : swissDestinations.map((route) => ({
+          id: route.id,
+          label: destinationLabel(route),
+          tonnes: route.tonnes,
+          estimated: route.estimatedWeight,
+        }));
+  const swissRankingTotal =
+    swissView === "source"
+      ? data.swissRefinery.importSnapshot.importsTonnes
+      : swissExportTotal;
+  const swissRankingMax = Math.max(
+    ...swissRanking.map((item) => item.tonnes),
+  );
 
   const chooseOrigin = (code: number | "all") => {
     setOriginFilter(code);
@@ -520,79 +568,182 @@ export default function Home() {
 
       <div className="status-line">
         <span className="status-dot" />
-        <span>官方数据快照 {freshnessDate}</span>
+        <span>数据快照 {freshnessDate}</span>
         <span className="status-separator" />
-        <span>共同统计月 {formatPeriod(data.network.period)}</span>
+        <span>最新信号 {formatPeriod(data.vaults.london.period)}</span>
+        <span className="status-separator" />
+        <span>同期全景 {formatPeriod(data.network.period)}</span>
       </div>
 
       <section className="hero">
         <div className="hero-label">
-          <span>西方枢纽 → 亚洲市场</span>
-          <time>{formatPeriod(data.network.period)}</time>
+          <span>多源交叉验证</span>
+          <b>置信度 · 中等</b>
         </div>
         <h1>
-          监测到东向实物流
-          <em>
-            {tonnes.format(data.network.direction.eastboundTonnes)}
-            <small>吨</small>
-          </em>
+          伦敦库存回升，东向报关仍高
+          <em>信号分化</em>
         </h1>
         <p>
-          汇总瑞士、英国和美国向已识别亚洲目的地的月度报关出口，较上月
-          <b>{pct(data.network.direction.eastboundChangePct)}</b>。
+          库存偏向西方留存，但同期报关仍显示
+          <b>{tonnes.format(data.network.direction.eastboundTonnes)}吨</b>
+          流向亚洲。两类信号暂未形成同向确认。
         </p>
 
         <div className="hero-kpis">
           <div>
-            <span>有效枢纽</span>
+            <span>伦敦近6个观测月</span>
             <strong>
-              {data.network.coverage.originCount}
-              <small> / {data.network.coverage.candidateOriginCount}</small>
+              {signed(londonSixObservationChange)}
             </strong>
+            <small>{formatPeriod(data.vaults.london.period)} · 库存</small>
           </div>
           <div>
-            <span>双边路线</span>
-            <strong>{data.network.coverage.routeCount}</strong>
+            <span>东向报关流</span>
+            <strong>
+              {tonnes.format(data.network.direction.eastboundTonnes)}
+              <small>t</small>
+            </strong>
+            <small>
+              {formatPeriod(data.network.period)} ·{" "}
+              {pct(data.network.direction.eastboundChangePct)}
+            </small>
           </div>
           <div>
-            <span>亚洲至西方*</span>
-            <strong>{tonnes.format(data.network.direction.westboundTonnes)}t</strong>
+            <span>上海相对伦敦</span>
+            <strong>
+              {data.priceComparison.shanghaiPremiumPct >= 0 ? "+" : ""}
+              {data.priceComparison.shanghaiPremiumPct.toFixed(2)}%
+            </strong>
+            <small>{data.priceComparison.date.slice(0, 7)} · 指示价</small>
           </div>
         </div>
 
-        <div className="direction-history">
-          <div className="mini-head">
-            <span>近3个共同月份东向报关量</span>
-            <small>吨</small>
+        <div className="signal-strip" aria-label="本期信号状态">
+          <div>
+            <span>库存</span>
+            <strong>留存增强</strong>
           </div>
-          <div className="month-bars">
-            {data.network.direction.history.map((row) => {
-              const max = Math.max(
-                ...data.network.direction.history.map(
-                  (item) => item.eastboundTonnes,
-                ),
-              );
-              return (
-                <div key={row.period}>
-                  <span
-                    style={{ height: `${(row.eastboundTonnes / max) * 100}%` }}
-                  />
-                  <b>{tonnes.format(row.eastboundTonnes)}</b>
-                  <small>{formatPeriod(row.period).slice(5)}</small>
-                </div>
-              );
-            })}
+          <div>
+            <span>报关</span>
+            <strong>东向降温</strong>
+          </div>
+          <div>
+            <span>现货</span>
+            <strong>接近平价</strong>
           </div>
         </div>
         <p className="hero-caveat">
-          *反向观察目前仅中国香港报送完整；新加坡、阿联酋待更新，不用于“全球净流向”结论。
+          不同来源频率不同；库存变化不直接等同于跨境搬运，方向结论需由报关、库存和区域价格共同确认。
         </p>
+      </section>
+
+      <section className="section-block refinery-section">
+        <div className="section-head">
+          <div>
+            <span className="eyebrow">精炼链路</span>
+            <h2>谁把黄金送进瑞士，又流向哪里</h2>
+          </div>
+          <span className="section-note">来源与去向分别标注月份</span>
+        </div>
+
+        <div className="refinery-card">
+          <div className="chain-overview">
+            <div>
+              <span>最新进口</span>
+              <strong>
+                {tonnes.format(
+                  data.swissRefinery.importSnapshot.importsTonnes,
+                )}
+                t
+              </strong>
+              <small>
+                {formatPeriod(data.swissRefinery.importSnapshot.period)}
+              </small>
+            </div>
+            <i aria-hidden="true">→</i>
+            <div className="refinery-hub">
+              <b>CH</b>
+              <strong>瑞士</strong>
+              <small>精炼与转口</small>
+            </div>
+            <i aria-hidden="true">→</i>
+            <div>
+              <span>同期出口</span>
+              <strong>{tonnes.format(swissExportTotal)}t</strong>
+              <small>{formatPeriod(data.network.period)}</small>
+            </div>
+          </div>
+
+          <div className="refinery-tabs" role="tablist" aria-label="瑞士黄金链路">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={swissView === "source"}
+              className={swissView === "source" ? "active" : ""}
+              onClick={() => setSwissView("source")}
+            >
+              进口来源
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={swissView === "destination"}
+              className={swissView === "destination" ? "active" : ""}
+              onClick={() => setSwissView("destination")}
+            >
+              出口去向
+            </button>
+          </div>
+
+          <div className="refinery-ranking">
+            <div className="ranking-head">
+              <span>
+                {swissView === "source"
+                  ? `主要来源国 · ${formatPeriod(
+                      data.swissRefinery.importSnapshot.period,
+                    )}`
+                  : `主要目的地 · ${formatPeriod(data.network.period)}`}
+              </span>
+              <small>吨 / 占该侧总量</small>
+            </div>
+            {swissRanking.slice(0, 8).map((item, index) => (
+              <div className="ranking-row" key={item.id}>
+                <span>{String(index + 1).padStart(2, "0")}</span>
+                <strong>{item.label}</strong>
+                <div aria-hidden="true">
+                  <i
+                    style={{
+                      width: `${Math.max(
+                        4,
+                        (item.tonnes / swissRankingMax) * 100,
+                      )}%`,
+                    }}
+                  />
+                </div>
+                <b>{tonnes.format(item.tonnes)}t</b>
+                <small>
+                  {((item.tonnes / swissRankingTotal) * 100).toFixed(1)}%
+                  {item.estimated ? " · 估算" : ""}
+                </small>
+              </div>
+            ))}
+          </div>
+
+          <p className="refinery-caveat">
+            {swissView === "source"
+              ? data.swissRefinery.importSnapshot.definition
+              : "出口去向来自同期HS 7108报关路线；进口与出口月份不同，不据此计算瑞士库存增减。"}
+          </p>
+        </div>
       </section>
 
       <section className="section-block network-section">
         <div className="section-head">
           <div>
-            <span className="eyebrow">跨境路线网络</span>
+            <span className="eyebrow">
+              同期全景 · {formatPeriod(data.network.period)}
+            </span>
             <h2>黄金从哪里流向哪里</h2>
           </div>
           <span className="section-note">
@@ -805,11 +956,11 @@ export default function Home() {
 
         <article className="signal-card">
           <span className="eyebrow">本期读法</span>
-          <h2>东向流量仍高，但库存信号分化</h2>
+          <h2>库存与报关暂未同向确认</h2>
           <p>
             西方枢纽向亚洲的监测流量为
             {tonnes.format(data.network.direction.eastboundTonnes)}
-            吨、环比放缓；同时伦敦库存增加、COMEX库存下降、上金所出库上升。它说明多个市场正在重新分配，并不能据此断言“西方库存被抽干”。
+            吨、环比放缓；同时伦敦库存增加、COMEX库存下降、上金所出库上升。它说明多个市场正在重新分配，不能只凭伦敦库存增加就判断“黄金西回”。
           </p>
           <div className="signal-tags">
             <span>海关：东向放缓</span>
@@ -900,7 +1051,7 @@ export default function Home() {
       </details>
 
       <footer>
-        <span>GLOBAL GOLD MIGRATION · V2</span>
+        <span>GLOBAL GOLD MIGRATION · V3</span>
         <span>公开数据快照 · 非实时行情</span>
       </footer>
     </main>

@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "fetchedAt": "2026-07-28T08:19:42.745Z",
+  "version": 3,
+  "fetchedAt": "2026-07-29T08:00:00.000Z",
   "commodity": {
     "hsCode": "7108",
     "label": "黄金（未锻造、半制成或粉末）"
@@ -583,6 +583,66 @@
       ]
     }
   },
+  "swissRefinery": {
+    "importSnapshot": {
+      "period": "2026-06",
+      "importsTonnes": 149.6,
+      "sourceUrl": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
+      "definition": "瑞士官方黄金进口来源国月度汇总；来源国不等于矿山原产地。",
+      "topOrigins": [
+        {
+          "code": 784,
+          "label": "阿联酋",
+          "tonnes": 26.7
+        },
+        {
+          "code": 842,
+          "label": "美国",
+          "tonnes": 24.9
+        },
+        {
+          "code": 417,
+          "label": "吉尔吉斯斯坦",
+          "tonnes": 20.1
+        },
+        {
+          "code": 152,
+          "label": "智利",
+          "tonnes": 12.1
+        },
+        {
+          "code": 32,
+          "label": "阿根廷",
+          "tonnes": 11.4
+        },
+        {
+          "code": 36,
+          "label": "澳大利亚",
+          "tonnes": 9.7
+        },
+        {
+          "code": 604,
+          "label": "秘鲁",
+          "tonnes": 8.8
+        },
+        {
+          "code": 380,
+          "label": "意大利",
+          "tonnes": 7.8
+        },
+        {
+          "code": 384,
+          "label": "科特迪瓦",
+          "tonnes": 5.4
+        },
+        {
+          "code": 288,
+          "label": "加纳",
+          "tonnes": 5.1
+        }
+      ]
+    }
+  },
   "marketBalances": {
     "period": "202603",
     "comparisonPeriod": "202602",
@@ -801,6 +861,11 @@
       "name": "UN Comtrade",
       "detail": "HS 7108月度双边路线、进口、出口与净流入",
       "url": "https://uncomtrade.org/docs/un-comtrade-api/"
+    },
+    {
+      "name": "瑞士联邦海关（BAZG）",
+      "detail": "瑞士黄金月度进口来源国；商业使用需按数据条款确认许可",
+      "url": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins"
     },
     {
       "name": "LBMA",
