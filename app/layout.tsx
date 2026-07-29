@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 const title = "全球黄金迁徙地图｜跨境实物流";
 const description =
-  "用最新库存、瑞士精炼链路、同期跨境路线与区域价格交叉验证黄金实物流方向。";
+  "用国家净流入、跨境路线、瑞士精炼链路、金库库存与区域价格交叉验证黄金实物流方向。";
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();
@@ -35,11 +35,20 @@ export async function generateMetadata(): Promise<Metadata> {
       description,
       type: "website",
       locale: "zh_CN",
+      images: [
+        {
+          url: "/og-v4.png",
+          width: 1730,
+          height: 909,
+          alt: "全球黄金迁徙地图：报关、库存、精炼链路与区域价格",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title,
       description,
+      images: ["/og-v4.png"],
     },
   };
 }

@@ -34,12 +34,20 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /谁把黄金送进瑞士，又流向哪里/);
   assert.match(html, /进口来源/);
   assert.match(html, /出口去向/);
+  assert.match(html, /最新可得出口/);
+  assert.match(html, /主要矿产供应地/);
+  assert.match(html, /金融及转口枢纽/);
   assert.match(html, /黄金从哪里流向哪里/);
+  assert.match(html, /排行榜/);
+  assert.match(html, /迁徙地图/);
   assert.match(html, /谁在净进口，谁在净出口/);
+  assert.match(html, /重量估算/);
   assert.match(html, /库存交叉验证/);
   assert.match(html, /中国内地/);
   assert.match(html, /中国香港/);
   assert.doesNotMatch(html, /中港承接/);
+  assert.doesNotMatch(html, /同期出口/);
+  assert.doesNotMatch(html, /同期全景/);
   assert.doesNotMatch(html, /Your site is taking shape/);
 });
 

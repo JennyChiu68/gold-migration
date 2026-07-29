@@ -46,6 +46,8 @@ type SwissOrigin = {
   tonnes: number;
 };
 
+type SwissCategory = "mining" | "hub";
+
 type GoldData = {
   version: number;
   fetchedAt: string;
@@ -183,6 +185,19 @@ const locations: Record<
   792: { label: "土耳其", x: 57, y: 43, region: "区域枢纽" },
   826: { label: "英国", x: 41, y: 26, region: "伦敦金库" },
   842: { label: "美国", x: 19, y: 43, region: "纽约金库" },
+};
+
+const swissCategories: Record<number, SwissCategory> = {
+  32: "mining",
+  36: "mining",
+  152: "mining",
+  288: "mining",
+  384: "mining",
+  417: "mining",
+  604: "mining",
+  380: "hub",
+  784: "hub",
+  842: "hub",
 };
 
 function formatPeriod(value: string) {
@@ -419,9 +434,11 @@ function NetworkMap({
 function MarketBalanceBar({
   market,
   maxAbsolute,
+  index,
 }: {
   market: MarketBalance;
   maxAbsolute: number;
+  index: number;
 }) {
   const net = market.netImportsTonnes ?? 0;
   const width = Math.max(2.5, (Math.abs(net) / maxAbsolute) * 48);
@@ -433,9 +450,12 @@ function MarketBalanceBar({
   return (
     <article className="balance-row">
       <div className="balance-head">
-        <div>
+        <span className="balance-rank">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <div className="balance-name">
           <strong>{market.label}</strong>
-          {market.estimatedWeight && <span>含估算</span>}
+          <span>{market.estimatedWeight ? "重量估算" : "官方总计"}</span>
         </div>
         <b className={net >= 0 ? "positive" : "negative"}>
           {signed(net)}
@@ -453,10 +473,63 @@ function MarketBalanceBar({
         <span>出口 {tonnes.format(market.exportsTonnes ?? 0)}t</span>
         <span>
           较上月{" "}
-          {market.changeTonnes == null ? "待补" : signed(market.changeTonnes)}
+          {market.changeTonnes == null
+            ? "前月口径不全"
+            : signed(market.changeTonnes)}
         </span>
       </div>
     </article>
+  );
+}
+
+function DashboardSection({
+  id,
+  eyebrow,
+  title,
+  note,
+  defaultOpen = true,
+  className = "",
+  children,
+}: {
+  id: string;
+  eyebrow: string;
+  title: string;
+  note: string;
+  defaultOpen?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+
+  return (
+    <section
+      className={`section-block dashboard-section ${className}`.trim()}
+      id={id}
+    >
+      <button
+        type="button"
+        className="section-head section-toggle"
+        aria-expanded={open}
+        aria-controls={`${id}-content`}
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span>
+          <span className="eyebrow">{eyebrow}</span>
+          <strong>{title}</strong>
+        </span>
+        <span className="section-meta">
+          <small>{note}</small>
+          <i aria-hidden="true">{open ? "−" : "＋"}</i>
+        </span>
+      </button>
+      <div
+        className="section-content"
+        id={`${id}-content`}
+        hidden={!open}
+      >
+        {children}
+      </div>
+    </section>
   );
 }
 
@@ -465,9 +538,13 @@ export default function Home() {
   const [selectedRouteId, setSelectedRouteId] = useState(
     data.network.routes[0].id,
   );
+  const [routeView, setRouteView] = useState<"list" | "map">("list");
   const [swissView, setSwissView] = useState<"source" | "destination">(
     "source",
   );
+  const [swissCategory, setSwissCategory] = useState<
+    "all" | SwissCategory
+  >("all");
 
   const availableOrigins = data.network.origins.filter(
     (origin) => origin.exportsTonnes != null,
@@ -507,6 +584,7 @@ export default function Home() {
   const londonSixObservationChange =
     data.vaults.london.history.at(-1)!.tonnes -
     data.vaults.london.history.at(-6)!.tonnes;
+  const londonBaselinePeriod = data.vaults.london.history.at(-6)!.period;
   const shanghaiWithdrawalChange =
     (data.vaults.shanghai.withdrawalsTonnes /
       data.vaults.shanghai.previousWithdrawalsTonnes -
@@ -522,25 +600,46 @@ export default function Home() {
   const swissDestinations = data.network.routes
     .filter((route) => route.originCode === 757)
     .sort((left, right) => right.tonnes - left.tonnes);
+  const swissSourceRows = data.swissRefinery.importSnapshot.topOrigins.map(
+    (origin) => ({
+      id: `source-${origin.code}`,
+      label: origin.label,
+      tonnes: origin.tonnes,
+      estimated: false,
+      category: swissCategories[origin.code],
+    }),
+  );
+  const swissMiningTonnes = swissSourceRows
+    .filter((item) => item.category === "mining")
+    .reduce((sum, item) => sum + item.tonnes, 0);
+  const swissHubTonnes = swissSourceRows
+    .filter((item) => item.category === "hub")
+    .reduce((sum, item) => sum + item.tonnes, 0);
+  const swissOtherTonnes = Math.max(
+    0,
+    data.swissRefinery.importSnapshot.importsTonnes -
+      swissMiningTonnes -
+      swissHubTonnes,
+  );
   const swissRanking =
     swissView === "source"
-      ? data.swissRefinery.importSnapshot.topOrigins.map((origin) => ({
-          id: `source-${origin.code}`,
-          label: origin.label,
-          tonnes: origin.tonnes,
-          estimated: false,
-        }))
+      ? swissSourceRows.filter(
+          (item) =>
+            swissCategory === "all" || item.category === swissCategory,
+        )
       : swissDestinations.map((route) => ({
           id: route.id,
           label: destinationLabel(route),
           tonnes: route.tonnes,
           estimated: route.estimatedWeight,
+          category: undefined,
         }));
   const swissRankingTotal =
     swissView === "source"
       ? data.swissRefinery.importSnapshot.importsTonnes
       : swissExportTotal;
   const swissRankingMax = Math.max(
+    1,
     ...swissRanking.map((item) => item.tonnes),
   );
 
@@ -572,7 +671,7 @@ export default function Home() {
         <span className="status-separator" />
         <span>最新信号 {formatPeriod(data.vaults.london.period)}</span>
         <span className="status-separator" />
-        <span>同期全景 {formatPeriod(data.network.period)}</span>
+        <span>报关全景 {formatPeriod(data.network.period)}</span>
       </div>
 
       <section className="hero">
@@ -585,21 +684,22 @@ export default function Home() {
           <em>信号分化</em>
         </h1>
         <p>
-          库存偏向西方留存，但同期报关仍显示
+          库存偏向西方留存，但最新可得的
+          {formatPeriod(data.network.period)}报关仍显示
           <b>{tonnes.format(data.network.direction.eastboundTonnes)}吨</b>
-          流向亚洲。两类信号暂未形成同向确认。
+          流向亚洲。两类信号暂未形成同向确认，报关重量含部分估算。
         </p>
 
         <div className="hero-kpis">
           <div>
-            <span>伦敦近6个观测月</span>
+            <span>伦敦较{formatPeriod(londonBaselinePeriod)}</span>
             <strong>
               {signed(londonSixObservationChange)}
             </strong>
             <small>{formatPeriod(data.vaults.london.period)} · 库存</small>
           </div>
           <div>
-            <span>东向报关流</span>
+            <span>东向报关流 · 含估算</span>
             <strong>
               {tonnes.format(data.network.direction.eastboundTonnes)}
               <small>t</small>
@@ -638,15 +738,14 @@ export default function Home() {
         </p>
       </section>
 
-      <section className="section-block refinery-section">
-        <div className="section-head">
-          <div>
-            <span className="eyebrow">精炼链路</span>
-            <h2>谁把黄金送进瑞士，又流向哪里</h2>
-          </div>
-          <span className="section-note">来源与去向分别标注月份</span>
-        </div>
-
+      <DashboardSection
+        id="swiss-refinery"
+        eyebrow="瑞士精炼链路"
+        title="谁把黄金送进瑞士，又流向哪里"
+        note="来源与去向分别标注月份"
+        defaultOpen={false}
+        className="refinery-section"
+      >
         <div className="refinery-card">
           <div className="chain-overview">
             <div>
@@ -669,7 +768,7 @@ export default function Home() {
             </div>
             <i aria-hidden="true">→</i>
             <div>
-              <span>同期出口</span>
+              <span>最新可得出口</span>
               <strong>{tonnes.format(swissExportTotal)}t</strong>
               <small>{formatPeriod(data.network.period)}</small>
             </div>
@@ -696,11 +795,70 @@ export default function Home() {
             </button>
           </div>
 
+          {swissView === "source" && (
+            <>
+              <div className="category-summary">
+                <div>
+                  <strong>
+                    {(
+                      (swissMiningTonnes /
+                        data.swissRefinery.importSnapshot.importsTonnes) *
+                      100
+                    ).toFixed(1)}
+                    %
+                  </strong>
+                  <span>主要矿产供应地</span>
+                </div>
+                <div>
+                  <strong>
+                    {(
+                      (swissHubTonnes /
+                        data.swissRefinery.importSnapshot.importsTonnes) *
+                      100
+                    ).toFixed(1)}
+                    %
+                  </strong>
+                  <span>金融及转口枢纽</span>
+                </div>
+                <div>
+                  <strong>
+                    {(
+                      (swissOtherTonnes /
+                        data.swissRefinery.importSnapshot.importsTonnes) *
+                      100
+                    ).toFixed(1)}
+                    %
+                  </strong>
+                  <span>其余来源</span>
+                </div>
+              </div>
+
+              <div className="category-filter" aria-label="按来源属性筛选">
+                {[
+                  ["all", "全部"],
+                  ["mining", "矿产供应地"],
+                  ["hub", "金融及转口"],
+                ].map(([value, label]) => (
+                  <button
+                    type="button"
+                    key={value}
+                    className={swissCategory === value ? "active" : ""}
+                    onClick={() =>
+                      setSwissCategory(value as "all" | SwissCategory)
+                    }
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+
           <div className="refinery-ranking">
             <div className="ranking-head">
               <span>
                 {swissView === "source"
-                  ? `主要来源国 · ${formatPeriod(
+                  ? `主要来源地 · ${formatPeriod(
                       data.swissRefinery.importSnapshot.period,
                     )}`
                   : `主要目的地 · ${formatPeriod(data.network.period)}`}
@@ -732,23 +890,38 @@ export default function Home() {
 
           <p className="refinery-caveat">
             {swissView === "source"
-              ? data.swissRefinery.importSnapshot.definition
-              : "出口去向来自同期HS 7108报关路线；进口与出口月份不同，不据此计算瑞士库存增减。"}
+              ? `${data.swissRefinery.importSnapshot.definition} “矿产供应地/金融及转口”是按来源地角色进行的分析分类，不代表每批黄金的矿山原产地。`
+              : "出口去向来自3月HS 7108报关路线；6月进口与3月出口不是同一月份，不据此计算瑞士库存增减。"}
           </p>
         </div>
-      </section>
+      </DashboardSection>
 
-      <section className="section-block network-section">
-        <div className="section-head">
-          <div>
-            <span className="eyebrow">
-              同期全景 · {formatPeriod(data.network.period)}
-            </span>
-            <h2>黄金从哪里流向哪里</h2>
-          </div>
-          <span className="section-note">
-            {data.network.coverage.mappedRouteCount}条可视路线
-          </span>
+      <DashboardSection
+        id="trade-routes"
+        eyebrow={`报关路线 · ${formatPeriod(data.network.period)}`}
+        title="黄金从哪里流向哪里"
+        note={`${data.network.coverage.mappedRouteCount}条可视路线`}
+        className="network-section"
+      >
+        <div className="view-toggle" role="tablist" aria-label="路线查看方式">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={routeView === "list"}
+            className={routeView === "list" ? "active" : ""}
+            onClick={() => setRouteView("list")}
+          >
+            排行榜
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={routeView === "map"}
+            className={routeView === "map" ? "active" : ""}
+            onClick={() => setRouteView("map")}
+          >
+            迁徙地图
+          </button>
         </div>
 
         <div className="origin-filter" aria-label="按出口枢纽筛选">
@@ -771,31 +944,37 @@ export default function Home() {
           ))}
         </div>
 
-        <div className="map-card">
-          <NetworkMap
-            routes={filteredRoutes}
-            selectedId={selectedRoute.id}
-          />
-          <div className="route-focus">
-            <div>
-              <span>
-                {selectedRoute.origin} → {destinationLabel(selectedRoute)}
-              </span>
-              <strong>
-                {tonnes.format(selectedRoute.tonnes)}
-                <small>吨</small>
-              </strong>
-            </div>
-            <div>
-              <span>占该出口地当月 {routeShare.toFixed(1)}%</span>
-              <span>{money.format(selectedRoute.valueUsd)}</span>
-              {selectedRoute.estimatedWeight && <i>重量估算</i>}
+        {routeView === "map" && (
+          <div className="map-card">
+            <NetworkMap
+              routes={filteredRoutes}
+              selectedId={selectedRoute.id}
+            />
+            <div className="route-focus">
+              <div>
+                <span>
+                  {selectedRoute.origin} → {destinationLabel(selectedRoute)}
+                </span>
+                <strong>
+                  {tonnes.format(selectedRoute.tonnes)}
+                  <small>吨</small>
+                </strong>
+              </div>
+              <div>
+                <span>占该出口地当月 {routeShare.toFixed(1)}%</span>
+                <span>{money.format(selectedRoute.valueUsd)}</span>
+                <i>
+                  {selectedRoute.estimatedWeight ? "重量估算" : "报关重量"}
+                </i>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
-        <div className="route-list">
-          {filteredRoutes.slice(0, 7).map((route, index) => (
+        <div className={`route-list ${routeView === "list" ? "expanded" : ""}`}>
+          {filteredRoutes
+            .slice(0, routeView === "list" ? 10 : 7)
+            .map((route, index) => (
             <button
               type="button"
               key={route.id}
@@ -811,34 +990,34 @@ export default function Home() {
                 <i>→</i>
                 <b>{destinationLabel(route)}</b>
               </span>
-              <strong>{tonnes.format(route.tonnes)}t</strong>
+              <span className="route-metrics">
+                <strong>{tonnes.format(route.tonnes)}t</strong>
+                <small>{money.format(route.valueUsd)}</small>
+                <i>{route.estimatedWeight ? "估算" : "报关"}</i>
+              </span>
             </button>
           ))}
         </div>
-      </section>
+      </DashboardSection>
 
-      <section className="section-block">
-        <div className="section-head">
-          <div>
-            <span className="eyebrow">同期市场净流入</span>
-            <h2>谁在净进口，谁在净出口</h2>
-          </div>
-          <span className="section-note">
-            进口 − 出口 · {formatPeriod(data.marketBalances.period)}
-          </span>
-        </div>
-
+      <DashboardSection
+        id="market-balance"
+        eyebrow={`报关全景 · ${formatPeriod(data.marketBalances.period)}`}
+        title="谁在净进口，谁在净出口"
+        note="进口 − 出口"
+      >
         <div className="balance-legend">
           <span>← 净出口</span>
           <span>0</span>
           <span>净进口 →</span>
         </div>
         <div className="balance-list">
-          {rankedMarkets.map((market) => (
+          {rankedMarkets.map((market, index) => (
             <MarketBalanceBar
               key={market.key}
               market={market}
               maxAbsolute={maxBalance}
+              index={index}
             />
           ))}
         </div>
@@ -865,17 +1044,15 @@ export default function Home() {
             ：共同月份未同时提供有效进出口重量。
           </p>
         </div>
-      </section>
+      </DashboardSection>
 
-      <section className="section-block">
-        <div className="section-head">
-          <div>
-            <span className="eyebrow">库存交叉验证</span>
-            <h2>实物流与金库是否同向</h2>
-          </div>
-          <span className="section-note">不同频率 · 分别标注</span>
-        </div>
-
+      <DashboardSection
+        id="vault-crosscheck"
+        eyebrow="库存交叉验证"
+        title="实物流与金库是否同向"
+        note="不同频率 · 分别标注"
+        defaultOpen={false}
+      >
         <div className="vault-grid">
           <article className="vault-card">
             <div className="vault-head">
@@ -910,11 +1087,12 @@ export default function Home() {
               <strong>{Math.round(data.vaults.newYork.tonnes)}</strong>
               <span>吨库存</span>
             </div>
-            <div className="vault-meter">
-              <span style={{ width: "68%" }} />
+            <div className="vault-change">
+              <span>30日变化</span>
+              <strong>{pct(data.vaults.newYork.thirtyDayChangePct)}</strong>
             </div>
             <p>
-              30日 {pct(data.vaults.newYork.thirtyDayChangePct)}
+              历史值来自CME日报的二次解析
               <i>二次解析</i>
             </p>
           </article>
@@ -955,12 +1133,12 @@ export default function Home() {
         </div>
 
         <article className="signal-card">
-          <span className="eyebrow">本期读法</span>
+          <span className="eyebrow">多市场解读</span>
           <h2>库存与报关暂未同向确认</h2>
           <p>
             西方枢纽向亚洲的监测流量为
             {tonnes.format(data.network.direction.eastboundTonnes)}
-            吨、环比放缓；同时伦敦库存增加、COMEX库存下降、上金所出库上升。它说明多个市场正在重新分配，不能只凭伦敦库存增加就判断“黄金西回”。
+            吨、环比放缓且含部分估算重量；同时伦敦库存增加、COMEX库存下降、上金所出库上升。它说明多个市场正在重新分配，不能只凭伦敦库存增加就判断“黄金西回”。
           </p>
           <div className="signal-tags">
             <span>海关：东向放缓</span>
@@ -968,7 +1146,7 @@ export default function Home() {
             <span>上海：出库增加</span>
           </div>
         </article>
-      </section>
+      </DashboardSection>
 
       <section className="premium-card">
         <div className="section-head light">
@@ -1027,6 +1205,10 @@ export default function Home() {
           <p>{data.methodology.measured}</p>
           <h3>同期比较</h3>
           <p>{data.methodology.comparability}</p>
+          <h3>数据质量标签</h3>
+          <p>
+            “官方总计”表示直接采用官方接口的市场合计重量；“重量估算”表示官方接口将该重量标记为估算；伙伴明细求和、镜像推算和二次解析必须单独标注，不能与直接总计混用。
+          </p>
           <h3>方向指标</h3>
           <p>{data.methodology.inferred}</p>
           <h3>商品边界</h3>
@@ -1051,7 +1233,7 @@ export default function Home() {
       </details>
 
       <footer>
-        <span>GLOBAL GOLD MIGRATION · V3</span>
+        <span>GLOBAL GOLD MIGRATION · V4</span>
         <span>公开数据快照 · 非实时行情</span>
       </footer>
     </main>
