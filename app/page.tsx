@@ -674,9 +674,34 @@ export default function Home() {
         <span>报关全景 {formatPeriod(data.network.period)}</span>
       </div>
 
-      <section className="hero">
+      <nav className="feature-nav" aria-label="功能目录">
+        <div className="feature-nav-head">
+          <strong>功能目录</strong>
+          <span>点击快速跳转</span>
+        </div>
+        <div className="feature-nav-grid">
+          {[
+            ["#gold-compass", "黄金罗盘", "综合信号"],
+            ["#market-balance", "全球吸金榜", "净进出口"],
+            ["#trade-routes", "黄金航线", "跨境路线"],
+            ["#swiss-refinery", "瑞士精炼站", "精炼链路"],
+            ["#vault-crosscheck", "三地金库", "库存验证"],
+            ["#price-gap", "金价温差", "区域溢价"],
+          ].map(([href, label, detail], index) => (
+            <a href={href} key={href}>
+              <b>{String(index + 1).padStart(2, "0")}</b>
+              <span>
+                <strong>{label}</strong>
+                <small>{detail}</small>
+              </span>
+            </a>
+          ))}
+        </div>
+      </nav>
+
+      <section className="hero" id="gold-compass">
         <div className="hero-label">
-          <span>多源交叉验证</span>
+          <span>黄金罗盘 · 多源交叉验证</span>
           <b>置信度 · 中等</b>
         </div>
         <h1>
@@ -740,8 +765,8 @@ export default function Home() {
 
       <DashboardSection
         id="swiss-refinery"
-        eyebrow="瑞士精炼链路"
-        title="谁把黄金送进瑞士，又流向哪里"
+        eyebrow="进口来源与出口去向"
+        title="瑞士精炼站"
         note="来源与去向分别标注月份"
         className="refinery-section"
       >
@@ -897,8 +922,8 @@ export default function Home() {
 
       <DashboardSection
         id="trade-routes"
-        eyebrow={`报关路线 · ${formatPeriod(data.network.period)}`}
-        title="黄金从哪里流向哪里"
+        eyebrow={`跨境报关路线 · ${formatPeriod(data.network.period)}`}
+        title="黄金航线"
         note={`${data.network.coverage.mappedRouteCount}条可视路线`}
         className="network-section"
       >
@@ -1001,9 +1026,9 @@ export default function Home() {
 
       <DashboardSection
         id="market-balance"
-        eyebrow={`报关全景 · ${formatPeriod(data.marketBalances.period)}`}
-        title="谁在净进口，谁在净出口"
-        note="进口 − 出口"
+        eyebrow={`各市场净流入 · ${formatPeriod(data.marketBalances.period)}`}
+        title="全球吸金榜"
+        note="净进口 / 净出口"
       >
         <div className="balance-legend">
           <span>← 净出口</span>
@@ -1047,9 +1072,9 @@ export default function Home() {
 
       <DashboardSection
         id="vault-crosscheck"
-        eyebrow="库存交叉验证"
-        title="实物流与金库是否同向"
-        note="不同频率 · 分别标注"
+        eyebrow="伦敦 · 纽约 · 上海"
+        title="三地金库"
+        note="库存交叉验证"
       >
         <div className="vault-grid">
           <article className="vault-card">
@@ -1146,11 +1171,12 @@ export default function Home() {
         </article>
       </DashboardSection>
 
-      <section className="premium-card">
+      <section className="premium-card" id="price-gap">
         <div className="section-head light">
           <div>
             <span className="eyebrow">区域价格验证</span>
-            <h2>上海相对伦敦</h2>
+            <h2>金价温差</h2>
+            <small className="section-subtitle">上海相对伦敦</small>
           </div>
           <time>{data.priceComparison.date.replaceAll("-", ".")}</time>
         </div>
@@ -1193,8 +1219,8 @@ export default function Home() {
       <details className="method-card" id="method">
         <summary>
           <span>
-            <strong>数据口径、覆盖与限制</strong>
-            <small>哪些是直接观测，哪些是组合推断</small>
+            <strong>数据底稿</strong>
+            <small>数据来源、口径与限制</small>
           </span>
           <b>＋</b>
         </summary>
