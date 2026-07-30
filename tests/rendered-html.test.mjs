@@ -48,6 +48,7 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.doesNotMatch(html, /中港承接/);
   assert.doesNotMatch(html, /同期出口/);
   assert.doesNotMatch(html, /同期全景/);
+  assert.doesNotMatch(html, /section-content"[^>]*hidden/);
   assert.doesNotMatch(html, /Your site is taking shape/);
 });
 

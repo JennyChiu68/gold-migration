@@ -743,7 +743,6 @@ export default function Home() {
         eyebrow="瑞士精炼链路"
         title="谁把黄金送进瑞士，又流向哪里"
         note="来源与去向分别标注月份"
-        defaultOpen={false}
         className="refinery-section"
       >
         <div className="refinery-card">
@@ -1051,7 +1050,6 @@ export default function Home() {
         eyebrow="库存交叉验证"
         title="实物流与金库是否同向"
         note="不同频率 · 分别标注"
-        defaultOpen={false}
       >
         <div className="vault-grid">
           <article className="vault-card">
