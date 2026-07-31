@@ -484,51 +484,37 @@ function MarketBalanceBar({
 
 function DashboardSection({
   id,
+  chapter,
   eyebrow,
   title,
   note,
-  defaultOpen = true,
   className = "",
   children,
 }: {
   id: string;
+  chapter: string;
   eyebrow: string;
   title: string;
   note: string;
-  defaultOpen?: boolean;
   className?: string;
   children: React.ReactNode;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
-
   return (
     <section
       className={`section-block dashboard-section ${className}`.trim()}
       id={id}
     >
-      <button
-        type="button"
-        className="section-head section-toggle"
-        aria-expanded={open}
-        aria-controls={`${id}-content`}
-        onClick={() => setOpen((value) => !value)}
-      >
-        <span>
+      <header className="section-head">
+        <span className="chapter-index" aria-hidden="true">
+          {chapter}
+        </span>
+        <div>
           <span className="eyebrow">{eyebrow}</span>
-          <strong>{title}</strong>
-        </span>
-        <span className="section-meta">
-          <small>{note}</small>
-          <i aria-hidden="true">{open ? "−" : "＋"}</i>
-        </span>
-      </button>
-      <div
-        className="section-content"
-        id={`${id}-content`}
-        hidden={!open}
-      >
-        {children}
-      </div>
+          <h2>{title}</h2>
+          <p className="section-note-inline">{note}</p>
+        </div>
+      </header>
+      <div className="section-content">{children}</div>
     </section>
   );
 }
@@ -701,7 +687,7 @@ export default function Home() {
 
       <section className="hero" id="gold-compass">
         <div className="hero-label">
-          <span>黄金罗盘 · 多源交叉验证</span>
+          <span>01 · 黄金罗盘 · 多源交叉验证</span>
           <b>置信度 · 中等</b>
         </div>
         <h1>
@@ -765,6 +751,7 @@ export default function Home() {
 
       <DashboardSection
         id="swiss-refinery"
+        chapter="04"
         eyebrow="进口来源与出口去向"
         title="瑞士精炼站"
         note="来源与去向分别标注月份"
@@ -922,6 +909,7 @@ export default function Home() {
 
       <DashboardSection
         id="trade-routes"
+        chapter="03"
         eyebrow={`跨境报关路线 · ${formatPeriod(data.network.period)}`}
         title="黄金航线"
         note={`${data.network.coverage.mappedRouteCount}条可视路线`}
@@ -1026,9 +1014,11 @@ export default function Home() {
 
       <DashboardSection
         id="market-balance"
+        chapter="02"
         eyebrow={`各市场净流入 · ${formatPeriod(data.marketBalances.period)}`}
         title="全球吸金榜"
         note="净进口 / 净出口"
+        className="market-section"
       >
         <div className="balance-legend">
           <span>← 净出口</span>
@@ -1072,9 +1062,11 @@ export default function Home() {
 
       <DashboardSection
         id="vault-crosscheck"
+        chapter="05"
         eyebrow="伦敦 · 纽约 · 上海"
         title="三地金库"
         note="库存交叉验证"
+        className="vault-section"
       >
         <div className="vault-grid">
           <article className="vault-card">
@@ -1173,6 +1165,9 @@ export default function Home() {
 
       <section className="premium-card" id="price-gap">
         <div className="section-head light">
+          <span className="chapter-index dark" aria-hidden="true">
+            06
+          </span>
           <div>
             <span className="eyebrow">区域价格验证</span>
             <h2>金价温差</h2>
@@ -1257,7 +1252,7 @@ export default function Home() {
       </details>
 
       <footer>
-        <span>GLOBAL GOLD MIGRATION · V4</span>
+        <span>GLOBAL GOLD MIGRATION · V5</span>
         <span>公开数据快照 · 非实时行情</span>
       </footer>
     </main>
