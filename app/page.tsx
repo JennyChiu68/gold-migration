@@ -40,6 +40,20 @@ type MarketBalance = {
   estimatedWeight: boolean;
 };
 
+type LatestMarketObservation = {
+  code: number;
+  key: string;
+  label: string;
+  zone: string;
+  period: string | null;
+  observationPeriod: string | null;
+  status: "complete" | "partial" | "unavailableLatest";
+  importsTonnes: number | null;
+  exportsTonnes: number | null;
+  netImportsTonnes: number | null;
+  estimatedWeight: boolean;
+};
+
 type SwissOrigin = {
   code: number;
   label: string;
@@ -51,9 +65,11 @@ type SwissCategory = "mining" | "hub";
 type GoldData = {
   version: number;
   fetchedAt: string;
+  fetchedAtMeaning: string;
   commodity: { hsCode: string; label: string };
   network: {
     period: string;
+    latestComparablePeriod: string;
     comparisonPeriod: string;
     coverage: {
       originCount: number;
@@ -89,9 +105,18 @@ type GoldData = {
       definition: string;
       topOrigins: SwissOrigin[];
     };
+    exportSnapshot: {
+      period: string;
+      exportsTonnes: number;
+      estimatedWeight: boolean;
+      scope: string;
+      sourceUrl: string;
+      destinations: Route[];
+    };
   };
   marketBalances: {
     period: string;
+    latestComparablePeriod: string;
     comparisonPeriod: string;
     comparable: MarketBalance[];
     unavailable: Array<{
@@ -101,6 +126,7 @@ type GoldData = {
       period: string;
     }>;
     lagged: MarketBalance[];
+    latestAvailable: LatestMarketObservation[];
   };
   vaults: {
     london: {
@@ -115,10 +141,13 @@ type GoldData = {
       period: string;
       tonnes: number;
       ouncesMillions: number;
-      thirtyDayChangePct: number;
+      registeredTonnes: number;
+      eligibleTonnes: number;
+      totalTonnes: number;
+      dailyNetChangeTonnes: number;
+      dailyChangePct: number;
       sourceQuality: string;
       rawSourceUrl: string;
-      extractionSourceUrl: string;
     };
     shanghai: {
       period: string;
@@ -639,7 +668,6 @@ export default function Home() {
       market.exportsTonnes ?? 0,
     ]),
   );
-  const laggedChina = data.marketBalances.lagged[0];
   const londonChangeTonnes =
     data.vaults.london.history.at(-1)!.tonnes -
     data.vaults.london.history.at(-2)!.tonnes;
@@ -656,12 +684,8 @@ export default function Home() {
     month: "2-digit",
     day: "2-digit",
   });
-  const swissExportTotal =
-    data.network.origins.find((origin) => origin.code === 757)?.exportsTonnes ??
-    0;
-  const swissDestinations = data.network.routes
-    .filter((route) => route.originCode === 757)
-    .sort((left, right) => right.tonnes - left.tonnes);
+  const swissExportTotal = data.swissRefinery.exportSnapshot.exportsTonnes;
+  const swissDestinations = data.swissRefinery.exportSnapshot.destinations;
   const swissSourceRows = data.swissRefinery.importSnapshot.topOrigins.map(
     (origin) => ({
       id: `source-${origin.code}`,
@@ -729,7 +753,9 @@ export default function Home() {
 
       <div className="status-line">
         <span className="status-dot" />
-        <span>数据快照 {freshnessDate}</span>
+        <span>页面更新 {freshnessDate}</span>
+        <span aria-hidden="true">·</span>
+        <span>各模块观测期见卡片</span>
       </div>
 
       <nav className="feature-nav" id="feature-nav" aria-label="功能目录">
@@ -743,7 +769,7 @@ export default function Home() {
             ["#market-balance", "全球吸金榜", "净进出口"],
             ["#trade-routes", "黄金航线", "跨境路线"],
             ["#swiss-refinery", "瑞士精炼站", "精炼链路"],
-            ["#vault-crosscheck", "三地金库", "库存验证"],
+            ["#vault-crosscheck", "三地实物信号", "库存与交割"],
             ["#price-gap", "金价温差", "区域溢价"],
           ].map(([href, label, detail], index) => (
             <a href={href} key={href}>
@@ -767,11 +793,11 @@ export default function Home() {
           </div>
         </header>
         <h3 className="hero-summary">
-          <span>伦敦库存回升，东向报关仍高</span>
+          <span>伦敦库存回升，共同期东向报关仍高</span>
           <em>信号分化</em>
         </h3>
         <p>
-          伦敦库存自年初回升；最新可得的
+          伦敦库存自年初回升；最新共同期
           {formatPeriod(data.network.period)}报关仍显示
           <b>{tonnes.format(data.network.direction.eastboundTonnes)}吨</b>
           流向亚洲。两项数据频率与口径不同，暂不据此判断单一方向。
@@ -802,7 +828,9 @@ export default function Home() {
               {data.priceComparison.shanghaiPremiumPct >= 0 ? "+" : ""}
               {data.priceComparison.shanghaiPremiumPct.toFixed(2)}%
             </strong>
-            <small>{data.priceComparison.date.slice(0, 7)} · 指示价</small>
+            <small>
+              {data.priceComparison.date} · 月末同日对齐 · 非实时
+            </small>
           </div>
         </div>
 
@@ -825,11 +853,16 @@ export default function Home() {
       <DashboardSection
         id="market-balance"
         chapter="02"
-        eyebrow={`各市场黄金净流量 · ${formatPeriod(data.marketBalances.period)}`}
+        eyebrow={`同月可比净流量 · ${formatPeriod(data.marketBalances.period)}`}
         title="全球吸金榜"
-        note="进口 · 出口 · 净结果"
+        note="共同完整月份排名"
         className="market-section"
       >
+        <div className="comparison-note">
+          <strong>同期榜单 · {formatPeriod(data.marketBalances.period)}</strong>
+          <span>仅比较同一完整月份；下方另列各市场最新观测。</span>
+        </div>
+
         <div className="balance-group">
           <div className="balance-group-title">
             <strong>净流入市场</strong>
@@ -864,34 +897,108 @@ export default function Home() {
           </div>
         </div>
 
-        <article className="lagged-card">
-          <div>
-            <span>非同期观察项</span>
-            <strong>{laggedChina.label}</strong>
-            <small>{formatPeriod(laggedChina.period)} · 不参与同期排名</small>
+        <div className="latest-observations">
+          <div className="latest-observations-head">
+            <div>
+              <strong>各市场最新观测</strong>
+              <span>每张卡片采用该市场自身最新月份</span>
+            </div>
+            <b>不跨月排名</b>
           </div>
-          <b>{signed(laggedChina.netImportsTonnes ?? 0)}</b>
-          <p>
-            进口 {tonnes.format(laggedChina.importsTonnes ?? 0)}t · 出口{" "}
-            {tonnes.format(laggedChina.exportsTonnes ?? 0)}t
-          </p>
-        </article>
+          <div className="latest-market-grid">
+            {data.marketBalances.latestAvailable.map((market) => {
+              const unavailable =
+                market.status === "unavailableLatest";
+              const complete =
+                !unavailable &&
+                market.importsTonnes != null &&
+                market.exportsTonnes != null &&
+                market.netImportsTonnes != null;
+              const net = market.netImportsTonnes ?? 0;
 
-        <div className="coverage-note">
-          <strong>本期未进入排名</strong>
-          <p>
-            {data.marketBalances.unavailable
-              .map((market) => market.label)
-              .join("、")}
-            ：共同月份未同时提供有效进出口重量。
-          </p>
+              return (
+                <article
+                  className={`latest-market-card ${
+                    unavailable
+                      ? "unverified"
+                      : complete
+                      ? net >= 0
+                        ? "net-importer"
+                        : "net-exporter"
+                      : "partial"
+                  }`}
+                  key={market.key}
+                >
+                  <div className="latest-market-head">
+                    <div>
+                      <strong>{market.label}</strong>
+                      <time>
+                        {market.period == null
+                          ? "暂未核实"
+                          : formatPeriod(market.period)}
+                      </time>
+                    </div>
+                    <span>
+                      {unavailable
+                        ? "最新期未核实"
+                        : complete
+                        ? net >= 0
+                          ? "净流入"
+                          : "净流出"
+                        : market.importsTonnes == null
+                          ? "进口缺失"
+                          : market.exportsTonnes == null
+                            ? "出口缺失"
+                            : "数据不完整"}
+                    </span>
+                  </div>
+                  <div className="latest-market-result">
+                    {unavailable ? (
+                      <strong className="unavailable">
+                        暂无可验证数据
+                      </strong>
+                    ) : complete ? (
+                      <strong className={net >= 0 ? "positive" : "negative"}>
+                        {signed(net)}
+                      </strong>
+                    ) : (
+                      <strong className="unavailable">净额不可算</strong>
+                    )}
+                    {market.estimatedWeight && <small>含估算重量</small>}
+                  </div>
+                  <dl>
+                    <div>
+                      <dt>进口</dt>
+                      <dd>
+                        {unavailable
+                          ? "—"
+                          : market.importsTonnes == null
+                          ? "暂缺"
+                          : `${tonnes.format(market.importsTonnes)}t`}
+                      </dd>
+                    </div>
+                    <div>
+                      <dt>出口</dt>
+                      <dd>
+                        {unavailable
+                          ? "—"
+                          : market.exportsTonnes == null
+                          ? "暂缺"
+                          : `${tonnes.format(market.exportsTonnes)}t`}
+                      </dd>
+                    </div>
+                  </dl>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </DashboardSection>
 
       <DashboardSection
         id="trade-routes"
         chapter="03"
-        eyebrow={`跨境报关路线 · ${formatPeriod(data.network.period)}`}
+        eyebrow={`共同期报关路线 · ${formatPeriod(data.network.period)}`}
         title="黄金航线"
         note={`${data.network.coverage.mappedRouteCount}条可视路线`}
         className="network-section"
@@ -1004,7 +1111,7 @@ export default function Home() {
         <div className="refinery-card">
           <div className="chain-overview">
             <div>
-              <span>最新进口</span>
+              <span>官方进口</span>
               <strong>
                 {tonnes.format(
                   data.swissRefinery.importSnapshot.importsTonnes,
@@ -1012,7 +1119,7 @@ export default function Home() {
                 t
               </strong>
               <small>
-                {formatPeriod(data.swissRefinery.importSnapshot.period)}
+                BAZG · {formatPeriod(data.swissRefinery.importSnapshot.period)}
               </small>
             </div>
             <i aria-hidden="true">→</i>
@@ -1023,11 +1130,17 @@ export default function Home() {
             </div>
             <i aria-hidden="true">→</i>
             <div>
-              <span>最新可得出口</span>
+              <span>报关出口</span>
               <strong>{tonnes.format(swissExportTotal)}t</strong>
-              <small>{formatPeriod(data.network.period)}</small>
+              <small>
+                Comtrade ·{" "}
+                {formatPeriod(data.swissRefinery.exportSnapshot.period)}
+              </small>
             </div>
           </div>
+          <p className="chain-scope-note">
+            两侧为不同月份、不同商品口径的独立观测，不相减推算瑞士库存。
+          </p>
 
           <div className="refinery-tabs" role="tablist" aria-label="瑞士黄金链路">
             <button
@@ -1146,7 +1259,9 @@ export default function Home() {
                           ? `主要来源地 · ${formatPeriod(
                               data.swissRefinery.importSnapshot.period,
                             )}`
-                          : `主要目的地 · ${formatPeriod(data.network.period)}`}
+                          : `主要目的地 · ${formatPeriod(
+                              data.swissRefinery.exportSnapshot.period,
+                            )}`}
                       </span>
                       <small>吨 / 占该侧总量</small>
                     </div>
@@ -1176,7 +1291,7 @@ export default function Home() {
                   <p className="refinery-caveat">
                     {view === "source"
                       ? `${data.swissRefinery.importSnapshot.definition} “矿产供应地/金融及转口”是按来源地角色进行的分析分类，不代表每批黄金的矿山原产地。`
-                      : "出口去向来自3月HS 7108报关路线；6月进口与3月出口不是同一月份，不据此计算瑞士库存增减。"}
+                      : `${data.swissRefinery.exportSnapshot.scope} 进口侧采用BAZG 7108.1200口径，出口侧采用Comtrade HS 7108口径，两侧不可直接相减。`}
                   </p>
                 </>
               )}
@@ -1189,8 +1304,8 @@ export default function Home() {
         id="vault-crosscheck"
         chapter="05"
         eyebrow="伦敦 · 纽约 · 上海"
-        title="三地金库"
-        note="库存交叉验证"
+        title="三地实物信号"
+        note="库存与交割交叉观察"
         className="vault-section"
       >
         <div className="vault-grid">
@@ -1224,17 +1339,36 @@ export default function Home() {
               <time>{data.vaults.newYork.period.replaceAll("-", ".")}</time>
             </div>
             <div className="vault-number">
-              <strong>{Math.round(data.vaults.newYork.tonnes)}</strong>
-              <span>吨库存</span>
+              <strong>{Math.round(data.vaults.newYork.totalTonnes)}</strong>
+              <span>吨总库存</span>
             </div>
-            <div className="vault-change">
-              <span>30日变化</span>
-              <strong>{pct(data.vaults.newYork.thirtyDayChangePct)}</strong>
+            <div className="comex-breakdown">
+              <div>
+                <span>Registered</span>
+                <strong>
+                  {tonnes.format(data.vaults.newYork.registeredTonnes)}t
+                </strong>
+              </div>
+              <div>
+                <span>Eligible</span>
+                <strong>
+                  {tonnes.format(data.vaults.newYork.eligibleTonnes)}t
+                </strong>
+              </div>
             </div>
-            <p>
-              历史值来自CME日报的二次解析
-              <i>二次解析</i>
-            </p>
+            <div
+              className={`vault-change ${
+                data.vaults.newYork.dailyNetChangeTonnes >= 0
+                  ? "positive"
+                  : "negative"
+              }`}
+            >
+              <span>日净变化</span>
+              <strong>
+                {signed(data.vaults.newYork.dailyNetChangeTonnes)}
+              </strong>
+            </div>
+            <p>CME官方日报 · 日变 {pct(data.vaults.newYork.dailyChangePct)}</p>
           </article>
 
           <article className="vault-card wide">
@@ -1276,13 +1410,14 @@ export default function Home() {
           <span className="eyebrow">多市场解读</span>
           <h3>库存与报关暂未同向确认</h3>
           <p>
-            西方枢纽向亚洲的监测流量为
+            最新共同期西方枢纽向亚洲的监测流量为
             {tonnes.format(data.network.direction.eastboundTonnes)}
-            吨、环比放缓且含部分估算重量；同时伦敦库存增加、COMEX库存下降、上金所出库上升。它说明多个市场正在重新分配，不能只凭伦敦库存增加就判断“黄金西回”。
+            吨、环比放缓且含部分估算重量；最新观测期内，伦敦库存增加、COMEX总库存日度小幅增加、上金所出库上升。它说明多个市场正在重新分配，不能只凭伦敦库存增加就判断“黄金西回”。
           </p>
           <div className="signal-tags">
             <span>海关：东向放缓</span>
             <span>伦敦：库存增加</span>
+            <span>COMEX：日度微增</span>
             <span>上海：出库增加</span>
           </div>
         </article>
@@ -1296,9 +1431,10 @@ export default function Home() {
           <div>
             <span className="eyebrow">区域价格验证</span>
             <h2>金价温差</h2>
-            <small className="section-subtitle">上海相对伦敦</small>
+            <small className="section-subtitle">
+              最新完整月末同日对齐 · {data.priceComparison.date} · 非实时
+            </small>
           </div>
-          <time>{data.priceComparison.date.replaceAll("-", ".")}</time>
         </div>
         <div className="premium-value">
           <strong>
@@ -1332,7 +1468,7 @@ export default function Home() {
           </span>
         </div>
         <p>
-          价格用于验证实物流方向，不把价差直接等同于运输套利空间；换算不含税费、运保与规格差异。
+          这是月末同日的指示性对齐，不是实时价差。价格用于验证实物流方向，不把价差直接等同于运输套利空间；换算不含税费、运保与规格差异。
         </p>
       </section>
 
@@ -1377,7 +1513,7 @@ export default function Home() {
       </details>
 
       <footer>
-        <span>GLOBAL GOLD MIGRATION · V5</span>
+        <span>GLOBAL GOLD MIGRATION · V6</span>
         <span>公开数据快照 · 非实时行情</span>
       </footer>
     </main>

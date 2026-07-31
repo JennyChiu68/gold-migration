@@ -29,14 +29,14 @@ test("server-renders the global gold migration dashboard", async () => {
 
   const html = await response.text();
   assert.match(html, /全球黄金迁徙地图/);
-  assert.match(html, /伦敦库存回升，东向报关仍高/);
+  assert.match(html, /伦敦库存回升，共同期东向报关仍高/);
   assert.match(html, /信号分化/);
   assert.match(html, /功能目录/);
   assert.match(html, /黄金罗盘/);
   assert.match(html, /全球吸金榜/);
   assert.match(html, /黄金航线/);
   assert.match(html, /瑞士精炼站/);
-  assert.match(html, /三地金库/);
+  assert.match(html, /三地实物信号/);
   assert.match(html, /金价温差/);
   assert.match(html, /数据底稿/);
   assert.match(html, /href="#gold-compass"/);
@@ -44,13 +44,17 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /href="#price-gap"/);
   assert.match(html, /进口来源/);
   assert.match(html, /出口去向/);
-  assert.match(html, /最新可得出口/);
+  assert.match(html, /报关出口/);
   assert.match(html, /主要矿产供应地/);
   assert.match(html, /金融及转口枢纽/);
   assert.match(html, /排行榜/);
   assert.match(html, /迁徙地图/);
   assert.match(html, /重量估算/);
-  assert.match(html, /库存交叉验证/);
+  assert.match(html, /库存与交割/);
+  assert.match(html, /CME官方日报/);
+  assert.match(html, /月末同日对齐/);
+  assert.match(html, /2019.12/);
+  assert.match(html, /净额不可算/);
   assert.match(html, /中国内地/);
   assert.match(html, /中国香港/);
   assert.doesNotMatch(html, /中港承接/);

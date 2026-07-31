@@ -1,13 +1,21 @@
 {
-  "version": 3,
-  "fetchedAt": "2026-07-29T08:00:00.000Z",
+  "version": 4,
+  "fetchedAt": "2026-07-31T08:50:00.000Z",
+  "fetchedAtMeaning": "页面数据包构建时间；各模块真实观测期与来源抓取时间见observationPeriod和sourceFetchedAt。",
   "commodity": {
     "hsCode": "7108",
     "label": "黄金（未锻造、半制成或粉末）"
   },
   "network": {
     "period": "202603",
+    "observationPeriod": "202603",
+    "latestComparablePeriod": "202603",
     "comparisonPeriod": "202602",
+    "sourceFetchedAt": "2026-07-28T08:19:42.745Z",
+    "frequency": "monthly",
+    "status": "latestComparable",
+    "scope": "六个监测枢纽中数据完整市场的共同完整月份，用于跨市场路线与东西向比较；不代表每个市场各自最新月份。",
+    "sourceUrl": "https://comtradeapi.un.org/public/v1/preview/C/M/HS",
     "coverage": {
       "originCount": 4,
       "candidateOriginCount": 6,
@@ -586,6 +594,11 @@
   "swissRefinery": {
     "importSnapshot": {
       "period": "2026-06",
+      "observationPeriod": "202606",
+      "sourceFetchedAt": "2026-07-29T08:00:00.000Z",
+      "frequency": "monthly",
+      "status": "manualSnapshot",
+      "scope": "瑞士官方黄金进口来源国月度总量；来源国不等同于矿山原产地。",
       "importsTonnes": 149.6,
       "sourceUrl": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
       "definition": "瑞士官方黄金进口来源国月度汇总；来源国不等于矿山原产地。",
@@ -641,11 +654,500 @@
           "tonnes": 5.1
         }
       ]
+    },
+    "exportSnapshot": {
+      "period": "202605",
+      "observationPeriod": "202605",
+      "sourceFetchedAt": "2026-07-27T10:33:28.207Z",
+      "frequency": "monthly",
+      "status": "latestAvailable",
+      "scope": "瑞士自身最新可得的HS 7108月度出口总量与完整目的地排名；不与6月进口相减推算库存。",
+      "exportsTonnes": 107.78701099999999,
+      "estimatedWeight": true,
+      "destinationCount": 39,
+      "sourceUrl": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500",
+      "destinations": [
+        {
+          "id": "757-826",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 826,
+          "destination": "United Kingdom",
+          "tonnes": 39.402,
+          "valueUsd": 5840610457.508,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-156",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 156,
+          "destination": "China",
+          "tonnes": 31.549,
+          "valueUsd": 4688528379.876,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-344",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 344,
+          "destination": "China, Hong Kong SAR",
+          "tonnes": 10.285,
+          "valueUsd": 1546654039.17,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-764",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 764,
+          "destination": "Thailand",
+          "tonnes": 3.528,
+          "valueUsd": 517900605.807,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-276",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 276,
+          "destination": "Germany",
+          "tonnes": 2.955,
+          "valueUsd": 437757798.497,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-792",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 792,
+          "destination": "Türkiye",
+          "tonnes": 2.875,
+          "valueUsd": 422468929.818,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-682",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 682,
+          "destination": "Saudi Arabia",
+          "tonnes": 2.613,
+          "valueUsd": 384406777.144,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-842",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 842,
+          "destination": "USA",
+          "tonnes": 2.543,
+          "valueUsd": 364608195.382,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-380",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 380,
+          "destination": "Italy",
+          "tonnes": 2.353,
+          "valueUsd": 319655791.143,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-784",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 784,
+          "destination": "United Arab Emirates",
+          "tonnes": 2.186,
+          "valueUsd": 322944393.295,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-702",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 702,
+          "destination": "Singapore",
+          "tonnes": 1.717,
+          "valueUsd": 254105530.169,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-251",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 251,
+          "destination": "France",
+          "tonnes": 1.415,
+          "valueUsd": 189437564.437,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-699",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 699,
+          "destination": "India",
+          "tonnes": 0.955,
+          "valueUsd": 142444977.036,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-458",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 458,
+          "destination": "Malaysia",
+          "tonnes": 0.83,
+          "valueUsd": 124004520.619,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-490",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 490,
+          "destination": "Other Asia, nes",
+          "tonnes": 0.726,
+          "valueUsd": 108735613.613,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-40",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 40,
+          "destination": "Austria",
+          "tonnes": 0.713,
+          "valueUsd": 107419561.743,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-762",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 762,
+          "destination": "Tajikistan",
+          "tonnes": 0.36,
+          "valueUsd": 60497328.342,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-422",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 422,
+          "destination": "Lebanon",
+          "tonnes": 0.193,
+          "valueUsd": 28175028.446,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-634",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 634,
+          "destination": "Qatar",
+          "tonnes": 0.088,
+          "valueUsd": 13100011.71,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-124",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 124,
+          "destination": "Canada",
+          "tonnes": 0.07101,
+          "valueUsd": 10640193.701,
+          "estimatedWeight": true
+        },
+        {
+          "id": "757-233",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 233,
+          "destination": "Estonia",
+          "tonnes": 0.057,
+          "valueUsd": 8338851.901,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-410",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 410,
+          "destination": "Rep. of Korea",
+          "tonnes": 0.051,
+          "valueUsd": 7441951.831,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-616",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 616,
+          "destination": "Poland",
+          "tonnes": 0.047,
+          "valueUsd": 6955295.878,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-56",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 56,
+          "destination": "Belgium",
+          "tonnes": 0.044,
+          "valueUsd": 2758776.627,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-36",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 36,
+          "destination": "Australia",
+          "tonnes": 0.042,
+          "valueUsd": 6278426.669,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-348",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 348,
+          "destination": "Hungary",
+          "tonnes": 0.034,
+          "valueUsd": 5242437.25,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-724",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 724,
+          "destination": "Spain",
+          "tonnes": 0.031,
+          "valueUsd": 4655390.472,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-818",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 818,
+          "destination": "Egypt",
+          "tonnes": 0.029,
+          "valueUsd": 4278402.64,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-752",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 752,
+          "destination": "Sweden",
+          "tonnes": 0.02,
+          "valueUsd": 2858576.071,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-300",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 300,
+          "destination": "Greece",
+          "tonnes": 0.018,
+          "valueUsd": 2643774.602,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-642",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 642,
+          "destination": "Romania",
+          "tonnes": 0.014,
+          "valueUsd": 2310384.583,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-392",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 392,
+          "destination": "Japan",
+          "tonnes": 0.012,
+          "valueUsd": 909851.834,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-246",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 246,
+          "destination": "Finland",
+          "tonnes": 0.011,
+          "valueUsd": 1732270.979,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-860",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 860,
+          "destination": "Uzbekistan",
+          "tonnes": 0.011,
+          "valueUsd": 1569968.633,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-807",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 807,
+          "destination": "North Macedonia",
+          "tonnes": 0.004,
+          "valueUsd": 578114.879,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-203",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 203,
+          "destination": "Czechia",
+          "tonnes": 0.002,
+          "valueUsd": 634799.556,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-442",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 442,
+          "destination": "Luxembourg",
+          "tonnes": 0.002,
+          "valueUsd": 232155.456,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-208",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 208,
+          "destination": "Denmark",
+          "tonnes": 0.001,
+          "valueUsd": 98426.776,
+          "estimatedWeight": false
+        },
+        {
+          "id": "757-372",
+          "period": "202605",
+          "originCode": 757,
+          "origin": "瑞士",
+          "originZone": "west",
+          "destinationCode": 372,
+          "destination": "Ireland",
+          "tonnes": 0.000001,
+          "valueUsd": 89.217,
+          "estimatedWeight": true
+        }
+      ]
     }
   },
   "marketBalances": {
     "period": "202603",
+    "observationPeriod": "202603",
+    "latestComparablePeriod": "202603",
     "comparisonPeriod": "202602",
+    "sourceFetchedAt": "2026-07-28T08:19:42.745Z",
+    "frequency": "monthly",
+    "status": "latestComparable",
+    "scope": "净流入榜仅使用各市场均具备有效进口和出口重量的共同完整月份；latestAvailable仅供单市场观察，不能混排。",
+    "sourceUrl": "https://comtradeapi.un.org/public/v1/preview/C/M/HS",
     "comparable": [
       {
         "code": 344,
@@ -759,11 +1261,218 @@
         "changeTonnes": -23.38593200000001,
         "estimatedWeight": false
       }
+    ],
+    "latestAvailable": [
+      {
+        "code": 757,
+        "key": "switzerland",
+        "label": "瑞士",
+        "zone": "west",
+        "period": "202605",
+        "observationPeriod": "202605",
+        "sourceFetchedAt": "2026-07-31T08:20:00.000Z",
+        "frequency": "monthly",
+        "status": "complete",
+        "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
+        "importsTonnes": 154.836691,
+        "exportsTonnes": 107.787011,
+        "netImportsTonnes": 47.04968,
+        "estimatedWeight": true,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=757&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500"
+        }
+      },
+      {
+        "code": 826,
+        "key": "unitedKingdom",
+        "label": "英国",
+        "zone": "west",
+        "period": "202605",
+        "observationPeriod": "202605",
+        "sourceFetchedAt": "2026-07-31T08:20:00.000Z",
+        "frequency": "monthly",
+        "status": "complete",
+        "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
+        "importsTonnes": 100.424102,
+        "exportsTonnes": 60.405977,
+        "netImportsTonnes": 40.018125,
+        "estimatedWeight": false,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=826&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 842,
+        "key": "unitedStates",
+        "label": "美国",
+        "zone": "west",
+        "period": "202605",
+        "observationPeriod": "202605",
+        "sourceFetchedAt": "2026-07-31T08:20:00.000Z",
+        "frequency": "monthly",
+        "status": "complete",
+        "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
+        "importsTonnes": 8.583852,
+        "exportsTonnes": 57.114416,
+        "netImportsTonnes": -48.530564,
+        "estimatedWeight": true,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=842&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=842&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 699,
+        "key": "india",
+        "label": "印度",
+        "zone": "asia",
+        "period": "202604",
+        "observationPeriod": "202604",
+        "sourceFetchedAt": "2026-07-31T08:20:00.000Z",
+        "frequency": "monthly",
+        "status": "complete",
+        "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
+        "importsTonnes": 45.624746,
+        "exportsTonnes": 0.116006,
+        "netImportsTonnes": 45.50874,
+        "estimatedWeight": true,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202604&reporterCode=699&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202604&reporterCode=699&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 344,
+        "key": "hongKong",
+        "label": "中国香港",
+        "zone": "asia",
+        "period": "202605",
+        "observationPeriod": "202605",
+        "sourceFetchedAt": "2026-07-31T08:20:00.000Z",
+        "frequency": "monthly",
+        "status": "partial",
+        "scope": "该市场自身最新可得月份的进口重量有效，但出口金额有记录、净重为空，不能计算净流量。",
+        "importsTonnes": 116.685,
+        "exportsTonnes": null,
+        "netImportsTonnes": null,
+        "estimatedWeight": false,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=344&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=344&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 156,
+        "key": "chinaMainland",
+        "label": "中国内地",
+        "zone": "asia",
+        "period": "202412",
+        "observationPeriod": "202412",
+        "sourceFetchedAt": "2026-07-31T08:20:00.000Z",
+        "frequency": "monthly",
+        "status": "complete",
+        "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
+        "importsTonnes": 104.287436,
+        "exportsTonnes": 20.263454000000003,
+        "netImportsTonnes": 84.02398199999999,
+        "estimatedWeight": false,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202412&reporterCode=156&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202412&reporterCode=156&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 764,
+        "key": "thailand",
+        "label": "泰国",
+        "zone": "asia",
+        "period": "202605",
+        "observationPeriod": "202605",
+        "sourceFetchedAt": "2026-07-31T08:42:00.000Z",
+        "frequency": "monthly",
+        "status": "partial",
+        "scope": "2026年5月进口有金额但净重为空，出口重量为官方估算；不能计算净流量或参与排名。",
+        "importsTonnes": null,
+        "exportsTonnes": 9.65351,
+        "netImportsTonnes": null,
+        "estimatedWeight": true,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=764&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=764&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 792,
+        "key": "turkiye",
+        "label": "土耳其",
+        "zone": "other",
+        "period": "202512",
+        "observationPeriod": "202512",
+        "sourceFetchedAt": "2026-07-31T08:49:00.000Z",
+        "frequency": "monthly",
+        "status": "partial",
+        "scope": "2025年12月进口重量有效，但出口净重为空；不能计算净流量或参与排名。",
+        "importsTonnes": 14.558,
+        "exportsTonnes": null,
+        "netImportsTonnes": null,
+        "estimatedWeight": false,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202512&reporterCode=792&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202512&reporterCode=792&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 784,
+        "key": "unitedArabEmirates",
+        "label": "阿联酋",
+        "zone": "other",
+        "period": "201912",
+        "observationPeriod": "201912",
+        "sourceFetchedAt": "2026-07-31T08:49:00.000Z",
+        "frequency": "monthly",
+        "status": "complete",
+        "scope": "UN Comtrade对阿联酋的最新月度数据停留在2019年12月；仅作历史最新观察，不参与共同期排名。",
+        "importsTonnes": 65.457,
+        "exportsTonnes": 123.02841,
+        "netImportsTonnes": -57.57141,
+        "estimatedWeight": false,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=201912&reporterCode=784&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=201912&reporterCode=784&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      },
+      {
+        "code": 702,
+        "key": "singapore",
+        "label": "新加坡",
+        "zone": "asia",
+        "period": "202512",
+        "observationPeriod": "202512",
+        "sourceFetchedAt": "2026-07-31T08:49:00.000Z",
+        "frequency": "monthly",
+        "status": "partial",
+        "scope": "2025年12月进口净重为空、出口重量有效；不能计算净流量或参与排名。",
+        "importsTonnes": null,
+        "exportsTonnes": 12.75694,
+        "netImportsTonnes": null,
+        "estimatedWeight": false,
+        "sourceUrls": {
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202512&reporterCode=702&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202512&reporterCode=702&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+        }
+      }
     ]
   },
   "vaults": {
     "london": {
       "period": "2026-06",
+      "observationPeriod": "202606",
+      "sourceFetchedAt": "2026-07-29T08:00:00.000Z",
+      "frequency": "monthly",
+      "status": "manualSnapshot",
+      "scope": "伦敦专业金库月末黄金持有量，不等同于英国报关库存。",
       "tonnes": 9464.321438088,
       "monthlyChangePct": 0.7673992425580423,
       "history": [
@@ -824,16 +1533,39 @@
       "workbookUrl": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-June-2026.xlsx"
     },
     "newYork": {
-      "period": "2026-07-22",
-      "tonnes": 840.104908368,
-      "ouncesMillions": 27.01,
-      "thirtyDayChangePct": -3.1,
-      "sourceQuality": "CME日报的第三方结构化提取",
-      "rawSourceUrl": "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
-      "extractionSourceUrl": "https://thevaultreport.com/briefing/2026-07-24"
+      "period": "2026-07-30",
+      "observationPeriod": "2026-07-30",
+      "activityDate": "2026-07-29",
+      "sourceFetchedAt": "2026-07-31T00:00:00.000Z",
+      "frequency": "daily",
+      "status": "current",
+      "scope": "COMEX批准金库黄金库存；registered包含pledged，计算总量时不得重复相加。",
+      "registeredOunces": 14747681.698,
+      "pledgedOunces": 1833860.235,
+      "eligibleOunces": 12289920.902,
+      "totalOunces": 27037602.6,
+      "previousTotalOunces": 27025730.839,
+      "dailyNetChangeOunces": 11871.761,
+      "dailyReceivedOunces": 11903.912,
+      "dailyWithdrawnOunces": 32.151,
+      "registeredTonnes": 458.7041755475276,
+      "pledgedTonnes": 57.03942927376505,
+      "eligibleTonnes": 382.2592696491921,
+      "totalTonnes": 840.9634451967198,
+      "tonnes": 840.9634451967198,
+      "ouncesMillions": 27.0376026,
+      "dailyNetChangeTonnes": 0.3692530428386448,
+      "dailyChangePct": 0.04392762242295678,
+      "sourceQuality": "CME官方日报",
+      "rawSourceUrl": "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls"
     },
     "shanghai": {
       "period": "2026-06",
+      "observationPeriod": "202606",
+      "sourceFetchedAt": "2026-07-02T00:00:00.000Z",
+      "frequency": "monthly",
+      "status": "manualSnapshot",
+      "scope": "上海黄金交易所月报中的黄金出库量与交割量，不等同于交易所总库存。",
       "withdrawalsTonnes": 86.6824,
       "previousWithdrawalsTonnes": 63.58446,
       "deliveryTonnes": 565.6723,
@@ -844,6 +1576,12 @@
   },
   "priceComparison": {
     "date": "2026-06-30",
+    "observationPeriod": "2026-06-30",
+    "sourceFetchedAt": "2026-07-29T08:00:00.000Z",
+    "frequency": "monthly-aligned",
+    "alignment": "monthly-aligned",
+    "status": "manualSnapshot",
+    "scope": "上海Au99.99、LBMA PM与ECB同日汇率的月末指示性换算；不含税费、运保与规格差异。",
     "shanghaiAu9999CnyPerGram": 879.03,
     "lbmaPmUsdPerOunce": 4026.05,
     "ecbCnyPerEur": 7.7314,
@@ -854,7 +1592,7 @@
   "methodology": {
     "measured": "跨境路线与市场净进出口来自UN Comtrade HS 7108月度数据；标记“重量估算”的记录为官方估算重量，不等同于直接申报重量。",
     "inferred": "东西向指标仅汇总六个监测枢纽的跨区域报关流量；同一批黄金可能因转口而被多次记录。",
-    "comparability": "净流入榜只比较共同月份；中国内地因月度数据更新较慢，单列最新可得月份。"
+    "comparability": "净流入榜和方向指标使用2026年3月共同完整期；各市场latestAvailable按自身最新月份单列，不参与跨市场排名。"
   },
   "sources": [
     {
@@ -879,7 +1617,7 @@
     },
     {
       "name": "CME Group",
-      "detail": "COMEX批准金库每日库存原始表",
+      "detail": "COMEX批准金库每日库存官方原始表",
       "url": "https://www.cmegroup.com/clearing/operations-and-deliveries/registrar-reports.html"
     },
     {
