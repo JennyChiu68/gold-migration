@@ -433,50 +433,91 @@ function NetworkMap({
 
 function MarketBalanceBar({
   market,
-  maxAbsolute,
+  maxFlow,
   index,
 }: {
   market: MarketBalance;
-  maxAbsolute: number;
+  maxFlow: number;
   index: number;
 }) {
   const net = market.netImportsTonnes ?? 0;
-  const width = Math.max(2.5, (Math.abs(net) / maxAbsolute) * 48);
-  const style =
-    net >= 0
-      ? { left: "50%", width: `${width}%` }
-      : { left: `${50 - width}%`, width: `${width}%` };
+  const imports = market.importsTonnes ?? 0;
+  const exports = market.exportsTonnes ?? 0;
+  const previous = market.previousNetImportsTonnes;
+  const importWidth = maxFlow > 0 ? (imports / maxFlow) * 100 : 0;
+  const exportWidth = maxFlow > 0 ? (exports / maxFlow) * 100 : 0;
+  let trend = "前月口径不全";
+
+  if (previous != null) {
+    const difference = Math.abs(net - previous);
+
+    if (difference < 0.05) {
+      trend = "较上月基本持平";
+    } else if (net >= 0 && previous >= 0) {
+      trend = `净流入${net > previous ? "扩大" : "收窄"} ${tonnes.format(
+        difference,
+      )}t`;
+    } else if (net < 0 && previous < 0) {
+      trend = `净流出${
+        Math.abs(net) > Math.abs(previous) ? "扩大" : "收窄"
+      } ${tonnes.format(difference)}t`;
+    } else {
+      trend = net >= 0 ? "由净流出转为净流入" : "由净流入转为净流出";
+    }
+  }
 
   return (
-    <article className="balance-row">
+    <article
+      className={`balance-row ${
+        net >= 0 ? "net-importer" : "net-exporter"
+      }`}
+    >
       <div className="balance-head">
         <span className="balance-rank">
           {String(index + 1).padStart(2, "0")}
         </span>
         <div className="balance-name">
           <strong>{market.label}</strong>
-          <span>{market.estimatedWeight ? "重量估算" : "官方总计"}</span>
+          <span>{market.estimatedWeight ? "估算重量" : "官方重量"}</span>
         </div>
-        <b className={net >= 0 ? "positive" : "negative"}>
-          {signed(net)}
-        </b>
+        <div className="balance-result">
+          <span>{net >= 0 ? "净流入" : "净流出"}</span>
+          <b className={net >= 0 ? "positive" : "negative"}>
+            {tonnes.format(Math.abs(net))}
+            <small>t</small>
+          </b>
+        </div>
       </div>
-      <div className="balance-track" aria-hidden="true">
-        <i className="balance-zero" />
-        <span
-          className={net >= 0 ? "importer" : "exporter"}
-          style={style}
-        />
+      <div
+        className="flow-comparison"
+        aria-label={`进口${tonnes.format(imports)}吨，出口${tonnes.format(
+          exports,
+        )}吨`}
+      >
+        <div className="flow-row">
+          <span>进口</span>
+          <div className="flow-track" aria-hidden="true">
+            <i
+              className="flow-import"
+              style={{ width: `${importWidth}%` }}
+            />
+          </div>
+          <strong>{tonnes.format(imports)}t</strong>
+        </div>
+        <div className="flow-row">
+          <span>出口</span>
+          <div className="flow-track" aria-hidden="true">
+            <i
+              className="flow-export"
+              style={{ width: `${exportWidth}%` }}
+            />
+          </div>
+          <strong>{tonnes.format(exports)}t</strong>
+        </div>
       </div>
-      <div className="balance-foot">
-        <span>进口 {tonnes.format(market.importsTonnes ?? 0)}t</span>
-        <span>出口 {tonnes.format(market.exportsTonnes ?? 0)}t</span>
-        <span>
-          较上月{" "}
-          {market.changeTonnes == null
-            ? "前月口径不全"
-            : signed(market.changeTonnes)}
-        </span>
+      <div className="balance-change">
+        <span>较上月</span>
+        <strong>{trend}</strong>
       </div>
     </article>
   );
@@ -558,10 +599,17 @@ export default function Home() {
     (left, right) =>
       (right.netImportsTonnes ?? 0) - (left.netImportsTonnes ?? 0),
   );
-  const maxBalance = Math.max(
-    ...rankedMarkets.map((market) =>
-      Math.abs(market.netImportsTonnes ?? 0),
-    ),
+  const inflowMarkets = rankedMarkets.filter(
+    (market) => (market.netImportsTonnes ?? 0) >= 0,
+  );
+  const outflowMarkets = rankedMarkets.filter(
+    (market) => (market.netImportsTonnes ?? 0) < 0,
+  );
+  const maxMarketFlow = Math.max(
+    ...rankedMarkets.flatMap((market) => [
+      market.importsTonnes ?? 0,
+      market.exportsTonnes ?? 0,
+    ]),
   );
   const laggedChina = data.marketBalances.lagged[0];
   const londonChangeTonnes =
@@ -1016,25 +1064,43 @@ export default function Home() {
       <DashboardSection
         id="market-balance"
         chapter="02"
-        eyebrow={`各市场净流入 · ${formatPeriod(data.marketBalances.period)}`}
+        eyebrow={`各市场黄金净流量 · ${formatPeriod(data.marketBalances.period)}`}
         title="全球吸金榜"
-        note="净进口 / 净出口"
+        note="进口 · 出口 · 净结果"
         className="market-section"
       >
-        <div className="balance-legend">
-          <span>← 净出口</span>
-          <span>0</span>
-          <span>净进口 →</span>
+        <div className="balance-group">
+          <div className="balance-group-title">
+            <strong>净流入市场</strong>
+            <span>{inflowMarkets.length}个</span>
+          </div>
+          <div className="balance-list">
+            {inflowMarkets.map((market, index) => (
+              <MarketBalanceBar
+                key={market.key}
+                market={market}
+                maxFlow={maxMarketFlow}
+                index={index}
+              />
+            ))}
+          </div>
         </div>
-        <div className="balance-list">
-          {rankedMarkets.map((market, index) => (
-            <MarketBalanceBar
-              key={market.key}
-              market={market}
-              maxAbsolute={maxBalance}
-              index={index}
-            />
-          ))}
+
+        <div className="balance-group outflow-group">
+          <div className="balance-group-title">
+            <strong>净流出市场</strong>
+            <span>{outflowMarkets.length}个</span>
+          </div>
+          <div className="balance-list">
+            {outflowMarkets.map((market, index) => (
+              <MarketBalanceBar
+                key={market.key}
+                market={market}
+                maxFlow={maxMarketFlow}
+                index={inflowMarkets.length + index}
+              />
+            ))}
+          </div>
         </div>
 
         <article className="lagged-card">
