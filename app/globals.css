@@ -283,7 +283,6 @@ summary:focus-visible {
   content: "";
 }
 
-.hero-label,
 .section-head,
 .balance-head,
 .balance-foot,
@@ -295,30 +294,30 @@ footer {
   justify-content: space-between;
 }
 
-.hero-label {
+.hero-section-head {
   position: relative;
   z-index: 1;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 11px;
-  letter-spacing: 0.03em;
+  justify-content: flex-start;
+  gap: 12px;
+  margin: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--dark-line);
 }
 
-.hero-label span {
-  padding: 6px 9px;
-  border: 1px solid rgba(255, 255, 255, 0.13);
-  border-radius: 999px;
+.hero-section-head h2 {
+  color: #fffdf6;
+  font-size: 22px;
 }
 
-.hero-label b {
-  color: var(--gold-bright);
-  font-size: 11px;
-  font-weight: 650;
+.hero-chapter-index {
+  border: 1px solid rgba(242, 197, 93, 0.2);
+  background: rgba(242, 197, 93, 0.1);
 }
 
 .hero h1 {
   position: relative;
   z-index: 1;
-  margin: 27px 0 12px;
+  margin: 20px 0 12px;
   font-size: clamp(18px, 4.8vw, 22px);
   font-weight: 600;
   letter-spacing: -0.035em;
@@ -441,13 +440,6 @@ footer {
   color: rgba(255, 255, 255, 0.9);
   font-size: 13px;
   font-weight: 620;
-}
-
-.hero .hero-caveat {
-  margin-top: 14px;
-  color: rgba(255, 255, 255, 0.54);
-  font-size: 12px;
-  line-height: 1.65;
 }
 
 .section-block {

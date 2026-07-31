@@ -686,10 +686,14 @@ export default function Home() {
       </nav>
 
       <section className="hero" id="gold-compass">
-        <div className="hero-label">
-          <span>01 · 黄金罗盘 · 多源交叉验证</span>
-          <b>置信度 · 中等</b>
-        </div>
+        <header className="section-head hero-section-head">
+          <span className="chapter-index hero-chapter-index" aria-hidden="true">
+            01
+          </span>
+          <div>
+            <h2>黄金罗盘</h2>
+          </div>
+        </header>
         <h1>
           伦敦库存回升，东向报关仍高
           <em>信号分化</em>
@@ -744,9 +748,6 @@ export default function Home() {
             <strong>接近平价</strong>
           </div>
         </div>
-        <p className="hero-caveat">
-          不同来源频率不同；库存变化不直接等同于跨境搬运，方向结论需由报关、库存和区域价格共同确认。
-        </p>
       </section>
 
       <DashboardSection
