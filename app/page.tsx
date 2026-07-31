@@ -54,6 +54,15 @@ type LatestMarketObservation = {
   estimatedWeight: boolean;
 };
 
+type CompleteLatestMarketObservation = LatestMarketObservation & {
+  period: string;
+  observationPeriod: string;
+  status: "complete";
+  importsTonnes: number;
+  exportsTonnes: number;
+  netImportsTonnes: number;
+};
+
 type SwissOrigin = {
   code: number;
   label: string;
@@ -662,6 +671,16 @@ export default function Home() {
   const outflowMarkets = rankedMarkets.filter(
     (market) => (market.netImportsTonnes ?? 0) < 0,
   );
+  const completeLatestMarkets =
+    data.marketBalances.latestAvailable.filter(
+      (market): market is CompleteLatestMarketObservation =>
+        market.status === "complete" &&
+        market.period != null &&
+        market.observationPeriod != null &&
+        market.importsTonnes != null &&
+        market.exportsTonnes != null &&
+        market.netImportsTonnes != null,
+    );
   const maxMarketFlow = Math.max(
     ...rankedMarkets.flatMap((market) => [
       market.importsTonnes ?? 0,
@@ -900,92 +919,43 @@ export default function Home() {
         <div className="latest-observations">
           <div className="latest-observations-head">
             <div>
-              <strong>各市场最新观测</strong>
-              <span>每张卡片采用该市场自身最新月份</span>
+              <strong>各市场最新完整观测</strong>
+              <span>仅展示进口、出口与净额均完整的市场</span>
             </div>
             <b>不跨月排名</b>
           </div>
           <div className="latest-market-grid">
-            {data.marketBalances.latestAvailable.map((market) => {
-              const unavailable =
-                market.status === "unavailableLatest";
-              const complete =
-                !unavailable &&
-                market.importsTonnes != null &&
-                market.exportsTonnes != null &&
-                market.netImportsTonnes != null;
-              const net = market.netImportsTonnes ?? 0;
+            {completeLatestMarkets.map((market) => {
+              const net = market.netImportsTonnes;
 
               return (
                 <article
                   className={`latest-market-card ${
-                    unavailable
-                      ? "unverified"
-                      : complete
-                      ? net >= 0
-                        ? "net-importer"
-                        : "net-exporter"
-                      : "partial"
+                    net >= 0 ? "net-importer" : "net-exporter"
                   }`}
                   key={market.key}
                 >
                   <div className="latest-market-head">
                     <div>
                       <strong>{market.label}</strong>
-                      <time>
-                        {market.period == null
-                          ? "暂未核实"
-                          : formatPeriod(market.period)}
-                      </time>
+                      <time>{formatPeriod(market.period)}</time>
                     </div>
-                    <span>
-                      {unavailable
-                        ? "最新期未核实"
-                        : complete
-                        ? net >= 0
-                          ? "净流入"
-                          : "净流出"
-                        : market.importsTonnes == null
-                          ? "进口缺失"
-                          : market.exportsTonnes == null
-                            ? "出口缺失"
-                            : "数据不完整"}
-                    </span>
+                    <span>{net >= 0 ? "净流入" : "净流出"}</span>
                   </div>
                   <div className="latest-market-result">
-                    {unavailable ? (
-                      <strong className="unavailable">
-                        暂无可验证数据
-                      </strong>
-                    ) : complete ? (
-                      <strong className={net >= 0 ? "positive" : "negative"}>
-                        {signed(net)}
-                      </strong>
-                    ) : (
-                      <strong className="unavailable">净额不可算</strong>
-                    )}
+                    <strong className={net >= 0 ? "positive" : "negative"}>
+                      {signed(net)}
+                    </strong>
                     {market.estimatedWeight && <small>含估算重量</small>}
                   </div>
                   <dl>
                     <div>
                       <dt>进口</dt>
-                      <dd>
-                        {unavailable
-                          ? "—"
-                          : market.importsTonnes == null
-                          ? "暂缺"
-                          : `${tonnes.format(market.importsTonnes)}t`}
-                      </dd>
+                      <dd>{tonnes.format(market.importsTonnes)}t</dd>
                     </div>
                     <div>
                       <dt>出口</dt>
-                      <dd>
-                        {unavailable
-                          ? "—"
-                          : market.exportsTonnes == null
-                          ? "暂缺"
-                          : `${tonnes.format(market.exportsTonnes)}t`}
-                      </dd>
+                      <dd>{tonnes.format(market.exportsTonnes)}t</dd>
                     </div>
                   </dl>
                 </article>

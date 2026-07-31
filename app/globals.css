@@ -1411,15 +1411,6 @@ footer {
   background: var(--red);
 }
 
-.latest-market-card.partial::before,
-.latest-market-card.unverified::before {
-  background: #a6aaa2;
-}
-
-.latest-market-card.unverified {
-  background: rgba(255, 253, 248, 0.62);
-}
-
 .latest-market-head {
   display: flex;
   min-width: 0;
@@ -1477,13 +1468,6 @@ footer {
 
 .latest-market-result > strong.negative {
   color: var(--red);
-}
-
-.latest-market-result > strong.unavailable {
-  color: var(--muted);
-  font-family: inherit;
-  font-size: 14px;
-  letter-spacing: 0;
 }
 
 .latest-market-result > small {

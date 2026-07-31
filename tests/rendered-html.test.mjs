@@ -54,7 +54,12 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /CME官方日报/);
   assert.match(html, /月末同日对齐/);
   assert.match(html, /2019.12/);
-  assert.match(html, /净额不可算/);
+  assert.match(html, /各市场最新完整观测/);
+  assert.equal((html.match(/class="latest-market-card/g) ?? []).length, 6);
+  assert.doesNotMatch(html, /净额不可算/);
+  assert.doesNotMatch(html, /进口缺失/);
+  assert.doesNotMatch(html, /出口缺失/);
+  assert.doesNotMatch(html, /暂无可验证数据/);
   assert.match(html, /中国内地/);
   assert.match(html, /中国香港/);
   assert.doesNotMatch(html, /中港承接/);
