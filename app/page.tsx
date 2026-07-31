@@ -694,18 +694,11 @@ export default function Home() {
           <strong>全球黄金迁徙地图</strong>
           <span>PHYSICAL FLOW MONITOR</span>
         </div>
-        <a href="#method" className="source-link">
-          口径
-        </a>
       </header>
 
       <div className="status-line">
         <span className="status-dot" />
         <span>数据快照 {freshnessDate}</span>
-        <span className="status-separator" />
-        <span>最新信号 {formatPeriod(data.vaults.london.period)}</span>
-        <span className="status-separator" />
-        <span>报关全景 {formatPeriod(data.network.period)}</span>
       </div>
 
       <nav className="feature-nav" aria-label="功能目录">
