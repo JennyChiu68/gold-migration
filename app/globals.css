@@ -15,6 +15,10 @@
   --gold-soft: #eee0b8;
   --olive: #637765;
   --red: #925c53;
+  --market-up: #a24e45;
+  --market-up-soft: #f5e8e5;
+  --market-down: #3f7455;
+  --market-down-soft: #e7f0e9;
   --dark: #182019;
   --dark-line: rgba(255, 255, 255, 0.12);
   --radius-section: 24px;
@@ -1106,7 +1110,7 @@ footer {
 }
 
 .outflow-group .balance-group-title strong {
-  color: var(--red);
+  color: var(--market-down);
 }
 
 .balance-list {
@@ -1129,12 +1133,12 @@ footer {
   bottom: 0;
   left: 0;
   width: 3px;
-  background: var(--gold);
+  background: var(--market-up);
   content: "";
 }
 
 .balance-row.net-exporter::before {
-  background: var(--red);
+  background: var(--market-down);
 }
 
 .balance-head {
@@ -1183,9 +1187,20 @@ footer {
 }
 
 .balance-result > span {
-  color: var(--muted);
+  padding: 4px 7px;
+  border-radius: 7px;
   font-size: 12px;
   font-weight: 700;
+}
+
+.balance-row.net-importer .balance-result > span {
+  background: var(--market-up-soft);
+  color: var(--market-up);
+}
+
+.balance-row.net-exporter .balance-result > span {
+  background: var(--market-down-soft);
+  color: var(--market-down);
 }
 
 .balance-result b {
@@ -1203,11 +1218,11 @@ footer {
 }
 
 .balance-result b.positive {
-  color: var(--gold-text);
+  color: var(--market-up);
 }
 
 .balance-result b.negative {
-  color: var(--red);
+  color: var(--market-down);
 }
 
 .flow-comparison {
@@ -1251,11 +1266,11 @@ footer {
 }
 
 .flow-track .flow-import {
-  background: var(--gold);
+  background: var(--market-up);
 }
 
 .flow-track .flow-export {
-  background: var(--red);
+  background: var(--market-down);
 }
 
 .balance-change {
@@ -1403,12 +1418,12 @@ footer {
   position: absolute;
   inset: 0 auto 0 0;
   width: 3px;
-  background: var(--gold);
+  background: var(--market-up);
   content: "";
 }
 
 .latest-market-card.net-exporter::before {
-  background: var(--red);
+  background: var(--market-down);
 }
 
 .latest-market-head {
@@ -1442,9 +1457,18 @@ footer {
   flex: 0 0 auto;
   padding: 3px 5px;
   border-radius: 5px;
-  background: var(--surface-soft);
-  color: var(--muted);
   font-size: 10px;
+  font-weight: 700;
+}
+
+.latest-market-card.net-importer .latest-market-head > span {
+  background: var(--market-up-soft);
+  color: var(--market-up);
+}
+
+.latest-market-card.net-exporter .latest-market-head > span {
+  background: var(--market-down-soft);
+  color: var(--market-down);
 }
 
 .latest-market-result {
@@ -1463,11 +1487,11 @@ footer {
 }
 
 .latest-market-result > strong.positive {
-  color: var(--gold-text);
+  color: var(--market-up);
 }
 
 .latest-market-result > strong.negative {
-  color: var(--red);
+  color: var(--market-down);
 }
 
 .latest-market-result > small {
