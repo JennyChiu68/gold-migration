@@ -1072,26 +1072,6 @@ footer {
   margin-top: 16px;
 }
 
-.comparison-note {
-  display: grid;
-  gap: 3px;
-  margin-bottom: 14px;
-  padding: 11px 13px;
-  border: 1px solid rgba(167, 122, 40, 0.2);
-  border-radius: 13px;
-  background: rgba(238, 224, 184, 0.34);
-}
-
-.comparison-note strong {
-  color: var(--gold-text);
-  font-size: 13px;
-}
-
-.comparison-note span {
-  color: var(--muted);
-  font-size: 12px;
-}
-
 .balance-group-title {
   display: flex;
   align-items: center;

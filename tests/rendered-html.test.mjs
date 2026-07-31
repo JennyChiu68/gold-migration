@@ -34,6 +34,9 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /功能目录/);
   assert.match(html, /黄金罗盘/);
   assert.match(html, /全球吸金榜/);
+  assert.match(html, /同期榜单 · 2026.03/);
+  assert.doesNotMatch(html, /共同完整月份排名/);
+  assert.doesNotMatch(html, /仅比较同一完整月份/);
   assert.match(html, /黄金航线/);
   assert.match(html, /瑞士精炼站/);
   assert.match(html, /三地实物信号/);

@@ -574,7 +574,7 @@ function DashboardSection({
   chapter: string;
   eyebrow: string;
   title: string;
-  note: string;
+  note?: string;
   className?: string;
   children: React.ReactNode;
 }) {
@@ -590,7 +590,7 @@ function DashboardSection({
         <div>
           <span className="eyebrow">{eyebrow}</span>
           <h2>{title}</h2>
-          <p className="section-note-inline">{note}</p>
+          {note && <p className="section-note-inline">{note}</p>}
         </div>
       </header>
       <div className="section-content">{children}</div>
@@ -872,16 +872,10 @@ export default function Home() {
       <DashboardSection
         id="market-balance"
         chapter="02"
-        eyebrow={`同月可比净流量 · ${formatPeriod(data.marketBalances.period)}`}
+        eyebrow={`同期榜单 · ${formatPeriod(data.marketBalances.period)}`}
         title="全球吸金榜"
-        note="共同完整月份排名"
         className="market-section"
       >
-        <div className="comparison-note">
-          <strong>同期榜单 · {formatPeriod(data.marketBalances.period)}</strong>
-          <span>仅比较同一完整月份；下方另列各市场最新观测。</span>
-        </div>
-
         <div className="balance-group">
           <div className="balance-group-title">
             <strong>净流入市场</strong>
