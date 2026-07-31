@@ -573,6 +573,34 @@ export default function Home() {
     "all" | SwissCategory
   >("all");
 
+  const handleSwissTabKey = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+  ) => {
+    let nextView: "source" | "destination" | null = null;
+
+    if (
+      event.key === "ArrowLeft" ||
+      event.key === "ArrowUp" ||
+      event.key === "Home"
+    ) {
+      nextView = "source";
+    } else if (
+      event.key === "ArrowRight" ||
+      event.key === "ArrowDown" ||
+      event.key === "End"
+    ) {
+      nextView = "destination";
+    }
+
+    if (!nextView) return;
+
+    event.preventDefault();
+    setSwissView(nextView);
+    requestAnimationFrame(() => {
+      document.getElementById(`swiss-tab-${nextView}`)?.focus();
+    });
+  };
+
   const availableOrigins = data.network.origins.filter(
     (origin) => origin.exportsTonnes != null,
   );
@@ -691,9 +719,12 @@ export default function Home() {
       <header className="topbar">
         <div className="brand-mark">AU</div>
         <div className="brand-copy">
-          <strong>全球黄金迁徙地图</strong>
+          <h1>全球黄金迁徙地图</h1>
           <span>PHYSICAL FLOW MONITOR</span>
         </div>
+        <a className="topbar-menu" href="#feature-nav">
+          目录
+        </a>
       </header>
 
       <div className="status-line">
@@ -701,7 +732,7 @@ export default function Home() {
         <span>数据快照 {freshnessDate}</span>
       </div>
 
-      <nav className="feature-nav" aria-label="功能目录">
+      <nav className="feature-nav" id="feature-nav" aria-label="功能目录">
         <div className="feature-nav-head">
           <strong>功能目录</strong>
           <span>点击快速跳转</span>
@@ -735,15 +766,15 @@ export default function Home() {
             <h2>黄金罗盘</h2>
           </div>
         </header>
-        <h1>
+        <h3 className="hero-summary">
           <span>伦敦库存回升，东向报关仍高</span>
           <em>信号分化</em>
-        </h1>
+        </h3>
         <p>
-          库存偏向西方留存，但最新可得的
+          伦敦库存自年初回升；最新可得的
           {formatPeriod(data.network.period)}报关仍显示
           <b>{tonnes.format(data.network.direction.eastboundTonnes)}吨</b>
-          流向亚洲。两类信号暂未形成同向确认，报关重量含部分估算。
+          流向亚洲。两项数据频率与口径不同，暂不据此判断单一方向。
         </p>
 
         <div className="hero-kpis">
@@ -790,269 +821,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <DashboardSection
-        id="swiss-refinery"
-        chapter="04"
-        eyebrow="进口来源与出口去向"
-        title="瑞士精炼站"
-        note="来源与去向分别标注月份"
-        className="refinery-section"
-      >
-        <div className="refinery-card">
-          <div className="chain-overview">
-            <div>
-              <span>最新进口</span>
-              <strong>
-                {tonnes.format(
-                  data.swissRefinery.importSnapshot.importsTonnes,
-                )}
-                t
-              </strong>
-              <small>
-                {formatPeriod(data.swissRefinery.importSnapshot.period)}
-              </small>
-            </div>
-            <i aria-hidden="true">→</i>
-            <div className="refinery-hub">
-              <b>CH</b>
-              <strong>瑞士</strong>
-              <small>精炼与转口</small>
-            </div>
-            <i aria-hidden="true">→</i>
-            <div>
-              <span>最新可得出口</span>
-              <strong>{tonnes.format(swissExportTotal)}t</strong>
-              <small>{formatPeriod(data.network.period)}</small>
-            </div>
-          </div>
-
-          <div className="refinery-tabs" role="tablist" aria-label="瑞士黄金链路">
-            <button
-              type="button"
-              role="tab"
-              aria-selected={swissView === "source"}
-              className={swissView === "source" ? "active" : ""}
-              onClick={() => setSwissView("source")}
-            >
-              进口来源
-            </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected={swissView === "destination"}
-              className={swissView === "destination" ? "active" : ""}
-              onClick={() => setSwissView("destination")}
-            >
-              出口去向
-            </button>
-          </div>
-
-          {swissView === "source" && (
-            <>
-              <div className="category-summary">
-                <div>
-                  <strong>
-                    {(
-                      (swissMiningTonnes /
-                        data.swissRefinery.importSnapshot.importsTonnes) *
-                      100
-                    ).toFixed(1)}
-                    %
-                  </strong>
-                  <span>主要矿产供应地</span>
-                </div>
-                <div>
-                  <strong>
-                    {(
-                      (swissHubTonnes /
-                        data.swissRefinery.importSnapshot.importsTonnes) *
-                      100
-                    ).toFixed(1)}
-                    %
-                  </strong>
-                  <span>金融及转口枢纽</span>
-                </div>
-                <div>
-                  <strong>
-                    {(
-                      (swissOtherTonnes /
-                        data.swissRefinery.importSnapshot.importsTonnes) *
-                      100
-                    ).toFixed(1)}
-                    %
-                  </strong>
-                  <span>其余来源</span>
-                </div>
-              </div>
-
-              <div className="category-filter" aria-label="按来源属性筛选">
-                {[
-                  ["all", "全部"],
-                  ["mining", "矿产供应地"],
-                  ["hub", "金融及转口"],
-                ].map(([value, label]) => (
-                  <button
-                    type="button"
-                    key={value}
-                    className={swissCategory === value ? "active" : ""}
-                    onClick={() =>
-                      setSwissCategory(value as "all" | SwissCategory)
-                    }
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
-
-          <div className="refinery-ranking">
-            <div className="ranking-head">
-              <span>
-                {swissView === "source"
-                  ? `主要来源地 · ${formatPeriod(
-                      data.swissRefinery.importSnapshot.period,
-                    )}`
-                  : `主要目的地 · ${formatPeriod(data.network.period)}`}
-              </span>
-              <small>吨 / 占该侧总量</small>
-            </div>
-            {swissRanking.slice(0, 8).map((item, index) => (
-              <div className="ranking-row" key={item.id}>
-                <span>{String(index + 1).padStart(2, "0")}</span>
-                <strong>{item.label}</strong>
-                <div aria-hidden="true">
-                  <i
-                    style={{
-                      width: `${Math.max(
-                        4,
-                        (item.tonnes / swissRankingMax) * 100,
-                      )}%`,
-                    }}
-                  />
-                </div>
-                <b>{tonnes.format(item.tonnes)}t</b>
-                <small>
-                  {((item.tonnes / swissRankingTotal) * 100).toFixed(1)}%
-                  {item.estimated ? " · 估算" : ""}
-                </small>
-              </div>
-            ))}
-          </div>
-
-          <p className="refinery-caveat">
-            {swissView === "source"
-              ? `${data.swissRefinery.importSnapshot.definition} “矿产供应地/金融及转口”是按来源地角色进行的分析分类，不代表每批黄金的矿山原产地。`
-              : "出口去向来自3月HS 7108报关路线；6月进口与3月出口不是同一月份，不据此计算瑞士库存增减。"}
-          </p>
-        </div>
-      </DashboardSection>
-
-      <DashboardSection
-        id="trade-routes"
-        chapter="03"
-        eyebrow={`跨境报关路线 · ${formatPeriod(data.network.period)}`}
-        title="黄金航线"
-        note={`${data.network.coverage.mappedRouteCount}条可视路线`}
-        className="network-section"
-      >
-        <div className="view-toggle" role="tablist" aria-label="路线查看方式">
-          <button
-            type="button"
-            role="tab"
-            aria-selected={routeView === "list"}
-            className={routeView === "list" ? "active" : ""}
-            onClick={() => setRouteView("list")}
-          >
-            排行榜
-          </button>
-          <button
-            type="button"
-            role="tab"
-            aria-selected={routeView === "map"}
-            className={routeView === "map" ? "active" : ""}
-            onClick={() => setRouteView("map")}
-          >
-            迁徙地图
-          </button>
-        </div>
-
-        <div className="origin-filter" aria-label="按出口枢纽筛选">
-          <button
-            type="button"
-            className={originFilter === "all" ? "active" : ""}
-            onClick={() => chooseOrigin("all")}
-          >
-            全部
-          </button>
-          {availableOrigins.map((origin) => (
-            <button
-              type="button"
-              key={origin.code}
-              className={originFilter === origin.code ? "active" : ""}
-              onClick={() => chooseOrigin(origin.code)}
-            >
-              {origin.label}
-            </button>
-          ))}
-        </div>
-
-        {routeView === "map" && (
-          <div className="map-card">
-            <NetworkMap
-              routes={filteredRoutes}
-              selectedId={selectedRoute.id}
-            />
-            <div className="route-focus">
-              <div>
-                <span>
-                  {selectedRoute.origin} → {destinationLabel(selectedRoute)}
-                </span>
-                <strong>
-                  {tonnes.format(selectedRoute.tonnes)}
-                  <small>吨</small>
-                </strong>
-              </div>
-              <div>
-                <span>占该出口地当月 {routeShare.toFixed(1)}%</span>
-                <span>{money.format(selectedRoute.valueUsd)}</span>
-                <i>
-                  {selectedRoute.estimatedWeight ? "重量估算" : "报关重量"}
-                </i>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <div className={`route-list ${routeView === "list" ? "expanded" : ""}`}>
-          {filteredRoutes
-            .slice(0, routeView === "list" ? 10 : 7)
-            .map((route, index) => (
-            <button
-              type="button"
-              key={route.id}
-              className={route.id === selectedRoute.id ? "active" : ""}
-              onClick={() => setSelectedRouteId(route.id)}
-              aria-pressed={route.id === selectedRoute.id}
-            >
-              <span className="route-rank">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="route-name">
-                <b>{route.origin}</b>
-                <i>→</i>
-                <b>{destinationLabel(route)}</b>
-              </span>
-              <span className="route-metrics">
-                <strong>{tonnes.format(route.tonnes)}t</strong>
-                <small>{money.format(route.valueUsd)}</small>
-                <i>{route.estimatedWeight ? "估算" : "报关"}</i>
-              </span>
-            </button>
-          ))}
-        </div>
-      </DashboardSection>
 
       <DashboardSection
         id="market-balance"
@@ -1117,6 +885,303 @@ export default function Home() {
               .join("、")}
             ：共同月份未同时提供有效进出口重量。
           </p>
+        </div>
+      </DashboardSection>
+
+      <DashboardSection
+        id="trade-routes"
+        chapter="03"
+        eyebrow={`跨境报关路线 · ${formatPeriod(data.network.period)}`}
+        title="黄金航线"
+        note={`${data.network.coverage.mappedRouteCount}条可视路线`}
+        className="network-section"
+      >
+        <div className="view-toggle" role="group" aria-label="路线查看方式">
+          <button
+            type="button"
+            aria-pressed={routeView === "list"}
+            className={routeView === "list" ? "active" : ""}
+            onClick={() => setRouteView("list")}
+          >
+            排行榜
+          </button>
+          <button
+            type="button"
+            aria-pressed={routeView === "map"}
+            className={routeView === "map" ? "active" : ""}
+            onClick={() => setRouteView("map")}
+          >
+            迁徙地图
+          </button>
+        </div>
+
+        <div className="origin-filter" role="group" aria-label="按出口枢纽筛选">
+          <button
+            type="button"
+            aria-pressed={originFilter === "all"}
+            className={originFilter === "all" ? "active" : ""}
+            onClick={() => chooseOrigin("all")}
+          >
+            全部
+          </button>
+          {availableOrigins.map((origin) => (
+            <button
+              type="button"
+              key={origin.code}
+              aria-pressed={originFilter === origin.code}
+              className={originFilter === origin.code ? "active" : ""}
+              onClick={() => chooseOrigin(origin.code)}
+            >
+              {origin.label}
+            </button>
+          ))}
+        </div>
+
+        {routeView === "map" && (
+          <div className="map-card">
+            <NetworkMap
+              routes={filteredRoutes}
+              selectedId={selectedRoute.id}
+            />
+            <div className="route-focus">
+              <div>
+                <span>
+                  {selectedRoute.origin} → {destinationLabel(selectedRoute)}
+                </span>
+                <strong>
+                  {tonnes.format(selectedRoute.tonnes)}
+                  <small>吨</small>
+                </strong>
+              </div>
+              <div>
+                <span>占该出口地当月 {routeShare.toFixed(1)}%</span>
+                <span>{money.format(selectedRoute.valueUsd)}</span>
+                <i>
+                  {selectedRoute.estimatedWeight ? "重量估算" : "报关重量"}
+                </i>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className={`route-list ${routeView === "list" ? "expanded" : ""}`}>
+          {filteredRoutes
+            .slice(0, routeView === "list" ? 10 : 4)
+            .map((route, index) => (
+            <button
+              type="button"
+              key={route.id}
+              className={route.id === selectedRoute.id ? "active" : ""}
+              onClick={() => setSelectedRouteId(route.id)}
+              aria-pressed={route.id === selectedRoute.id}
+            >
+              <span className="route-rank">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <span className="route-name">
+                <b>{route.origin}</b>
+                <i>→</i>
+                <b>{destinationLabel(route)}</b>
+              </span>
+              <span className="route-metrics">
+                <strong>{tonnes.format(route.tonnes)}t</strong>
+                <small>{money.format(route.valueUsd)}</small>
+                <i>{route.estimatedWeight ? "估算" : "报关"}</i>
+              </span>
+            </button>
+          ))}
+        </div>
+      </DashboardSection>
+
+      <DashboardSection
+        id="swiss-refinery"
+        chapter="04"
+        eyebrow="进口来源与出口去向"
+        title="瑞士精炼站"
+        note="来源与去向分别标注月份"
+        className="refinery-section"
+      >
+        <div className="refinery-card">
+          <div className="chain-overview">
+            <div>
+              <span>最新进口</span>
+              <strong>
+                {tonnes.format(
+                  data.swissRefinery.importSnapshot.importsTonnes,
+                )}
+                t
+              </strong>
+              <small>
+                {formatPeriod(data.swissRefinery.importSnapshot.period)}
+              </small>
+            </div>
+            <i aria-hidden="true">→</i>
+            <div className="refinery-hub">
+              <b>CH</b>
+              <strong>瑞士</strong>
+              <small>精炼与转口</small>
+            </div>
+            <i aria-hidden="true">→</i>
+            <div>
+              <span>最新可得出口</span>
+              <strong>{tonnes.format(swissExportTotal)}t</strong>
+              <small>{formatPeriod(data.network.period)}</small>
+            </div>
+          </div>
+
+          <div className="refinery-tabs" role="tablist" aria-label="瑞士黄金链路">
+            <button
+              type="button"
+              id="swiss-tab-source"
+              role="tab"
+              aria-selected={swissView === "source"}
+              aria-controls="swiss-panel-source"
+              tabIndex={swissView === "source" ? 0 : -1}
+              className={swissView === "source" ? "active" : ""}
+              onClick={() => setSwissView("source")}
+              onKeyDown={handleSwissTabKey}
+            >
+              进口来源
+            </button>
+            <button
+              type="button"
+              id="swiss-tab-destination"
+              role="tab"
+              aria-selected={swissView === "destination"}
+              aria-controls="swiss-panel-destination"
+              tabIndex={swissView === "destination" ? 0 : -1}
+              className={swissView === "destination" ? "active" : ""}
+              onClick={() => setSwissView("destination")}
+              onKeyDown={handleSwissTabKey}
+            >
+              出口去向
+            </button>
+          </div>
+
+          {(["source", "destination"] as const).map((view) => (
+            <div
+              key={view}
+              role="tabpanel"
+              id={`swiss-panel-${view}`}
+              aria-labelledby={`swiss-tab-${view}`}
+              hidden={swissView !== view}
+            >
+              {swissView === view && (
+                <>
+                  {view === "source" && (
+                    <>
+                      <div className="category-summary">
+                        <div>
+                          <strong>
+                            {(
+                              (swissMiningTonnes /
+                                data.swissRefinery.importSnapshot
+                                  .importsTonnes) *
+                              100
+                            ).toFixed(1)}
+                            %
+                          </strong>
+                          <span>主要矿产供应地</span>
+                        </div>
+                        <div>
+                          <strong>
+                            {(
+                              (swissHubTonnes /
+                                data.swissRefinery.importSnapshot
+                                  .importsTonnes) *
+                              100
+                            ).toFixed(1)}
+                            %
+                          </strong>
+                          <span>金融及转口枢纽</span>
+                        </div>
+                        <div>
+                          <strong>
+                            {(
+                              (swissOtherTonnes /
+                                data.swissRefinery.importSnapshot
+                                  .importsTonnes) *
+                              100
+                            ).toFixed(1)}
+                            %
+                          </strong>
+                          <span>其余来源</span>
+                        </div>
+                      </div>
+
+                      <div
+                        className="category-filter"
+                        role="group"
+                        aria-label="按来源属性筛选"
+                      >
+                        {[
+                          ["all", "全部"],
+                          ["mining", "矿产供应地"],
+                          ["hub", "金融及转口"],
+                        ].map(([value, label]) => (
+                          <button
+                            type="button"
+                            key={value}
+                            aria-pressed={swissCategory === value}
+                            className={
+                              swissCategory === value ? "active" : ""
+                            }
+                            onClick={() =>
+                              setSwissCategory(
+                                value as "all" | SwissCategory,
+                              )
+                            }
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  <div className="refinery-ranking">
+                    <div className="ranking-head">
+                      <span>
+                        {view === "source"
+                          ? `主要来源地 · ${formatPeriod(
+                              data.swissRefinery.importSnapshot.period,
+                            )}`
+                          : `主要目的地 · ${formatPeriod(data.network.period)}`}
+                      </span>
+                      <small>吨 / 占该侧总量</small>
+                    </div>
+                    {swissRanking.slice(0, 8).map((item, index) => (
+                      <div className="ranking-row" key={item.id}>
+                        <span>{String(index + 1).padStart(2, "0")}</span>
+                        <strong>{item.label}</strong>
+                        <div aria-hidden="true">
+                          <i
+                            style={{
+                              width: `${Math.max(
+                                4,
+                                (item.tonnes / swissRankingMax) * 100,
+                              )}%`,
+                            }}
+                          />
+                        </div>
+                        <b>{tonnes.format(item.tonnes)}t</b>
+                        <small>
+                          {((item.tonnes / swissRankingTotal) * 100).toFixed(1)}%
+                          {item.estimated ? " · 估算" : ""}
+                        </small>
+                      </div>
+                    ))}
+                  </div>
+
+                  <p className="refinery-caveat">
+                    {view === "source"
+                      ? `${data.swissRefinery.importSnapshot.definition} “矿产供应地/金融及转口”是按来源地角色进行的分析分类，不代表每批黄金的矿山原产地。`
+                      : "出口去向来自3月HS 7108报关路线；6月进口与3月出口不是同一月份，不据此计算瑞士库存增减。"}
+                  </p>
+                </>
+              )}
+            </div>
+          ))}
         </div>
       </DashboardSection>
 
@@ -1209,7 +1274,7 @@ export default function Home() {
 
         <article className="signal-card">
           <span className="eyebrow">多市场解读</span>
-          <h2>库存与报关暂未同向确认</h2>
+          <h3>库存与报关暂未同向确认</h3>
           <p>
             西方枢纽向亚洲的监测流量为
             {tonnes.format(data.network.direction.eastboundTonnes)}
@@ -1273,10 +1338,10 @@ export default function Home() {
 
       <details className="method-card" id="method">
         <summary>
-          <span>
-            <strong>数据底稿</strong>
+          <div>
+            <h2>数据底稿</h2>
             <small>数据来源、口径与限制</small>
-          </span>
+          </div>
           <b>＋</b>
         </summary>
         <div className="method-body">

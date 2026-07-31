@@ -10,6 +10,7 @@
   --muted: #616960;
   --line: #d4d9d0;
   --gold: #a77a28;
+  --gold-text: #805c1c;
   --gold-bright: #efc764;
   --gold-soft: #eee0b8;
   --olive: #637765;
@@ -80,8 +81,8 @@ summary:focus-visible {
   top: 0;
   z-index: 30;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 10px;
   align-items: center;
   margin: 0 -16px;
   padding: calc(13px + env(safe-area-inset-top)) 16px 12px;
@@ -111,9 +112,12 @@ summary:focus-visible {
   gap: 3px;
 }
 
-.brand-copy strong {
+.brand-copy strong,
+.brand-copy h1 {
   overflow: hidden;
+  margin: 0;
   font-size: 16px;
+  font-weight: 700;
   letter-spacing: -0.02em;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -124,6 +128,29 @@ summary:focus-visible {
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
   letter-spacing: 0.1em;
+}
+
+.topbar-menu {
+  display: grid;
+  width: 52px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 253, 248, 0.82);
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: 680;
+  text-decoration: none;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.topbar-menu:hover,
+.topbar-menu:focus-visible {
+  border-color: rgba(128, 92, 28, 0.48);
+  background: var(--surface);
 }
 
 .status-line {
@@ -145,6 +172,7 @@ summary:focus-visible {
 
 .feature-nav {
   order: 3;
+  scroll-margin-top: 82px;
   margin-bottom: 20px;
   padding: 14px;
   border: 1px solid var(--line);
@@ -207,7 +235,7 @@ summary:focus-visible {
   place-items: center;
   border-radius: 9px;
   background: var(--surface-soft);
-  color: var(--gold);
+  color: var(--gold-text);
   font-family: var(--font-geist-mono), monospace;
   font-size: 11px;
 }
@@ -298,7 +326,7 @@ footer {
   border: 1px solid rgba(167, 122, 40, 0.22);
 }
 
-.hero h1 {
+.hero-summary {
   position: relative;
   z-index: 1;
   display: flex;
@@ -312,7 +340,7 @@ footer {
   line-height: 1.4;
 }
 
-.hero h1 em {
+.hero-summary em {
   display: inline-flex;
   align-items: center;
   min-height: 28px;
@@ -330,7 +358,7 @@ footer {
   line-height: 1.25;
 }
 
-.hero h1 em small {
+.hero-summary em small {
   margin-left: 5px;
   font-family: var(--font-geist-sans), sans-serif;
   font-size: 15px;
@@ -534,7 +562,7 @@ footer {
 
 .refinery-card {
   overflow: hidden;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(212, 217, 208, 0.55);
   border-radius: var(--radius-card);
   background: var(--surface);
 }
@@ -662,7 +690,7 @@ footer {
 }
 
 .category-summary strong {
-  color: var(--gold);
+  color: var(--gold-text);
   font-family: var(--font-geist-mono), monospace;
   font-size: 16px;
   letter-spacing: -0.04em;
@@ -789,7 +817,7 @@ footer {
 .eyebrow {
   display: block;
   margin-bottom: 3px;
-  color: var(--gold);
+  color: var(--gold-text);
   font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.04em;
@@ -797,7 +825,7 @@ footer {
 }
 
 .section-head h2,
-.signal-card h2 {
+.signal-card h3 {
   margin: 0;
   font-size: 22px;
   font-weight: 650;
@@ -947,7 +975,7 @@ footer {
 
 .route-list button {
   display: grid;
-  min-height: 64px;
+  min-height: 62px;
   grid-template-columns: 30px minmax(0, 1fr) auto;
   gap: 10px;
   align-items: center;
@@ -988,7 +1016,7 @@ footer {
 }
 
 .route-name i {
-  color: var(--gold);
+  color: var(--gold-text);
   font-size: 12px;
   font-style: normal;
 }
@@ -1027,7 +1055,7 @@ footer {
 }
 
 .balance-group + .balance-group {
-  margin-top: 18px;
+  margin-top: 16px;
 }
 
 .balance-group-title {
@@ -1053,13 +1081,13 @@ footer {
 
 .balance-list {
   display: grid;
-  gap: 10px;
+  gap: 8px;
 }
 
 .balance-row {
   position: relative;
   overflow: hidden;
-  padding: 16px;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 16px;
   background: var(--surface);
@@ -1145,7 +1173,7 @@ footer {
 }
 
 .balance-result b.positive {
-  color: var(--gold);
+  color: var(--gold-text);
 }
 
 .balance-result b.negative {
@@ -1154,8 +1182,8 @@ footer {
 
 .flow-comparison {
   display: grid;
-  gap: 9px;
-  margin-top: 16px;
+  gap: 8px;
+  margin-top: 13px;
 }
 
 .flow-row {
@@ -1204,8 +1232,8 @@ footer {
   display: flex;
   align-items: center;
   gap: 7px;
-  margin-top: 13px;
-  padding-top: 11px;
+  margin-top: 10px;
+  padding-top: 9px;
   border-top: 1px solid rgba(212, 217, 208, 0.72);
   color: var(--muted);
   font-size: 12px;
@@ -1227,7 +1255,7 @@ footer {
   gap: 8px 12px;
   align-items: center;
   margin-top: 12px;
-  padding: 16px;
+  padding: 14px;
   border: 1px dashed rgba(182, 135, 41, 0.5);
   border-radius: 16px;
   background: rgba(239, 226, 188, 0.28);
@@ -1239,7 +1267,7 @@ footer {
 }
 
 .lagged-card > div span {
-  color: var(--gold);
+  color: var(--gold-text);
   font-size: 12px;
   font-weight: 750;
   letter-spacing: 0.1em;
@@ -1255,7 +1283,7 @@ footer {
 }
 
 .lagged-card > b {
-  color: var(--gold);
+  color: var(--gold-text);
   font-family: var(--font-geist-mono), monospace;
   font-size: 19px;
 }
@@ -1269,7 +1297,7 @@ footer {
 
 .coverage-note {
   margin-top: 11px;
-  padding: 14px 15px;
+  padding: 13px 14px;
   border: 1px solid rgba(212, 217, 208, 0.75);
   border-radius: 14px;
   background: var(--surface-soft);
@@ -1304,7 +1332,7 @@ footer {
 }
 
 .vault-head span {
-  color: var(--gold);
+  color: var(--gold-text);
   font-family: var(--font-geist-mono), monospace;
   font-size: 12px;
   letter-spacing: 0.09em;
@@ -1422,7 +1450,7 @@ footer {
   background: var(--surface-soft);
 }
 
-.signal-card h2 {
+.signal-card h3 {
   font-size: 20px;
 }
 
@@ -1586,13 +1614,15 @@ footer {
   display: none;
 }
 
-.method-card summary > span {
+.method-card summary > div {
   display: grid;
   gap: 4px;
 }
 
-.method-card summary strong {
+.method-card summary h2 {
+  margin: 0;
   font-size: 14px;
+  line-height: 1.4;
 }
 
 .method-card summary small {
@@ -1601,7 +1631,7 @@ footer {
 }
 
 .method-card summary b {
-  color: var(--gold);
+  color: var(--gold-text);
   font-size: 19px;
   font-weight: 400;
   transition: transform 180ms ease;
