@@ -29,12 +29,12 @@ test("server-renders the global gold migration dashboard", async () => {
 
   const html = await response.text();
   assert.match(html, /全球黄金迁徙地图/);
-  assert.match(html, /伦敦库存回升，共同期东向报关仍高/);
-  assert.match(html, /信号分化/);
+  assert.match(html, /伦敦库存与跨境报关分期观察/);
+  assert.match(html, /口径不同/);
   assert.match(html, /功能目录/);
   assert.match(html, /黄金罗盘/);
   assert.match(html, /全球吸金榜/);
-  assert.match(html, /同期榜单 · 2026.03/);
+  assert.match(html, /同期榜单 · 2026.06/);
   assert.doesNotMatch(html, /共同完整月份排名/);
   assert.doesNotMatch(html, /仅比较同一完整月份/);
   assert.match(html, /黄金航线/);
@@ -55,10 +55,10 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /重量估算/);
   assert.match(html, /库存与交割/);
   assert.match(html, /CME官方日报/);
-  assert.match(html, /月末同日对齐/);
+  assert.match(html, /同日对齐/);
   assert.match(html, /2019.12/);
   assert.match(html, /各市场最新完整观测/);
-  assert.equal((html.match(/class="latest-market-card/g) ?? []).length, 6);
+  assert.equal((html.match(/class="latest-market-card/g) ?? []).length, 7);
   assert.doesNotMatch(html, /净额不可算/);
   assert.doesNotMatch(html, /进口缺失/);
   assert.doesNotMatch(html, /出口缺失/);

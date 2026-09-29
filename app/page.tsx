@@ -148,6 +148,7 @@ type GoldData = {
     };
     newYork: {
       period: string;
+      status: string;
       tonnes: number;
       ouncesMillions: number;
       registeredTonnes: number;
@@ -812,11 +813,11 @@ export default function Home() {
           </div>
         </header>
         <h3 className="hero-summary">
-          <span>伦敦库存回升，共同期东向报关仍高</span>
-          <em>信号分化</em>
+          <span>伦敦库存与跨境报关分期观察</span>
+          <em>口径不同</em>
         </h3>
         <p>
-          伦敦库存自年初回升；最新共同期
+          伦敦库存最新月环比{data.vaults.london.monthlyChangePct >= 0 ? "增加" : "减少"}；最新共同期
           {formatPeriod(data.network.period)}报关仍显示
           <b>{tonnes.format(data.network.direction.eastboundTonnes)}吨</b>
           流向亚洲。两项数据频率与口径不同，暂不据此判断单一方向。
@@ -848,7 +849,7 @@ export default function Home() {
               {data.priceComparison.shanghaiPremiumPct.toFixed(2)}%
             </strong>
             <small>
-              {data.priceComparison.date} · 月末同日对齐 · 非实时
+              {data.priceComparison.date} · 同日对齐 · 非实时
             </small>
           </div>
         </div>
@@ -856,15 +857,15 @@ export default function Home() {
         <div className="signal-strip" aria-label="本期信号状态">
           <div>
             <span>库存</span>
-            <strong>留存增强</strong>
+            <strong>{data.vaults.london.monthlyChangePct >= 0 ? "库存增加" : "库存减少"}</strong>
           </div>
           <div>
             <span>报关</span>
-            <strong>东向降温</strong>
+            <strong>{data.network.direction.eastboundChangePct >= 0 ? "东向增加" : "东向放缓"}</strong>
           </div>
           <div>
             <span>现货</span>
-            <strong>接近平价</strong>
+            <strong>{data.priceComparison.shanghaiPremiumPct >= 0 ? "上海溢价" : "上海折价"}</strong>
           </div>
         </div>
       </section>
@@ -1103,7 +1104,7 @@ export default function Home() {
             </div>
           </div>
           <p className="chain-scope-note">
-            两侧为不同月份、不同商品口径的独立观测，不相减推算瑞士库存。
+            两侧为不同商品口径的独立观测，不相减推算瑞士库存。
           </p>
 
           <div className="refinery-tabs" role="tablist" aria-label="瑞士黄金链路">
@@ -1332,7 +1333,10 @@ export default function Home() {
                 {signed(data.vaults.newYork.dailyNetChangeTonnes)}
               </strong>
             </div>
-            <p>CME官方日报 · 日变 {pct(data.vaults.newYork.dailyChangePct)}</p>
+            <p>
+              CME官方日报{data.vaults.newYork.status === "historicalSnapshot" ? "存档" : ""} ·
+              当日变化 {pct(data.vaults.newYork.dailyChangePct)}
+            </p>
           </article>
 
           <article className="vault-card wide">
@@ -1364,7 +1368,7 @@ export default function Home() {
               </div>
             </div>
             <p>
-              月增 {pct(shanghaiWithdrawalChange)} · 交割{" "}
+              环比 {pct(shanghaiWithdrawalChange)} · 交割{" "}
               {tonnes.format(data.vaults.shanghai.deliveryTonnes)}t
             </p>
           </article>
@@ -1372,17 +1376,21 @@ export default function Home() {
 
         <article className="signal-card">
           <span className="eyebrow">多市场解读</span>
-          <h3>库存与报关暂未同向确认</h3>
+          <h3>各市场观测期不同</h3>
           <p>
-            最新共同期西方枢纽向亚洲的监测流量为
+            {formatPeriod(data.network.period)}共同期西方枢纽向亚洲的监测流量为
             {tonnes.format(data.network.direction.eastboundTonnes)}
-            吨、环比放缓且含部分估算重量；最新观测期内，伦敦库存增加、COMEX总库存日度小幅增加、上金所出库上升。它说明多个市场正在重新分配，不能只凭伦敦库存增加就判断“黄金西回”。
+            吨，含部分估算重量。伦敦{formatPeriod(data.vaults.london.period)}库存环比
+            {data.vaults.london.monthlyChangePct >= 0 ? "增加" : "减少"}，上金所
+            {formatPeriod(data.vaults.shanghai.period)}出库环比
+            {shanghaiWithdrawalChange >= 0 ? "增加" : "减少"}。
+            COMEX库存仅有{data.vaults.newYork.period}可核实的存档值，不用于判断当前方向。
           </p>
           <div className="signal-tags">
-            <span>海关：东向放缓</span>
-            <span>伦敦：库存增加</span>
-            <span>COMEX：日度微增</span>
-            <span>上海：出库增加</span>
+            <span>海关：东向{data.network.direction.eastboundChangePct >= 0 ? "增加" : "放缓"}</span>
+            <span>伦敦：库存{data.vaults.london.monthlyChangePct >= 0 ? "增加" : "减少"}</span>
+            <span>COMEX：历史存档</span>
+            <span>上海：出库{shanghaiWithdrawalChange >= 0 ? "增加" : "减少"}</span>
           </div>
         </article>
       </DashboardSection>
@@ -1396,7 +1404,7 @@ export default function Home() {
             <span className="eyebrow">区域价格验证</span>
             <h2>金价温差</h2>
             <small className="section-subtitle">
-              最新完整月末同日对齐 · {data.priceComparison.date} · 非实时
+              最近可核实同日价格 · {data.priceComparison.date} · 非实时
             </small>
           </div>
         </div>
@@ -1432,7 +1440,7 @@ export default function Home() {
           </span>
         </div>
         <p>
-          这是月末同日的指示性对齐，不是实时价差。价格用于验证实物流方向，不把价差直接等同于运输套利空间；换算不含税费、运保与规格差异。
+          这是同日收盘价与定盘价的指示性对齐，不是实时价差。价格用于验证实物流方向，不把价差直接等同于运输套利空间；换算不含税费、运保与规格差异。
         </p>
       </section>
 

@@ -42,7 +42,7 @@ test("version 4 separates build time from observation metadata", () => {
   assertModuleMetadata(data.vaults.london, "monthly");
   assertModuleMetadata(data.vaults.newYork, "daily");
   assertModuleMetadata(data.vaults.shanghai, "monthly");
-  assertModuleMetadata(data.priceComparison, "monthly-aligned");
+  assertModuleMetadata(data.priceComparison, "daily-aligned");
 
   const buildTime = Date.parse(data.fetchedAt);
   for (const sourceModule of [
@@ -60,8 +60,8 @@ test("version 4 separates build time from observation metadata", () => {
 });
 
 test("common-period network and ranking are explicitly isolated", () => {
-  assert.equal(data.network.latestComparablePeriod, "202603");
-  assert.equal(data.marketBalances.latestComparablePeriod, "202603");
+  assert.equal(data.network.latestComparablePeriod, "202606");
+  assert.equal(data.marketBalances.latestComparablePeriod, "202606");
   assert.equal(data.network.period, data.network.latestComparablePeriod);
   assert.equal(
     data.marketBalances.period,
@@ -102,16 +102,16 @@ test("latest-available market snapshots are not mixed into the common ranking", 
     data.marketBalances.latestAvailable.map((market) => [market.key, market]),
   );
   const expectedPeriods = {
-    switzerland: "202605",
-    unitedKingdom: "202605",
-    unitedStates: "202605",
-    india: "202604",
-    hongKong: "202605",
+    switzerland: "202608",
+    unitedKingdom: "202606",
+    unitedStates: "202607",
+    india: "202607",
+    hongKong: "202607",
     chinaMainland: "202412",
     thailand: "202605",
     turkiye: "202512",
     unitedArabEmirates: "201912",
-    singapore: "202512",
+    singapore: "202602",
   };
 
   for (const [key, period] of Object.entries(expectedPeriods)) {
@@ -130,9 +130,18 @@ test("latest-available market snapshots are not mixed into the common ranking", 
   }
 
   const hongKong = latestByKey.get("hongKong");
-  assert.equal(hongKong.status, "partial");
-  assert.equal(hongKong.exportsTonnes, null);
-  assert.equal(hongKong.netImportsTonnes, null);
+  assert.equal(hongKong.status, "complete");
+  const india = latestByKey.get("india");
+  assert.equal(india.status, "partial");
+  assert.equal(india.exportsTonnes, null);
+  assert.equal(india.netImportsTonnes, null);
+  const singapore = latestByKey.get("singapore");
+  assert.equal(singapore.status, "complete");
+  closeTo(
+    singapore.netImportsTonnes,
+    3.820054,
+    "Singapore February net imports",
+  );
   const thailand = latestByKey.get("thailand");
   assert.equal(thailand.status, "partial");
   assert.equal(thailand.importsTonnes, null);
@@ -147,18 +156,16 @@ test("latest-available market snapshots are not mixed into the common ranking", 
   const unitedArabEmirates = latestByKey.get("unitedArabEmirates");
   assert.equal(unitedArabEmirates.status, "complete");
   assert.equal(unitedArabEmirates.importsTonnes, 65.457);
-  assert.equal(unitedArabEmirates.exportsTonnes, 123.02841);
+  closeTo(
+    unitedArabEmirates.exportsTonnes,
+    123.02841,
+    "UAE historical exports",
+  );
   closeTo(
     unitedArabEmirates.netImportsTonnes,
     -57.57141,
     "UAE historical latest net imports",
   );
-  const singapore = latestByKey.get("singapore");
-  assert.equal(singapore.status, "partial");
-  assert.equal(singapore.importsTonnes, null);
-  assert.equal(singapore.exportsTonnes, 12.75694);
-  assert.equal(singapore.netImportsTonnes, null);
-
   const comparableKeys = new Set(
     data.marketBalances.comparable.map((market) => market.key),
   );
@@ -233,16 +240,15 @@ test("network coverage, routes and direction arithmetic reconcile", () => {
   );
 });
 
-test("Swiss import and export snapshots are period-isolated and complete", () => {
+test("Swiss import and export snapshots retain separate source boundaries", () => {
   const imports = data.swissRefinery.importSnapshot;
   const exports = data.swissRefinery.exportSnapshot;
-  assert.equal(imports.observationPeriod, "202606");
-  assert.equal(imports.importsTonnes, 149.6);
-  assert.equal(exports.observationPeriod, "202605");
-  assert.equal(exports.exportsTonnes, 107.78701099999999);
+  assert.equal(imports.observationPeriod, "202608");
+  assert.equal(imports.importsTonnes, 205.02);
+  assert.equal(exports.observationPeriod, "202608");
+  closeTo(exports.exportsTonnes, 164.639043, "Swiss August exports");
   assert.notEqual(exports.observationPeriod, data.network.latestComparablePeriod);
-  assert.notEqual(exports.observationPeriod, imports.observationPeriod);
-  assert.match(exports.scope, /不与6月进口相减/);
+  assert.match(exports.scope, /不与海关进口量相减/);
   assert.equal(exports.destinationCount, exports.destinations.length);
   assert.equal(
     new Set(exports.destinations.map((route) => route.id)).size,
@@ -256,10 +262,12 @@ test("Swiss import and export snapshots are period-isolated and complete", () =>
         route.tonnes > 0,
     ),
   );
-  closeTo(
-    exports.destinations.reduce((sum, route) => sum + route.tonnes, 0),
-    exports.exportsTonnes,
-    "Swiss destination total",
+  assert.ok(
+    Math.abs(
+      exports.destinations.reduce((sum, route) => sum + route.tonnes, 0) -
+        exports.exportsTonnes,
+    ) < 1e-5,
+    "Swiss destination totals differ only by source rounding",
   );
 
   const topOriginTonnes = imports.topOrigins.reduce(
@@ -279,7 +287,7 @@ test("London, Shanghai and official COMEX calculations reconcile", () => {
   );
 
   const comex = data.vaults.newYork;
-  assert.equal(comex.status, "current");
+  assert.equal(comex.status, "historicalSnapshot");
   assert.equal(comex.sourceQuality, "CME官方日报");
   assert.equal(comex.observationPeriod, "2026-07-30");
   closeTo(
@@ -314,7 +322,8 @@ test("London, Shanghai and official COMEX calculations reconcile", () => {
 
 test("same-day Shanghai-London price conversion reconciles", () => {
   const price = data.priceComparison;
-  assert.equal(price.alignment, "monthly-aligned");
+  assert.equal(price.alignment, "same-day");
+  assert.equal(price.observationPeriod, "2026-09-28");
   const londonEquivalent =
     (price.lbmaPmUsdPerOunce / 31.1034768) *
     (price.ecbCnyPerEur / price.ecbUsdPerEur);

@@ -9,43 +9,41 @@ const REPORTERS =
   "https://comtradeapi.un.org/files/v1/app/reference/Reporters.json";
 const OUTPUT_VERSION = 4;
 const buildTimestamp = new Date().toISOString();
-const latestComparablePeriod = "202603";
-const comparisonPeriod = "202602";
-const networkPeriods = ["202601", comparisonPeriod, latestComparablePeriod];
+const latestComparablePeriod = "202606";
+const comparisonPeriod = "202605";
+const networkPeriods = ["202604", comparisonPeriod, latestComparablePeriod];
 
-// These sources do not currently expose a stable public endpoint suitable for
-// this generator. Keep every hand-maintained observation in one explicit
-// configuration block so a fresh build timestamp cannot be mistaken for a
-// fresh observation timestamp.
+// Review these observations against their official sources before each refresh.
+// A new build timestamp must never be mistaken for a new observation timestamp.
 const manualSnapshots = {
   swissImport: {
-    period: "2026-06",
-    observationPeriod: "202606",
-    sourceFetchedAt: "2026-07-29T08:00:00.000Z",
+    period: "2026-08",
+    observationPeriod: "202608",
+    sourceFetchedAt: "2026-09-29T08:39:00.000Z",
     frequency: "monthly",
     status: "manualSnapshot",
     scope:
-      "瑞士官方黄金进口来源国月度总量；来源国不等同于矿山原产地。",
-    importsTonnes: 149.6,
+      "瑞士官方7108.1200黄金进口来源国月度暂定数据；来源国不等同于矿山原产地。",
+    importsTonnes: 205.02,
     sourceUrl:
-      "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
-    definition: "瑞士官方黄金进口来源国月度汇总；来源国不等于矿山原产地。",
+      "https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv",
+    definition: "瑞士海关7108.1200四类控制代码进口重量之和；8月数据为暂定值。",
     topOrigins: [
-      { code: 784, label: "阿联酋", tonnes: 26.7 },
-      { code: 842, label: "美国", tonnes: 24.9 },
-      { code: 417, label: "吉尔吉斯斯坦", tonnes: 20.1 },
-      { code: 152, label: "智利", tonnes: 12.1 },
-      { code: 32, label: "阿根廷", tonnes: 11.4 },
-      { code: 36, label: "澳大利亚", tonnes: 9.7 },
-      { code: 604, label: "秘鲁", tonnes: 8.8 },
-      { code: 380, label: "意大利", tonnes: 7.8 },
-      { code: 384, label: "科特迪瓦", tonnes: 5.4 },
-      { code: 288, label: "加纳", tonnes: 5.1 },
+      { code: 784, label: "阿联酋", tonnes: 74.708 },
+      { code: 842, label: "美国", tonnes: 28.725 },
+      { code: 32, label: "阿根廷", tonnes: 12.411 },
+      { code: 380, label: "意大利", tonnes: 10.585 },
+      { code: 152, label: "智利", tonnes: 9.727 },
+      { code: 792, label: "土耳其", tonnes: 7.31 },
+      { code: 604, label: "秘鲁", tonnes: 6.973 },
+      { code: 764, label: "泰国", tonnes: 6.703 },
+      { code: 288, label: "加纳", tonnes: 5.286 },
+      { code: 276, label: "德国", tonnes: 4.594 },
     ],
   },
   london: {
-    observationPeriod: "202606",
-    sourceFetchedAt: "2026-07-29T08:00:00.000Z",
+    observationPeriod: "202608",
+    sourceFetchedAt: "2026-09-29T08:39:00.000Z",
     frequency: "monthly",
     status: "manualSnapshot",
     scope: "伦敦专业金库月末黄金持有量，不等同于英国报关库存。",
@@ -63,10 +61,12 @@ const manualSnapshots = {
       ["2026-04", 301320],
       ["2026-05", 301967.702141],
       ["2026-06", 304285],
+      ["2026-07", 306526.610788],
+      ["2026-08", 309681],
     ],
     sourceUrl: "https://www.lbma.org.uk/prices-and-data/london-vault-data",
     workbookUrl:
-      "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-June-2026.xlsx",
+      "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-August-2026.xlsx",
   },
   newYork: {
     period: "2026-07-30",
@@ -74,9 +74,9 @@ const manualSnapshots = {
     activityDate: "2026-07-29",
     sourceFetchedAt: "2026-07-31T00:00:00.000Z",
     frequency: "daily",
-    status: "current",
+    status: "historicalSnapshot",
     scope:
-      "COMEX批准金库黄金库存；registered包含pledged，计算总量时不得重复相加。",
+      "截至2026年7月30日的CME官方库存表存档；最新表未能获取。registered包含pledged，计算总量时不得重复相加。",
     registeredOunces: 14747681.698,
     pledgedOunces: 1833860.235,
     eligibleOunces: 12289920.902,
@@ -89,35 +89,42 @@ const manualSnapshots = {
     rawSourceUrl: "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
   },
   shanghai: {
-    period: "2026-06",
-    observationPeriod: "202606",
-    sourceFetchedAt: "2026-07-02T00:00:00.000Z",
+    period: "2026-08",
+    observationPeriod: "202608",
+    sourceFetchedAt: "2026-09-29T08:39:00.000Z",
     frequency: "monthly",
     status: "manualSnapshot",
     scope:
       "上海黄金交易所月报中的黄金出库量与交割量，不等同于交易所总库存。",
-    withdrawalsTonnes: 86.6824,
-    previousWithdrawalsTonnes: 63.58446,
-    deliveryTonnes: 565.6723,
-    previousDeliveryTonnes: 582.66738,
+    withdrawalsTonnes: 62.14788,
+    previousWithdrawalsTonnes: 79.8401,
+    deliveryTonnes: 539.45896,
+    previousDeliveryTonnes: 513.27008,
     sourceUrl:
-      "https://www.sge.com.cn/upload/file/202607/02/9a1fd9b9be654e46a96d6e5a9754e638.pdf",
+      "https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf",
     previousSourceUrl:
-      "https://www.sge.com.cn/upload/file/202607/02/40caa5b58c7e4a9ba45682c3a2731d8f.pdf",
+      "https://www.sge.com.cn/upload/file/202608/04/c90650fec85943d7b76d4c185a2124e6.pdf",
   },
   priceComparison: {
-    date: "2026-06-30",
-    observationPeriod: "2026-06-30",
-    sourceFetchedAt: "2026-07-29T08:00:00.000Z",
-    frequency: "monthly-aligned",
-    alignment: "monthly-aligned",
+    date: "2026-09-28",
+    observationPeriod: "2026-09-28",
+    sourceFetchedAt: "2026-09-29T08:39:00.000Z",
+    frequency: "daily-aligned",
+    alignment: "same-day",
     status: "manualSnapshot",
     scope:
-      "上海Au99.99、LBMA PM与ECB同日汇率的月末指示性换算；不含税费、运保与规格差异。",
-    shanghaiAu9999CnyPerGram: 879.03,
-    lbmaPmUsdPerOunce: 4026.05,
-    ecbCnyPerEur: 7.7314,
-    ecbUsdPerEur: 1.1394,
+      "上海Au99.99收盘价、LBMA PM与ECB同日汇率的指示性换算；不含税费、运保与规格差异。",
+    shanghaiAu9999CnyPerGram: 900.89,
+    lbmaPmUsdPerOunce: 4144.55,
+    ecbCnyPerEur: 7.6352,
+    ecbUsdPerEur: 1.1378,
+    sourceUrls: {
+      shanghai:
+        "https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28",
+      london: "https://prices.lbma.org.uk/json/gold_pm.json",
+      exchangeRates:
+        "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+    },
   },
 };
 
@@ -213,35 +220,37 @@ const latestMarketDefinitions = [
     key: "switzerland",
     label: "瑞士",
     zone: "west",
-    period: "202605",
+    period: "202608",
   },
   {
     code: 826,
     key: "unitedKingdom",
     label: "英国",
     zone: "west",
-    period: "202605",
+    period: "202606",
   },
   {
     code: 842,
     key: "unitedStates",
     label: "美国",
     zone: "west",
-    period: "202605",
+    period: "202607",
   },
   {
     code: 699,
     key: "india",
     label: "印度",
     zone: "asia",
-    period: "202604",
+    period: "202607",
+    scope:
+      "2026年7月进口重量可得、出口净重缺失；2026年6月具备双向重量，不混入7月观察。",
   },
   {
     code: 344,
     key: "hongKong",
     label: "中国香港",
     zone: "asia",
-    period: "202605",
+    period: "202607",
   },
   {
     code: 156,
@@ -280,9 +289,7 @@ const latestMarketDefinitions = [
     key: "singapore",
     label: "新加坡",
     zone: "asia",
-    period: "202512",
-    scope:
-      "2025年12月进口净重为空、出口重量有效；不能计算净流量或参与排名。",
+    period: "202602",
   },
 ];
 
@@ -462,7 +469,7 @@ const unavailableComparableMarkets = comparableMarkets.filter(
   (market) => market.netImportsTonnes == null,
 );
 
-const swissExportPeriod = "202605";
+const swissExportPeriod = "202608";
 const swissExportResult = await queryComtrade({
   period: swissExportPeriod,
   reporterCode: 757,
@@ -599,7 +606,7 @@ const newYork = {
 
 const output = {
   version: OUTPUT_VERSION,
-  fetchedAt: buildTimestamp,
+  fetchedAt: new Date().toISOString(),
   fetchedAtMeaning:
     "页面数据包构建时间；各模块真实观测期与来源抓取时间见observationPeriod和sourceFetchedAt。",
   commodity: {
@@ -653,7 +660,7 @@ const output = {
       frequency: "monthly",
       status: "latestAvailable",
       scope:
-        "瑞士自身最新可得的HS 7108月度出口总量与完整目的地排名；不与6月进口相减推算库存。",
+        "瑞士自身最新可得的HS 7108月度出口总量与完整目的地排名；不与海关进口量相减推算库存。",
       exportsTonnes: tonnes(swissExportTotalRow),
       estimatedWeight: Boolean(swissExportTotalRow?.isNetWgtEstimated),
       destinationCount: swissExportDestinations.length,
@@ -706,7 +713,7 @@ const output = {
     inferred:
       "东西向指标仅汇总六个监测枢纽的跨区域报关流量；同一批黄金可能因转口而被多次记录。",
     comparability:
-      "净流入榜和方向指标使用2026年3月共同完整期；各市场latestAvailable按自身最新月份单列，不参与跨市场排名。",
+      "净流入榜和方向指标使用2026年6月共同完整期；各市场latestAvailable按自身最新月份单列，不参与跨市场排名。",
   },
   sources: [
     {
@@ -731,13 +738,23 @@ const output = {
     },
     {
       name: "CME Group",
-      detail: "COMEX批准金库每日库存官方原始表",
+      detail: "COMEX批准金库每日库存官方原始表；当前展示2026年7月30日存档",
       url: "https://www.cmegroup.com/clearing/operations-and-deliveries/registrar-reports.html",
     },
     {
       name: "ECB / LBMA / SGE",
-      detail: "上海—伦敦同日指示性溢价换算",
-      url: "https://data.ecb.europa.eu/data/datasets/EXR",
+      detail: "上海—伦敦同日指示性溢价；汇率取ECB参考汇率",
+      url: "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+    },
+    {
+      name: "LBMA Gold Price PM",
+      detail: "2026年9月28日伦敦下午定盘价",
+      url: "https://prices.lbma.org.uk/precious-metal-prices/",
+    },
+    {
+      name: "上金所每日行情",
+      detail: "2026年9月28日Au99.99收盘价",
+      url: "https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28",
     },
   ],
 };
