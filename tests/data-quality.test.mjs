@@ -111,7 +111,7 @@ test("latest-available market snapshots are not mixed into the common ranking", 
     thailand: "202605",
     turkiye: "202512",
     unitedArabEmirates: "201912",
-    singapore: "202602",
+    singapore: "202603",
   };
 
   for (const [key, period] of Object.entries(expectedPeriods)) {
@@ -139,8 +139,8 @@ test("latest-available market snapshots are not mixed into the common ranking", 
   assert.equal(singapore.status, "complete");
   closeTo(
     singapore.netImportsTonnes,
-    3.820054,
-    "Singapore February net imports",
+    2.529089,
+    "Singapore March net imports",
   );
   const thailand = latestByKey.get("thailand");
   assert.equal(thailand.status, "partial");

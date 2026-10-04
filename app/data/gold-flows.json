@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "fetchedAt": "2026-09-29T08:42:57.000Z",
+  "fetchedAt": "2026-10-04T06:01:11.173Z",
   "fetchedAtMeaning": "页面数据包构建时间；各模块真实观测期与来源抓取时间见observationPeriod和sourceFetchedAt。",
   "commodity": {
     "hsCode": "7108",
@@ -1448,19 +1448,19 @@
         "key": "singapore",
         "label": "新加坡",
         "zone": "asia",
-        "period": "202602",
-        "observationPeriod": "202602",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "period": "202603",
+        "observationPeriod": "202603",
+        "sourceFetchedAt": "2026-10-04T06:01:11.173Z",
         "frequency": "monthly",
         "status": "complete",
         "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
-        "importsTonnes": 21.820684,
-        "exportsTonnes": 18.00063,
-        "netImportsTonnes": 3.820053999999999,
+        "importsTonnes": 24.532041,
+        "exportsTonnes": 22.002952,
+        "netImportsTonnes": 2.529088999999999,
         "estimatedWeight": true,
         "sourceUrls": {
-          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202602&reporterCode=702&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
-          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202602&reporterCode=702&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202603&reporterCode=702&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202603&reporterCode=702&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
         }
       }
     ]
@@ -1641,7 +1641,7 @@
     {
       "name": "LBMA Gold Price PM",
       "detail": "2026年9月28日伦敦下午定盘价",
-      "url": "https://prices.lbma.org.uk/precious-metal-prices/"
+      "url": "https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices"
     },
     {
       "name": "上金所每日行情",

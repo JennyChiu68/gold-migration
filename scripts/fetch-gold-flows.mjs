@@ -289,7 +289,7 @@ const latestMarketDefinitions = [
     key: "singapore",
     label: "新加坡",
     zone: "asia",
-    period: "202602",
+    period: "202603",
   },
 ];
 
@@ -749,7 +749,7 @@ const output = {
     {
       name: "LBMA Gold Price PM",
       detail: "2026年9月28日伦敦下午定盘价",
-      url: "https://prices.lbma.org.uk/precious-metal-prices/",
+      url: "https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices",
     },
     {
       name: "上金所每日行情",
