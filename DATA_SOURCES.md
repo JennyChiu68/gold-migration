@@ -1,19 +1,19 @@
 # 黄金迁徙地图：功能与数据来源对照
 
-本文件对应当前页面和数据快照，核对日期为 **2026-10-04（北京时间）**。页面读取 [`app/data/gold-flows.json`](app/data/gold-flows.json)，由 [`scripts/fetch-gold-flows.mjs`](scripts/fetch-gold-flows.mjs) 生成。下文的“数据期”是统计对象的日期；页面顶部的“页面更新”来自 `fetchedAt`，只表示快照生成时间，**不代表所有来源都更新到了当天**。
+本文件对应当前页面和数据快照，核对日期为 **2026-10-08（北京时间）**。页面读取 [`app/data/gold-flows.json`](app/data/gold-flows.json)，由 [`scripts/fetch-gold-flows.mjs`](scripts/fetch-gold-flows.mjs) 生成。下文的“数据期”是统计对象的日期；页面顶部的“页面更新”来自 `fetchedAt`，只表示快照生成时间，**不代表所有来源都更新到了当天**。
 
-本次复核已将新加坡单市场观察同步至 2026-03（重量为官方估算）。Comtrade 同期榜仍以 2026-06 为共同完整期，瑞士进口、伦敦库存和上金所月报仍以 2026-08 为最新月度观测。上金所每日行情已到 2026-09-30、ECB 汇率已到 2026-10-02；LBMA 精确历史价格接口受限，三项同日配对价差继续保留 2026-09-28。CME 最新库存表仍无法取得，保留 2026-07-30 存档。完整检查记录见 [2026-10-04 数据核对](data-checks/2026-10-04/README.md)。
+本次复核已将英国单市场观察更新到 2026-07、伦敦库存更新到 2026-09。瑞士 7 月 HS 7108 出口总净重缺失、印度 7 月出口净重缺失，因此共同排名和方向趋势继续使用 2026-06，比较期 2026-05；不能把月份更晚但重量不完整的数据拼入共同趋势。瑞士进口与出口、上金所月报仍为 2026-08。金价温差缺少可核实的最新同日伦敦价格，保留 2026-09-28；COMEX 最新表无法取得，继续标明 2026-07-30 存档。详细结果见 [2026-10-08 数据核对](data-checks/2026-10-08/README.md)。
 
 ## 一、功能板块与来源一一对应
 
 | 页面板块 | 展示内容与快照字段 | 原始来源 | 当前数据期 | 来源更新周期 |
 | --- | --- | --- | --- | --- |
-| 01 黄金罗盘 | 伦敦库存与环比：`vaults.london`；东向报关量与环比：`network.direction`；上海相对伦敦价差：`priceComparison` | [LBMA 伦敦金库数据](https://www.lbma.org.uk/prices-and-data/london-vault-data)；[UN Comtrade 月度贸易 API](https://uncomtrade.org/docs/un-comtrade-api/)；[上金所每日行情](https://www.sge.com.cn/sjzx/quotation_daily_new)、[LBMA 黄金价格](https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices)、[ECB 参考汇率](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html) | 库存 2026-08；报关共同期 2026-06、比较期 2026-05；价格 2026-09-28 | 分别为月度、各国不定期报送的月度、交易日/工作日；详见第三节 |
+| 01 黄金罗盘 | 伦敦库存与环比：`vaults.london`；东向报关量与环比：`network.direction`；上海相对伦敦价差：`priceComparison` | [LBMA 伦敦金库数据](https://www.lbma.org.uk/prices-and-data/london-vault-data)；[UN Comtrade 月度贸易 API](https://uncomtrade.org/docs/un-comtrade-api/)；[上金所每日行情](https://www.sge.com.cn/sjzx/quotation_daily_new)、[LBMA 黄金价格](https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices)、[ECB 参考汇率](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html) | 库存 2026-09；报关共同期 2026-06、比较期 2026-05；价格 2026-09-28 | 分别为月度、各国不定期报送的月度、交易日/工作日；详见第三节 |
 | 02 全球吸金榜 | 同期净流入/净流出排名：`marketBalances.comparable`；各市场最新完整观测：`marketBalances.latestAvailable` | [UN Comtrade HS 7108 月度进口与出口](https://uncomtrade.org/docs/un-comtrade-api/)；具体市场的进口和出口直达链接见第二节 | 同期排名 2026-06、环比基期 2026-05；单市场观察期见第二节 | 统计频率为月度，实际到库时间因报告国而异 |
 | 03 黄金航线 | 出口枢纽筛选、路线榜、地图、重量和美元申报额：`network.origins`、`network.routes`；东向/西向汇总：`network.direction` | [UN Comtrade HS 7108 月度双边出口](https://uncomtrade.org/docs/un-comtrade-api/)；[报告国代码表](https://comtradeapi.un.org/files/v1/app/reference/Reporters.json) | 路线 2026-06；方向趋势 2026-04～2026-06 | 统计频率为月度，实际到库时间因报告国而异 |
 | 04 瑞士精炼站—进口来源 | 瑞士进口总量、来源地前十、来源角色分组：`swissRefinery.importSnapshot` | [瑞士联邦海关 BAZG 黄金统计说明](https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins)和[官方月度 CSV](https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv)；角色分组是本项目的人工分类 | 2026-08，当前 CSV 中为暂定数据 | 月度；后续可能修订 |
 | 04 瑞士精炼站—出口去向 | 瑞士报关出口总量、全部目的地和排序：`swissRefinery.exportSnapshot` | [UN Comtrade 瑞士 2026-08 出口伙伴明细](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202608&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500) | 2026-08 | 月度，实际到库时间依瑞士报送 |
-| 05 三地实物信号—伦敦金库 | 金库黄金总持有量、月变化、历史趋势：`vaults.london` | [LBMA 数据页](https://www.lbma.org.uk/prices-and-data/london-vault-data)；[当前使用的 2026-08 工作簿](https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-August-2026.xlsx) | 2026-08 月末 | 每月第 5 个工作日发布上月月末数据，约滞后一个月 |
+| 05 三地实物信号—伦敦金库 | 金库黄金总持有量、月变化、历史趋势：`vaults.london` | [LBMA 数据页](https://www.lbma.org.uk/prices-and-data/london-vault-data)；[当前使用的 2026-09 工作簿](https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx) | 2026-09 月末 | 每月第 5 个工作日发布上月月末数据，约滞后一个月 |
 | 05 三地实物信号—COMEX 金库 | Registered、Eligible、总量、日净变化：`vaults.newYork` | [CME 金属库存报告入口](https://www.cmegroup.com/solutions/clearing/operations-and-deliveries/nymex-delivery-notices.html)；[Gold Stocks 原始表](https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls) | **2026-07-30 存档**；表内活动日 2026-07-29 | 官方报告通常按交易日更新；本项目当前值未随之更新，页面已标“存档” |
 | 05 三地实物信号—上金所 | 黄金出库量、交割量及出库环比：`vaults.shanghai` | [上金所月报目录](https://www.sge.com.cn/sjzx/hqyb)；[2026-08 月报 PDF](https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf)；[2026-07 月报 PDF](https://www.sge.com.cn/upload/file/202608/04/c90650fec85943d7b76d4c185a2124e6.pdf) | 2026-08，环比基期 2026-07 | 月度月报，具体发布日期以月报目录为准 |
 | 05 多市场解读 | 将 `network.direction`、`vaults.london`、`vaults.shanghai` 并列展示；COMEX 仅提示历史存档 | 继承本表相应来源；没有独立原始数据 | 各来源数据期不同 | 随各来源快照更新 |
@@ -27,7 +27,7 @@
 | 市场（报告国代码） | 当前快照的单市场观测期 | 完整性 | 进口总计 | 出口总计 |
 | --- | --- | --- | --- | --- |
 | 瑞士（757） | 2026-08 | 完整 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202608&reporterCode=757&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202608&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
-| 英国（826） | 2026-06 | 完整 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=826&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
+| 英国（826） | 2026-07 | 完整 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=826&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
 | 美国（842） | 2026-07 | 完整 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=842&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=842&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
 | 印度（699） | 2026-07 | 缺出口净重，不展示该月净额 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=699&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=699&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
 | 中国香港（344） | 2026-07 | 完整 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=344&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=344&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
@@ -37,7 +37,7 @@
 | 阿联酋（784） | 2019-12 | 完整，但仅作历史观察 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=201912&reporterCode=784&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=201912&reporterCode=784&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
 | 新加坡（702） | 2026-03 | 完整；重量估算 | [M](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202603&reporterCode=702&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) | [X](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202603&reporterCode=702&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0) |
 
-“全球吸金榜”只使用 2026-06 **进口和出口重量都有效**的中国香港、印度、英国、美国、瑞士，净进口＝进口－出口，比较期为 2026-05。泰国、土耳其、阿联酋、新加坡在该共同期缺少所需数据；中国内地的较早观测单列，不混入同期排名。上表的不同月份记录只是各市场独立观察，不能互相排名。每条记录的查询链接也保存在 `marketBalances.latestAvailable[].sourceUrls`。
+“全球吸金榜”只使用 2026-06 **进口和出口重量都有效**的中国香港、印度、英国、美国、瑞士，净进口＝进口－出口，比较期为 2026-05。瑞士和印度 7 月出口总净重缺失，尚不能使用 7 月共同完整期；泰国、土耳其、阿联酋、新加坡在该共同期缺少所需数据；中国内地的较早观测单列，不混入同期排名。上表的不同月份记录只是各市场独立观察，不能互相排名。每条记录的查询链接也保存在 `marketBalances.latestAvailable[].sourceUrls`。
 
 “黄金航线”从瑞士（757）、英国（826）、美国（842）、中国香港（344）、新加坡（702）、阿联酋（784）六个候选出口枢纽的伙伴明细建立。当前 2026-06 只有前四个枢纽有有效出口总量；页面从预设地图目的地中按重量取前 40 条显示。方向汇总使用**全部符合区域规则的已取回路线**，并非只加地图上的 40 条。可用以下直达查询核对伙伴明细：[瑞士](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500)、[英国](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500)、[美国](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=842&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500)、[中国香港](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=344&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500)。东西向是项目设定的区域分组和报关流量之和，并非全球黄金实物流量；转口可造成重复计数。
 
@@ -51,7 +51,7 @@
 
 ### 伦敦 LBMA 金库库存
 
-- [数据页](https://www.lbma.org.uk/prices-and-data/london-vault-data)及[当前工作簿](https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-August-2026.xlsx)。取“伦敦金库持有黄金”的月末数量，工作簿中的千金衡盎司 × `0.0311034768` = 吨；月变化＝本月/上月－1。当前 2026-08 为约 **9,632.16 吨**。
+- [数据页](https://www.lbma.org.uk/prices-and-data/london-vault-data)及[当前工作簿](https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx)。取“伦敦金库持有黄金”的月末数量，工作簿中的千金衡盎司 × `0.0311034768` = 吨；月变化＝本月/上月－1。当前 2026-09 为约 **9,821.11 吨**。
 - LBMA 说明其在**每月第 5 个工作日**发布上月月末数据；范围包括伦敦商业金库及英格兰银行持有量，不等于英国海关库存。网站的历史数组和最新值均需人工按新工作簿更新。
 
 ### COMEX / CME 金库库存
@@ -66,7 +66,7 @@
 
 ### 上海—伦敦金价温差
 
-2026-10-04 核对：LBMA 公开页面已迁移，历史表格需经授权门户访问；旧 JSON 和新公开图表 JSON 在本次环境均返回 403。本项目没有核实 9 月 30 日伦敦 PM 精确值，因此不能把 9 月 30 日上海价与 9 月 28 日伦敦价拼成新价差。保留原同日快照及其观测日期，不能视作目前价差。
+2026-10-08 核对：LBMA 公开页面已迁移，历史表格需经授权门户访问；新公开图表 JSON 在本次环境返回 403，旧接口上次核对同样受限。本项目没有核实 9 月 30 日伦敦 PM 精确值，因此不能把 9 月 30 日上海价与 9 月 28 日伦敦价拼成新价差。保留原同日快照及其观测日期，不能视作目前价差。
 
 - [上金所 Au99.99 每日收盘价](https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28)：2026-09-28 **900.89 元/克**；[LBMA Gold Price PM 历史快照来源（当前返回 403）](https://prices.lbma.org.uk/json/gold_pm.json)：同日 **4,144.55 美元/金衡盎司**；[ECB 汇率](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)：同日 `EUR/CNY=7.6352`、`EUR/USD=1.1378`。
 - 伦敦折算元/克＝`LBMA PM 美元/盎司 ÷ 31.1034768 × (EUR/CNY ÷ EUR/USD)`；指示性溢价＝`上海元/克 ÷ 伦敦折算元/克 − 1`。当前约 **+0.75%**。三项按**同一自然日期**配对，但定盘、收盘和汇率的时点不同；不含税费、运保和规格差异，不是实时套利报价。

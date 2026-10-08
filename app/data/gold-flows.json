@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "fetchedAt": "2026-10-04T06:01:11.173Z",
+  "fetchedAt": "2026-10-08T08:04:40.329Z",
   "fetchedAtMeaning": "页面数据包构建时间；各模块真实观测期与来源抓取时间见observationPeriod和sourceFetchedAt。",
   "commodity": {
     "hsCode": "7108",
@@ -658,7 +658,7 @@
     "exportSnapshot": {
       "period": "202608",
       "observationPeriod": "202608",
-      "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+      "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
       "frequency": "monthly",
       "status": "latestAvailable",
       "scope": "瑞士自身最新可得的HS 7108月度出口总量与完整目的地排名；不与海关进口量相减推算库存。",
@@ -1270,7 +1270,7 @@
         "zone": "west",
         "period": "202608",
         "observationPeriod": "202608",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "complete",
         "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
@@ -1288,19 +1288,19 @@
         "key": "unitedKingdom",
         "label": "英国",
         "zone": "west",
-        "period": "202606",
-        "observationPeriod": "202606",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "period": "202607",
+        "observationPeriod": "202607",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "complete",
         "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
-        "importsTonnes": 95.07827800000001,
-        "exportsTonnes": 54.899347999999996,
-        "netImportsTonnes": 40.178930000000015,
+        "importsTonnes": 114.164583,
+        "exportsTonnes": 43.102852,
+        "netImportsTonnes": 71.061731,
         "estimatedWeight": false,
         "sourceUrls": {
-          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=826&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
-          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
+          "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=826&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+          "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
         }
       },
       {
@@ -1310,7 +1310,7 @@
         "zone": "west",
         "period": "202607",
         "observationPeriod": "202607",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "complete",
         "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
@@ -1331,7 +1331,7 @@
         "period": "202607",
         "scope": "2026年7月进口重量可得、出口净重缺失；2026年6月具备双向重量，不混入7月观察。",
         "observationPeriod": "202607",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "partial",
         "importsTonnes": 45.403059,
@@ -1350,7 +1350,7 @@
         "zone": "asia",
         "period": "202607",
         "observationPeriod": "202607",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "complete",
         "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
@@ -1370,7 +1370,7 @@
         "zone": "asia",
         "period": "202412",
         "observationPeriod": "202412",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "complete",
         "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
@@ -1390,7 +1390,7 @@
         "zone": "asia",
         "period": "202605",
         "observationPeriod": "202605",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "partial",
         "scope": "该市场自身最新可得月份至少一侧重量缺失，不能计算净流量或参与排名。",
@@ -1411,7 +1411,7 @@
         "period": "202512",
         "scope": "2025年12月进口重量有效，但出口净重为空；不能计算净流量或参与排名。",
         "observationPeriod": "202512",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "partial",
         "importsTonnes": 14.558,
@@ -1431,7 +1431,7 @@
         "period": "201912",
         "scope": "UN Comtrade对阿联酋的最新月度数据停留在2019年12月；仅作历史最新观察，不参与共同期排名。",
         "observationPeriod": "201912",
-        "sourceFetchedAt": "2026-09-29T08:40:07.687Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "complete",
         "importsTonnes": 65.457,
@@ -1450,7 +1450,7 @@
         "zone": "asia",
         "period": "202603",
         "observationPeriod": "202603",
-        "sourceFetchedAt": "2026-10-04T06:01:11.173Z",
+        "sourceFetchedAt": "2026-10-08T07:51:49.703Z",
         "frequency": "monthly",
         "status": "complete",
         "scope": "该市场自身最新可得的HS 7108月度总进口与总出口；不同市场月份不可直接横向排名。",
@@ -1467,14 +1467,14 @@
   },
   "vaults": {
     "london": {
-      "period": "2026-08",
-      "observationPeriod": "202608",
-      "sourceFetchedAt": "2026-09-29T08:39:00.000Z",
+      "period": "2026-09",
+      "observationPeriod": "202609",
+      "sourceFetchedAt": "2026-10-08T07:48:42.393Z",
       "frequency": "monthly",
       "status": "manualSnapshot",
       "scope": "伦敦专业金库月末黄金持有量，不等同于英国报关库存。",
-      "tonnes": 9632.1557989008,
-      "monthlyChangePct": 1.0290751605189774,
+      "tonnes": 9821.1094204608,
+      "monthlyChangePct": 1.961696067889207,
       "history": [
         {
           "period": "2025-06",
@@ -1535,10 +1535,14 @@
         {
           "period": "2026-08",
           "tonnes": 9632.1557989008
+        },
+        {
+          "period": "2026-09",
+          "tonnes": 9821.1094204608
         }
       ],
       "sourceUrl": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
-      "workbookUrl": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-August-2026.xlsx"
+      "workbookUrl": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx"
     },
     "newYork": {
       "period": "2026-07-30",

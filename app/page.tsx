@@ -875,6 +875,7 @@ export default function Home() {
         chapter="02"
         eyebrow={`同期榜单 · ${formatPeriod(data.marketBalances.period)}`}
         title="全球吸金榜"
+        note={`${data.marketBalances.comparable.length}个进出口重量完整的市场`}
         className="market-section"
       >
         <div className="balance-group">

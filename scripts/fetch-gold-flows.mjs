@@ -42,8 +42,8 @@ const manualSnapshots = {
     ],
   },
   london: {
-    observationPeriod: "202608",
-    sourceFetchedAt: "2026-09-29T08:39:00.000Z",
+    observationPeriod: "202609",
+    sourceFetchedAt: "2026-10-08T07:48:42.393Z",
     frequency: "monthly",
     status: "manualSnapshot",
     scope: "伦敦专业金库月末黄金持有量，不等同于英国报关库存。",
@@ -63,10 +63,11 @@ const manualSnapshots = {
       ["2026-06", 304285],
       ["2026-07", 306526.610788],
       ["2026-08", 309681],
+      ["2026-09", 315756],
     ],
     sourceUrl: "https://www.lbma.org.uk/prices-and-data/london-vault-data",
     workbookUrl:
-      "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-August-2026.xlsx",
+      "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx",
   },
   newYork: {
     period: "2026-07-30",
@@ -132,10 +133,21 @@ const wait = (milliseconds) =>
   new Promise((resolveWait) => setTimeout(resolveWait, milliseconds));
 
 async function fetchJson(url, attempt = 1) {
-  const response = await fetch(url, {
-    headers: { "user-agent": "GoldMigrationMapDemo/4.0" },
-    signal: AbortSignal.timeout(15_000),
-  });
+  let response;
+  try {
+    response = await fetch(url, {
+      headers: { "user-agent": "GoldMigrationMapDemo/4.0" },
+      signal: AbortSignal.timeout(30_000),
+    });
+  } catch (error) {
+    if (attempt < 5) {
+      await wait(1600 * attempt);
+      return fetchJson(url, attempt + 1);
+    }
+    throw new Error(`Source connection failed after ${attempt} attempts: ${url}`, {
+      cause: error,
+    });
+  }
   if (!response.ok) {
     if (attempt < 5) {
       await wait(1400 * attempt);
@@ -227,7 +239,7 @@ const latestMarketDefinitions = [
     key: "unitedKingdom",
     label: "英国",
     zone: "west",
-    period: "202606",
+    period: "202607",
   },
   {
     code: 842,

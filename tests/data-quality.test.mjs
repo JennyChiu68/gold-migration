@@ -74,7 +74,10 @@ test("common-period network and ranking are explicitly isolated", () => {
 });
 
 test("comparable market balances reconcile at one complete period", () => {
-  assert.ok(data.marketBalances.comparable.length >= 4);
+  assert.deepEqual(
+    data.marketBalances.comparable.map((market) => market.code).sort((a, b) => a - b),
+    [344, 699, 757, 826, 842],
+  );
   for (const market of data.marketBalances.comparable) {
     assert.equal(market.period, data.marketBalances.latestComparablePeriod);
     assert.equal(typeof market.importsTonnes, "number");
@@ -103,7 +106,7 @@ test("latest-available market snapshots are not mixed into the common ranking", 
   );
   const expectedPeriods = {
     switzerland: "202608",
-    unitedKingdom: "202606",
+    unitedKingdom: "202607",
     unitedStates: "202607",
     india: "202607",
     hongKong: "202607",
@@ -279,6 +282,7 @@ test("Swiss import and export snapshots retain separate source boundaries", () =
 
 test("London, Shanghai and official COMEX calculations reconcile", () => {
   const london = data.vaults.london;
+  assert.equal(london.observationPeriod, "202609");
   closeTo(london.tonnes, london.history.at(-1).tonnes, "London latest tonnes");
   closeTo(
     london.monthlyChangePct,
