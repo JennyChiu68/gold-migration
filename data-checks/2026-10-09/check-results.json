@@ -1,0 +1,171 @@
+{
+  "checkedAt": "2026-10-09T07:58:13.087Z",
+  "checks": [
+    {
+      "file": "availability-current.json",
+      "url": "https://comtradeapi.un.org/public/v1/getDA/C/M/HS?reporterCode=757,826,842,699,344,156,764,792,784,702&period=202604,202605,202606,202607,202608,202609",
+      "checkedAt": "2026-10-09T07:52:14.557507+00:00",
+      "exitCode": 0,
+      "httpStatus": "200",
+      "error": "",
+      "bytes": 12520,
+      "sha256": "8b3bf65139b4070423b7eca364d45d99275ea58e986518a326ae38a08a58685b",
+      "rows": 23,
+      "apiError": "",
+      "newOrRevised": [],
+      "removedKeys": [],
+      "baseline": "data-checks/2026-10-08/availability-current.json",
+      "validation": "相同报告国、月份和分类的发布时间、修订时间、校验值与记录数一致"
+    },
+    {
+      "file": "availability-historic.json",
+      "url": "https://comtradeapi.un.org/public/v1/getDA/C/M/HS?reporterCode=156,784&period=202001,202002,202003,202004,202005,202006,202007,202008,202009,202010,202011,202012,202101,202102,202103,202104,202105,202106,202107,202108,202109,202110,202111,202112,202201,202202,202203,202204,202205,202206,202207,202208,202209,202210,202211,202212,202301,202302,202303,202304,202305,202306,202307,202308,202309,202310,202311,202312,202401,202402,202403,202404,202405,202406,202407,202408,202409,202410,202411,202412",
+      "checkedAt": "2026-10-09T07:52:14.668202+00:00",
+      "exitCode": 0,
+      "httpStatus": "200",
+      "error": "",
+      "bytes": 32297,
+      "sha256": "2775aee82e02eb2092ce727a349ed0923f82f116bed842f656c2365a28015aa1",
+      "rows": 60,
+      "apiError": "",
+      "newOrRevised": [],
+      "removedKeys": [],
+      "baseline": "data-checks/2026-10-08/availability-historic.json",
+      "validation": "相同报告国、月份和分类的发布时间、修订时间、校验值与记录数一致"
+    },
+    {
+      "file": "availability-lagged.json",
+      "url": "https://comtradeapi.un.org/public/v1/getDA/C/M/HS?reporterCode=156,764,792,784,702&period=202412,202501,202502,202503,202504,202505,202506,202507,202508,202509,202510,202511,202512,202601,202602,202603",
+      "checkedAt": "2026-10-09T07:52:14.951469+00:00",
+      "exitCode": 0,
+      "httpStatus": "200",
+      "error": "",
+      "bytes": 24842,
+      "sha256": "a24e6f488938ff358a982d49b7556469f8b879e315da6d38f4d4824141214b9a",
+      "rows": 46,
+      "apiError": "",
+      "newOrRevised": [],
+      "removedKeys": [],
+      "baseline": "data-checks/2026-10-08/availability-lagged.json",
+      "validation": "相同报告国、月份和分类的发布时间、修订时间、校验值与记录数一致"
+    },
+    {
+      "file": "sge-monthly.html",
+      "url": "https://www.sge.com.cn/sjzx/hqyb",
+      "checkedAt": "2026-10-09T07:52:15.308439+00:00",
+      "exitCode": 0,
+      "httpStatus": "200",
+      "error": "",
+      "bytes": 57868,
+      "sha256": "d37e49646e41f29f9d8770407beeaee37bb2a041eae8a911e29e7a96781e0fdd"
+    },
+    {
+      "file": "sge-daily.html",
+      "url": "https://www.sge.com.cn/sjzx/mrhqsj",
+      "checkedAt": "2026-10-09T07:52:15.587071+00:00",
+      "exitCode": 0,
+      "httpStatus": "200",
+      "error": "",
+      "bytes": 51977,
+      "sha256": "c03cc5a91a4f38d0e4e7f5ebb19009fd336bcfe1695c4d1f152b16f5a2659f11"
+    },
+    {
+      "file": "lbma-vault.html",
+      "url": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
+      "checkedAt": "2026-10-09T07:52:22.174319+00:00",
+      "exitCode": 28,
+      "httpStatus": "000",
+      "error": "curl: (28) SSL connection timeout"
+    },
+    {
+      "file": "lbma-vault-sep.xlsx",
+      "url": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx",
+      "checkedAt": "2026-10-09T07:52:25.268447+00:00",
+      "exitCode": 0,
+      "httpStatus": "200",
+      "error": "",
+      "bytes": 23658,
+      "sha256": "24d1fb6e41f0dd6c9071c90cd490796b34123c0678a25b284d81f132df25e91c",
+      "identicalToBaseline": true
+    },
+    {
+      "file": "swiss-import.csv",
+      "url": "https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv",
+      "checkedAt": "2026-10-09T07:52:25.336221+00:00",
+      "exitCode": 28,
+      "httpStatus": "000",
+      "error": "curl: (28) SSL connection timeout"
+    },
+    {
+      "file": "cme-gold-stocks.xls",
+      "url": "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
+      "checkedAt": "2026-10-09T07:52:25.610744+00:00",
+      "exitCode": 28,
+      "httpStatus": "000",
+      "error": "curl: (28) SSL connection timeout"
+    },
+    {
+      "file": "lbma-gold-pm.json",
+      "url": "https://prices.lbma.org.uk/json/gold_pm.json",
+      "checkedAt": "2026-10-09T07:52:32.203017+00:00",
+      "exitCode": 28,
+      "httpStatus": "000",
+      "error": "curl: (28) SSL connection timeout"
+    },
+    {
+      "file": "ecb-90d.xml",
+      "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+      "checkedAt": "2026-10-09T07:52:35.299080+00:00",
+      "exitCode": 28,
+      "httpStatus": "000",
+      "error": "curl: (28) SSL connection timeout"
+    }
+  ],
+  "additionalChecks": [
+    {
+      "file": "sge-september.pdf",
+      "url": "https://www.sge.com.cn/upload/file/202610/09/9e6b4a569aeb41149beed7619cad377f.pdf",
+      "checkedAt": "2026-10-09T07:53:44.050Z",
+      "httpStatus": "200",
+      "bytes": 253906,
+      "sha256": "762e6622cf0fc5d5ef1aa6a4a5b930c9815ea0b2b156d9125a985d7f1397297b",
+      "observationPeriod": "202609",
+      "goldWithdrawalsKg": 92083.24,
+      "goldDeliveryKg": 613288.68,
+      "sourcePage": 4
+    },
+    {
+      "file": "ecb-90d.xml",
+      "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+      "checkedAt": "2026-10-09T07:55:13.652233+00:00",
+      "httpStatus": "200",
+      "retry": "IPv4 / HTTP1.1",
+      "observationPeriod": "2026-10-08"
+    },
+    {
+      "file": "sge-october-08.html",
+      "url": "https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-10-08&end_date=2026-10-08",
+      "checkedAt": "2026-10-09T07:53:45.016287+00:00",
+      "httpStatus": "200",
+      "observationPeriod": "2026-10-08"
+    },
+    {
+      "file": "swiss-import.csv",
+      "httpStatus": "000",
+      "retry": "IPv4 / HTTP1.1",
+      "error": "SSL connection timeout; freshness unverified"
+    },
+    {
+      "file": "cme-gold-stocks.xls",
+      "httpStatus": "000",
+      "retry": "IPv4 / HTTP1.1",
+      "error": "25-second timeout; freshness unverified"
+    },
+    {
+      "file": "lbma-gold-pm.json",
+      "httpStatus": "000",
+      "retry": "IPv4 / HTTP1.1",
+      "error": "SSL_ERROR_SYSCALL; freshness unverified"
+    }
+  ]
+}

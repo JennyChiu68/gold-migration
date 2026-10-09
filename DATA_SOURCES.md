@@ -1,8 +1,8 @@
 # 黄金迁徙地图：功能与数据来源对照
 
-本文件对应当前页面和数据快照，核对日期为 **2026-10-08（北京时间）**。页面读取 [`app/data/gold-flows.json`](app/data/gold-flows.json)，由 [`scripts/fetch-gold-flows.mjs`](scripts/fetch-gold-flows.mjs) 生成。下文的“数据期”是统计对象的日期；页面顶部的“页面更新”来自 `fetchedAt`，只表示快照生成时间，**不代表所有来源都更新到了当天**。
+本文件对应当前页面和数据快照，核对日期为 **2026-10-09（北京时间）**。页面读取 [`app/data/gold-flows.json`](app/data/gold-flows.json)，由 [`scripts/fetch-gold-flows.mjs`](scripts/fetch-gold-flows.mjs) 生成。下文的“数据期”是统计对象的日期；页面顶部的“页面更新”来自 `fetchedAt`，只表示快照生成时间，**不代表所有来源都更新到了当天**。
 
-本次复核已将英国单市场观察更新到 2026-07、伦敦库存更新到 2026-09。瑞士 7 月 HS 7108 出口总净重缺失、印度 7 月出口净重缺失，因此共同排名和方向趋势继续使用 2026-06，比较期 2026-05；不能把月份更晚但重量不完整的数据拼入共同趋势。瑞士进口与出口、上金所月报仍为 2026-08。金价温差缺少可核实的最新同日伦敦价格，保留 2026-09-28；COMEX 最新表无法取得，继续标明 2026-07-30 存档。详细结果见 [2026-10-08 数据核对](data-checks/2026-10-08/README.md)。
+本次发现上金所于 2026-10-09 发布 9 月月报，已将上海出库、交割及环比基期更新到 2026-09/2026-08；趋势为“出库增加”。UN Comtrade 的发布/修订记录及 LBMA 9 月工作簿与 10 月 8 日一致：共同排名/方向仍为 2026-06，英国等单市场最新期不变，伦敦库存仍为 2026-09。瑞士进口 CSV 和 CME 库存表本次连接失败，不能认定它们没有更新。上金所日行情及 ECB 汇率已推进到 2026-10-08，但无法取得最新同日 LBMA 精确价格，价差继续保留 2026-09-28。详细结果见 [2026-10-09 数据核对](data-checks/2026-10-09/README.md)。
 
 ## 一、功能板块与来源一一对应
 
@@ -15,7 +15,7 @@
 | 04 瑞士精炼站—出口去向 | 瑞士报关出口总量、全部目的地和排序：`swissRefinery.exportSnapshot` | [UN Comtrade 瑞士 2026-08 出口伙伴明细](https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202608&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500) | 2026-08 | 月度，实际到库时间依瑞士报送 |
 | 05 三地实物信号—伦敦金库 | 金库黄金总持有量、月变化、历史趋势：`vaults.london` | [LBMA 数据页](https://www.lbma.org.uk/prices-and-data/london-vault-data)；[当前使用的 2026-09 工作簿](https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx) | 2026-09 月末 | 每月第 5 个工作日发布上月月末数据，约滞后一个月 |
 | 05 三地实物信号—COMEX 金库 | Registered、Eligible、总量、日净变化：`vaults.newYork` | [CME 金属库存报告入口](https://www.cmegroup.com/solutions/clearing/operations-and-deliveries/nymex-delivery-notices.html)；[Gold Stocks 原始表](https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls) | **2026-07-30 存档**；表内活动日 2026-07-29 | 官方报告通常按交易日更新；本项目当前值未随之更新，页面已标“存档” |
-| 05 三地实物信号—上金所 | 黄金出库量、交割量及出库环比：`vaults.shanghai` | [上金所月报目录](https://www.sge.com.cn/sjzx/hqyb)；[2026-08 月报 PDF](https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf)；[2026-07 月报 PDF](https://www.sge.com.cn/upload/file/202608/04/c90650fec85943d7b76d4c185a2124e6.pdf) | 2026-08，环比基期 2026-07 | 月度月报，具体发布日期以月报目录为准 |
+| 05 三地实物信号—上金所 | 黄金出库量、交割量及出库环比：`vaults.shanghai` | [上金所月报目录](https://www.sge.com.cn/sjzx/hqyb)；[2026-09 月报 PDF](https://www.sge.com.cn/upload/file/202610/09/9e6b4a569aeb41149beed7619cad377f.pdf)；[2026-08 月报 PDF](https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf) | 2026-09，环比基期 2026-08 | 月度月报，具体发布日期以月报目录为准 |
 | 05 多市场解读 | 将 `network.direction`、`vaults.london`、`vaults.shanghai` 并列展示；COMEX 仅提示历史存档 | 继承本表相应来源；没有独立原始数据 | 各来源数据期不同 | 随各来源快照更新 |
 | 06 金价温差 | 上海 Au99.99 对伦敦 PM 的指示性溢价：`priceComparison` | [上金所 2026-09-28 每日行情](https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28)；[LBMA 价格页面](https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices)；[ECB 欧元参考汇率](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html) | 三项均取 2026-09-28 | 上金所按交易日、LBMA 在英国营业日定盘、ECB 在 TARGET 工作日发布 |
 | 07 数据底稿 | 商品范围、来源清单、计算口径与限制：`commodity`、`methodology`、`sources` | 本文件所列官方来源及本项目计算规则 | 随当前快照 | 随文档和快照人工维护 |
@@ -61,12 +61,12 @@
 
 ### 上海黄金交易所月报
 
-- [月报目录](https://www.sge.com.cn/sjzx/hqyb)、[2026-08 报告](https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf)、[2026-07 报告](https://www.sge.com.cn/upload/file/202608/04/c90650fec85943d7b76d4c185a2124e6.pdf)。取报告中的**黄金出库量**和**交割量**，千克 ÷ 1,000 = 吨；出库环比＝本月出库/上月出库－1。当前 2026-08 出库 **62.14788 吨**、交割 **539.45896 吨**。
+- [月报目录](https://www.sge.com.cn/sjzx/hqyb)、[2026-09 报告](https://www.sge.com.cn/upload/file/202610/09/9e6b4a569aeb41149beed7619cad377f.pdf)、[2026-08 报告](https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf)。取报告中的**黄金出库量**和**交割量**，千克 ÷ 1,000 = 吨；出库环比＝本月出库/上月出库－1。当前 2026-09 出库 **92.08324 吨**、交割 **613.28868 吨**；环比基期为 2026-08，出库增加约 **48.17%**。
 - 来源是月报，具体发布时间以目录为准。出库量、交割量都**不是交易所金库总库存**；每期需人工读取报告并更新脚本中的月度快照。
 
 ### 上海—伦敦金价温差
 
-2026-10-08 核对：LBMA 公开页面已迁移，历史表格需经授权门户访问；新公开图表 JSON 在本次环境返回 403，旧接口上次核对同样受限。本项目没有核实 9 月 30 日伦敦 PM 精确值，因此不能把 9 月 30 日上海价与 9 月 28 日伦敦价拼成新价差。保留原同日快照及其观测日期，不能视作目前价差。
+2026-10-09 核对：上金所每日行情与 ECB 汇率均已有 2026-10-08 记录，但精确伦敦 PM 价格接口连接失败。LBMA 公开页面已迁移，历史表格需经授权门户访问；新公开图表 JSON 在本次环境返回 403，旧接口上次核对同样受限。本项目没有核实 9 月 30 日伦敦 PM 精确值，因此不能把 9 月 30 日上海价与 9 月 28 日伦敦价拼成新价差。保留原同日快照及其观测日期，不能视作目前价差。
 
 - [上金所 Au99.99 每日收盘价](https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28)：2026-09-28 **900.89 元/克**；[LBMA Gold Price PM 历史快照来源（当前返回 403）](https://prices.lbma.org.uk/json/gold_pm.json)：同日 **4,144.55 美元/金衡盎司**；[ECB 汇率](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)：同日 `EUR/CNY=7.6352`、`EUR/USD=1.1378`。
 - 伦敦折算元/克＝`LBMA PM 美元/盎司 ÷ 31.1034768 × (EUR/CNY ÷ EUR/USD)`；指示性溢价＝`上海元/克 ÷ 伦敦折算元/克 − 1`。当前约 **+0.75%**。三项按**同一自然日期**配对，但定盘、收盘和汇率的时点不同；不含税费、运保和规格差异，不是实时套利报价。

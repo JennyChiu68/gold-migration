@@ -90,21 +90,21 @@ const manualSnapshots = {
     rawSourceUrl: "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
   },
   shanghai: {
-    period: "2026-08",
-    observationPeriod: "202608",
-    sourceFetchedAt: "2026-09-29T08:39:00.000Z",
+    period: "2026-09",
+    observationPeriod: "202609",
+    sourceFetchedAt: "2026-10-09T07:53:44.050Z",
     frequency: "monthly",
     status: "manualSnapshot",
     scope:
       "上海黄金交易所月报中的黄金出库量与交割量，不等同于交易所总库存。",
-    withdrawalsTonnes: 62.14788,
-    previousWithdrawalsTonnes: 79.8401,
-    deliveryTonnes: 539.45896,
-    previousDeliveryTonnes: 513.27008,
+    withdrawalsTonnes: 92.08324,
+    previousWithdrawalsTonnes: 62.14788,
+    deliveryTonnes: 613.28868,
+    previousDeliveryTonnes: 539.45896,
     sourceUrl:
-      "https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf",
+      "https://www.sge.com.cn/upload/file/202610/09/9e6b4a569aeb41149beed7619cad377f.pdf",
     previousSourceUrl:
-      "https://www.sge.com.cn/upload/file/202608/04/c90650fec85943d7b76d4c185a2124e6.pdf",
+      "https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf",
   },
   priceComparison: {
     date: "2026-09-28",
