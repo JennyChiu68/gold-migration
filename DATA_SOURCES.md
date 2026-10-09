@@ -4,6 +4,8 @@
 
 本次发现上金所于 2026-10-09 发布 9 月月报，已将上海出库、交割及环比基期更新到 2026-09/2026-08；趋势为“出库增加”。UN Comtrade 的发布/修订记录及 LBMA 9 月工作簿与 10 月 8 日一致：共同排名/方向仍为 2026-06，英国等单市场最新期不变，伦敦库存仍为 2026-09。瑞士进口 CSV 和 CME 库存表本次连接失败，不能认定它们没有更新。上金所日行情及 ECB 汇率已推进到 2026-10-08，但无法取得最新同日 LBMA 精确价格，价差继续保留 2026-09-28。详细结果见 [2026-10-09 数据核对](data-checks/2026-10-09/README.md)。
 
+**来源选择核查：** 各板块首选渠道、十个市场的国家官方来源、访问条件、建议抓取频次与换源验收见 [数据源全面核查](DATA_SOURCE_AUDIT.md)。贸易建议经同口径对账后采用本国官方详细数据优先、Comtrade 核验与备用；现程序尚未接入这些新渠道。库存与上金所现源保留。伦敦 PM 应落实 IBA 或授权分发商交付；新加坡官方 StatLink 将于 2027-01-01 停用，接续平台需验证。
+
 ## 一、功能板块与来源一一对应
 
 | 页面板块 | 展示内容与快照字段 | 原始来源 | 当前数据期 | 来源更新周期 |
@@ -70,7 +72,7 @@
 
 - [上金所 Au99.99 每日收盘价](https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28)：2026-09-28 **900.89 元/克**；[LBMA Gold Price PM 历史快照来源（当前返回 403）](https://prices.lbma.org.uk/json/gold_pm.json)：同日 **4,144.55 美元/金衡盎司**；[ECB 汇率](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)：同日 `EUR/CNY=7.6352`、`EUR/USD=1.1378`。
 - 伦敦折算元/克＝`LBMA PM 美元/盎司 ÷ 31.1034768 × (EUR/CNY ÷ EUR/USD)`；指示性溢价＝`上海元/克 ÷ 伦敦折算元/克 − 1`。当前约 **+0.75%**。三项按**同一自然日期**配对，但定盘、收盘和汇率的时点不同；不含税费、运保和规格差异，不是实时套利报价。
-- 上金所按交易日提供每日行情；[LBMA 黄金基准价](https://www.lbma.org.uk/prices-and-data/about-lbma-daily-auction-prices)在英国营业日有上午和下午两次定盘，公开页面有发布时间延迟；[ECB](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)通常在 TARGET 工作日约欧洲中部时间 16:00 更新。使用或再分发 LBMA 基准价可能涉及 [IBA 授权](https://www.lbma.org.uk/prices-and-data/lbma-gold-price/lbma-gold-price)，对外商用前需核对条款。网站目前是人工核对后的固定值。
+- 上金所按交易日提供每日行情；[LBMA 黄金基准价](https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices)在英国营业日有上午和下午两次定盘；[ECB](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html)通常在 TARGET 工作日约欧洲中部时间 16:00 更新。LBMA 官方说明已将历史表移入 MyLBMA Portal，并明确获取、使用及再分发基准价需要相关 IBA 许可。正式交付应选 [IBA](https://www.ice.com/iba/lbma-precious-metals)或[授权分发商](https://www.ice.com/iba/licensing/data-vendors-redistribution)；延迟价格不自动免使用／再分发许可。上列旧 JSON 仅记录历史快照出处，不作为保证可用的生产接口。网站目前是人工核对后的固定值。
 
 ## 四、网站实际刷新方式与维护步骤
 

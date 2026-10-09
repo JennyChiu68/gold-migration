@@ -1,0 +1,166 @@
+{
+  "checkedDate": "2026-10-09",
+  "scope": "Source selection, seven modules; candidate gold row extraction incomplete; no application data edits",
+  "nationalTrade": [
+    {
+      "market": "China mainland",
+      "institution": "GACC",
+      "url": "http://stats.customs.gov.cn/",
+      "method": "https://chinacustoms.gmcmonline.com/202405/c/19717.shtml",
+      "frequency": "monthly official detailed data; no exact day verified",
+      "fields": "HS8, origin for imports/destination for exports, first/second quantity+units, RMB/USD",
+      "access": "official guide says no registration and free export; live endpoint inaccessible in this check",
+      "gold_weight_verified": false,
+      "recommendation": "priority national source; do not claim successful latest gold extraction"
+    },
+    {
+      "market": "Hong Kong",
+      "institution": "Census and Statistics Department",
+      "url": "https://tradeidds.censtatd.gov.hk/api/get",
+      "documentation": "https://data.gov.hk/en-data/dataset/hk-censtatd-trade-idds-trade/resource/173a8d40-24ff-4e8e-b9f2-456b20208fa4",
+      "frequency": "monthly",
+      "fields": "QCm/VCm, HKHS6/HKHS8 for quantity, imports/domestic exports/reexports/total exports, origin/consignment",
+      "access": "free JSON API; live request August2026 timed out via curl and failed web; no returned gold quantity/unit verified",
+      "gold_weight_verified": false,
+      "recommendation": "priority integration proof; total exports is trade type4; HKHS4 lacks quantity"
+    },
+    {
+      "market": "India",
+      "institution": "Department of Commerce/DGCI&S",
+      "url": "https://tradestat.commerce.gov.in/meidb/",
+      "documentation": "https://www.commerce.gov.in/ministryofcommerce/node/893",
+      "frequency": "monthly",
+      "fields": "ITC-HS8 quantity; commodity/country/month/INR/USD",
+      "access": "live portal failed; August2026 quick estimates are not proof of detailed HS gold weight",
+      "gold_weight_verified": false,
+      "recommendation": "priority direct portal adapter after detailed quantity proof"
+    },
+    {
+      "market": "Thailand",
+      "institution": "Ministry of Commerce sourced from Customs",
+      "url": "https://tradereport.moc.go.th/opendata/exportharmonizecountries",
+      "import_documentation": "https://tradereport.moc.go.th/opendata/importharmonizecountries",
+      "calendar": "https://tradereport.moc.go.th/en/documentpublish",
+      "frequency": "monthly around25th; August2026 released2026-09-25 10:30",
+      "fields": "HS2/4/6/8/11, quantity, acc_quantity, USD/THB, partner; API limit maximum10; quantity0 can mean differing units",
+      "access": "public documented API; live August gold query inaccessible through web",
+      "gold_weight_verified": false,
+      "recommendation": "priority national adapter; all-partner totals cannot be inferred from top10 API"
+    },
+    {
+      "market": "Turkey",
+      "institution": "TurkStat",
+      "url": "https://bi.tuik.gov.tr/extensions/tuik-mashup/index.html?lang=en",
+      "methodology": "https://veriportali.tuik.gov.tr/Bulten/Index?dil=2&p=Foreign-Trade-Statistics-March-2025-53901",
+      "frequency": "monthly",
+      "fields": "kg net mass for all goods except gas/electricity; USD/EUR/TRY; importCIF/exportFOB; nonmonetary gold included, monetary HS710820 excluded; general/special trade need distinction",
+      "access": "public dynamic BI portal, not extracted in this check",
+      "gold_weight_verified": false,
+      "recommendation": "candidate to repair missing Comtrade gold weights, pending actual detailed extraction"
+    },
+    {
+      "market": "UAE",
+      "institution": "FCSC/Ministry of Economy and Tourism",
+      "url": "https://uaestat.fcsc.gov.ae/",
+      "map": "https://www.moet.gov.ae/en/international-trade-map",
+      "frequency": "public catalog verified annual HS-section/country; latest gold monthly weight not verified",
+      "fields": "map by chapter/year, AED/USD, freezone/direct/warehouse, imports/non-oil exports/reexports; no same-scope monthly HS gold kg verified",
+      "access": "public dynamic pages; actual data metadata inaccessible through text tool",
+      "gold_weight_verified": false,
+      "recommendation": "annual context/check only, not replacement for monthly gold-tonnage ranking; Dubai not wholeUAE"
+    },
+    {
+      "market": "Singapore",
+      "institution": "Enterprise Singapore",
+      "url": "https://statlink.enterprisesg.gov.sg/Default.aspx",
+      "faq": "https://statlink.enterprisesg.gov.sg/pages/Misc/FAQ.aspx",
+      "frequency": "17th monthly or nearest working day",
+      "fields": "HS8 or SITC7 quantities only; bilateral monthly value/quantity; domestic exports/reexports/general-system includesFTZ",
+      "access": "subscription and paid reports, Singpass login for NRIC/FIN; check public redistribution terms",
+      "gold_weight_verified": false,
+      "recommendation": "Prioritise successor coverage validation; no confirmed same-scope monthly gold quantities in free platform, do not build permanent new StatLink dependency.",
+      "lifecycle": "Official FAQ banner says StatLink and related services decommissioned 2027-01-01; refers to complimentary SingStat Table Builder.",
+      "successor": "https://tablebuilder.singstat.gov.sg/"
+    }
+  ],
+  "inventoryAndPrices": [
+    {
+      "module": "London vault holdings",
+      "preferred": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
+      "download": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx",
+      "status": "Official current page confirms September 2026 and monthly publication on fifth business day. Includes London commercial vaults and Bank of England; no independently verified faster same-scope official public source found.",
+      "recommendation": "Discover current workbook from page rather than hard-code monthly filename; save source observation month and revision checksum. BoE holdings alone are a subset, not a replacement."
+    },
+    {
+      "module": "COMEX gold stocks",
+      "preferred": "https://www.cmegroup.com/solutions/clearing/operations-and-deliveries/nymex-delivery-notices.html",
+      "alsoValid": "https://www.cmegroup.com/clearing/operations-and-deliveries/registrar-reports.html",
+      "download": "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
+      "verification": "Both official pages link Gold Stocks; alternate page is not an independent file source. Direct curl attempt timed out after 20 seconds with zero bytes; latest report not verified.",
+      "definitionsSource": "https://www.cmegroup.com/notices/disciplinary/2021/12/COMEX-RSRH-21-6113-LOOMIS-INTERNATIONAL-US-INC.html",
+      "status": "Daily licensed depository inventory reporting; pledged is registered metal used as collateral. Report date and activity date differ. Stock totals equal registered plus eligible; do not add pledged again.",
+      "recommendation": "Keep CME as primary. Automate bounded fetch and validate report/activity dates, all totals, units, missing values; mark stale on failures. No verified equally official independent free file fallback found."
+    },
+    {
+      "module": "SGE withdrawals and delivery",
+      "preferred": "https://www.sge.com.cn/sjzx/hqyb",
+      "status": "Current project uses official monthly market report; withdrawal and delivery are activity measures, not aggregate vault stock. No verified more timely same-measure source found.",
+      "recommendation": "Auto-discover PDF from monthly directory and preserve report period. Daily trading volume, delivery ratio, and monthly withdrawals cannot silently substitute each other."
+    },
+    {
+      "module": "LBMA gold benchmark",
+      "preferred": "https://www.ice.com/iba/lbma-precious-metals",
+      "officialDisplay": "https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices",
+      "officialPortal": "https://portal.lbma.org.uk/",
+      "licensing": "https://www.ice.com/iba/about",
+      "redistributors": "https://www.ice.com/iba/licensing/data-vendors-redistribution",
+      "status": "LBMA page says historical tables moved to MyLBMA Portal and relevant IBA licence required. Gold auctions start London 10:30 and 15:00; final publication time depends on auction completion. IBA current licensing page distinguishes real-time, four-hour intraday, and midnight London delayed availability. Four-hour delayed end-user fee exemption does not exempt all usage/redistribution licences.",
+      "recommendation": "Replace old undocumented JSON as intended primary with authorised IBA or licensed redistribution delivery. Portal is official validation access. Do not represent public chart endpoint as a guaranteed free commercial API; do not use COMEX futures as London spot."
+    },
+    {
+      "module": "Shanghai price",
+      "preferred": "https://www.sge.com.cn/sjzx/quotation_daily_new",
+      "alternativeDifferentMeasure": "https://www.sge.com.cn/sjzx/jzj",
+      "status": "Au99.99 daily closing price remains valid for current defined indicator. Shanghai Gold Benchmark is separate official auction series, not interchangeable; its auction times are 10:15 and 14:15 Beijing per SGE official rules.",
+      "recommendation": "Keep current daily close definition unless entire indicator and its history are deliberately redefined."
+    },
+    {
+      "module": "FX",
+      "preferred": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+      "machineDownload": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+      "domesticAlternative": "https://www.chinamoney.com.cn/chinese/bkccpr/",
+      "safeAlternative": "https://www.safe.gov.cn/safe/rmbhlzjj/",
+      "status": "ECB publishes EUR-based USD and CNY reference rates around 16:00 CET on working days excluding TARGET closures; underlying concertation normally around 14:10 CET. CNY per USD is CNY-per-EUR divided by USD-per-EUR. CFETS/PBOC central parity is different morning fixing, not a live executable price. SAFE republishes central parity rather than independent real-time FX.",
+      "recommendation": "ECB remains sound for same-day indicative cross-market comparison. Domestic central parity can be separately labelled sensitivity/alternative-rate calculation, never silent failover. Need a licensed timestamp-matched spot FX source for truly synchronous premium."
+    },
+    {
+      "module": "WGC China premium cross-check",
+      "candidate": "https://www.gold.org/goldhub/data/gold-premium",
+      "methodology": "https://www.gold.org/sites/default/files/downloads/2019-01/Chinese-premium-discount-methodology.pdf",
+      "terms": "https://www.gold.org/terms-and-conditions",
+      "status": "Current page published 5 October 2026, data through 2 October 2026. Daily observations updated weekly; displayed chart is five-day rolling average. Chinese method uses Shanghai benchmark PM versus LBMA AM since April 2016 and may carry forward holidays; differs from project Au99.99 close / LBMA PM / no date mixing. Older method PDF says monthly but current page schedule says weekly.",
+      "licensingStatus": "WGC allows personal non-commercial save/display/print; commercial use, scraping, publishing and derivatives require prior written authorisation. WGC's IBA permission does not grant onward reuse; its LBMA data only for internal review of WGC analysis.",
+      "recommendation": "Industry processed reference for authorised/manual cross-check, not an unlicensed drop-in primary or daily same-metric fallback. XLSX numerical rows and direct download were not verified."
+    }
+  ],
+  "leadChecks": [
+    {
+      "market": "United Kingdom",
+      "documentation": "https://www.uktradeinfo.com/api-documentation",
+      "method": "https://www.uktradeinfo.com/trade-data/help-with-using-our-data",
+      "calendar": "https://www.uktradeinfo.com/trade-data/release-calendar",
+      "status": "Public OTS API and kg net mass documented, estimates and suppressions apply. July release Sep11; Comtrade retained metadata Oct6. Gold API sample and metadata failed SSL/timeouts; no actual new gold quantity validated."
+    },
+    {
+      "market": "United States",
+      "documentation": "https://www.census.gov/data/developers/data-sets/international-trade.html",
+      "release": "https://www.census.gov/foreign-trade/Press-Release/ft900/ft900_2608.pdf",
+      "status": "Official API now requires key; monthly dataset release-day update; August general trade published Oct6. Actual detailed gold quantities not retrieved; HS detail/unit and trade flow reconciliation required."
+    },
+    {
+      "market": "Switzerland",
+      "documentation": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
+      "status": "Keep direct BAZG import source; SwissImpex gold export candidate not actually retrieved; headline business-cycle totals exclude gold bars and cannot prove gold dataset freshness."
+    }
+  ]
+}
