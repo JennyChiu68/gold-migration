@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import rawData from "./data/gold-flows.json";
+import sourcePolicy from "./data/source-policy.json";
 
 type Route = {
   id: string;
@@ -41,6 +42,7 @@ type MarketBalance = {
 };
 
 type LatestMarketObservation = {
+  sourceId: string;
   code: number;
   key: string;
   label: string;
@@ -170,6 +172,7 @@ type GoldData = {
     };
   };
   priceComparison: {
+    currentSignalEligible: boolean;
     date: string;
     shanghaiAu9999CnyPerGram: number;
     lbmaPmUsdPerOunce: number;
@@ -849,7 +852,7 @@ export default function Home() {
               {data.priceComparison.shanghaiPremiumPct.toFixed(2)}%
             </strong>
             <small>
-              {data.priceComparison.date} · 同日对齐 · 非实时
+              {data.priceComparison.date} · 同日对齐 · {data.priceComparison.currentSignalEligible ? "非实时" : "历史观察"}
             </small>
           </div>
         </div>
@@ -864,8 +867,10 @@ export default function Home() {
             <strong>{data.network.direction.eastboundChangePct >= 0 ? "东向增加" : "东向放缓"}</strong>
           </div>
           <div>
-            <span>现货</span>
-            <strong>{data.priceComparison.shanghaiPremiumPct >= 0 ? "上海溢价" : "上海折价"}</strong>
+            <span>{data.priceComparison.currentSignalEligible ? "现货" : "现货历史"}</span>
+            <strong>{data.priceComparison.currentSignalEligible
+              ? (data.priceComparison.shanghaiPremiumPct >= 0 ? "上海溢价" : "上海折价")
+              : "当前暂不可判断"}</strong>
           </div>
         </div>
       </section>
@@ -944,6 +949,7 @@ export default function Home() {
                     </strong>
                     {market.estimatedWeight && <small>含估算重量</small>}
                   </div>
+                  <small>来源：{sourcePolicy.sources[market.sourceId as keyof typeof sourcePolicy.sources]?.name}</small>
                   <dl>
                     <div>
                       <dt>进口</dt>
@@ -1405,7 +1411,7 @@ export default function Home() {
             <span className="eyebrow">区域价格验证</span>
             <h2>金价温差</h2>
             <small className="section-subtitle">
-              最近可核实同日价格 · {data.priceComparison.date} · 非实时
+              {data.priceComparison.currentSignalEligible ? "最近可核实同日价格" : "历史价格观察 · 待更新"} · {data.priceComparison.date} · 非实时
             </small>
           </div>
         </div>
@@ -1414,7 +1420,7 @@ export default function Home() {
             {data.priceComparison.shanghaiPremiumPct >= 0 ? "+" : ""}
             {data.priceComparison.shanghaiPremiumPct.toFixed(2)}%
           </strong>
-          <span>指示性溢价</span>
+          <span>{data.priceComparison.currentSignalEligible ? "指示性溢价" : "历史指示性溢价"}</span>
         </div>
         <div className="premium-scale" aria-hidden="true">
           <span className="scale-zero" />
@@ -1442,6 +1448,7 @@ export default function Home() {
         </div>
         <p>
           这是同日收盘价与定盘价的指示性对齐，不是实时价差。价格用于验证实物流方向，不把价差直接等同于运输套利空间；换算不含税费、运保与规格差异。
+          {!data.priceComparison.currentSignalEligible && " 伦敦价格尚未更新，此历史观察不用于判断当前上海溢价或折价。"}
         </p>
       </section>
 

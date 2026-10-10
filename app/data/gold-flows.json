@@ -34,7 +34,10 @@
         "label": "瑞士",
         "zone": "west",
         "exportsTonnes": 106.717742,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 826,
@@ -42,7 +45,10 @@
         "label": "英国",
         "zone": "west",
         "exportsTonnes": 54.899347999999996,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 842,
@@ -50,7 +56,10 @@
         "label": "美国",
         "zone": "west",
         "exportsTonnes": 95.357734,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 344,
@@ -58,7 +67,10 @@
         "label": "中国香港",
         "zone": "east",
         "exportsTonnes": 90.93700299999999,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 702,
@@ -66,7 +78,10 @@
         "label": "新加坡",
         "zone": "east",
         "exportsTonnes": null,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "singstat",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 784,
@@ -74,7 +89,10 @@
         "label": "阿联酋",
         "zone": "east",
         "exportsTonnes": null,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "fcsc",
+        "sourceState": "pendingValidation"
       }
     ],
     "routes": [
@@ -88,7 +106,10 @@
         "destination": "China",
         "tonnes": 78.147,
         "valueUsd": 10760252443.201,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-757",
@@ -100,7 +121,10 @@
         "destination": "Switzerland",
         "tonnes": 49.875777,
         "valueUsd": 4554000503,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "826-156",
@@ -112,7 +136,10 @@
         "destination": "China",
         "tonnes": 40.223099999999995,
         "valueUsd": 5701116828.464,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-156",
@@ -124,7 +151,10 @@
         "destination": "China",
         "tonnes": 27.879,
         "valueUsd": 3873888383.263,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-826",
@@ -136,7 +166,10 @@
         "destination": "United Kingdom",
         "tonnes": 27.388,
         "valueUsd": 3781205314.037,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-826",
@@ -148,7 +181,10 @@
         "destination": "United Kingdom",
         "tonnes": 23.06673,
         "valueUsd": 2148313560,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "826-344",
@@ -160,7 +196,10 @@
         "destination": "China, Hong Kong SAR",
         "tonnes": 13.103549999999998,
         "valueUsd": 1796869677.679,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-344",
@@ -172,7 +211,10 @@
         "destination": "China, Hong Kong SAR",
         "tonnes": 12.614798,
         "valueUsd": 1106124170,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-682",
@@ -184,7 +226,10 @@
         "destination": "Saudi Arabia",
         "tonnes": 10.518,
         "valueUsd": 1449983545.847,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-344",
@@ -196,7 +241,10 @@
         "destination": "China, Hong Kong SAR",
         "tonnes": 8.095,
         "valueUsd": 1118865648.281,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-699",
@@ -208,7 +256,10 @@
         "destination": "India",
         "tonnes": 7.379,
         "valueUsd": 1022019176.906,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "344-764",
@@ -220,7 +271,10 @@
         "destination": "Thailand",
         "tonnes": 5.63,
         "valueUsd": 794916711.404,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-792",
@@ -232,7 +286,10 @@
         "destination": "Türkiye",
         "tonnes": 4.568,
         "valueUsd": 644949656.512,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-784",
@@ -244,7 +301,10 @@
         "destination": "United Arab Emirates",
         "tonnes": 3.723,
         "valueUsd": 511019686.676,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-764",
@@ -256,7 +316,10 @@
         "destination": "Thailand",
         "tonnes": 3.147,
         "valueUsd": 437078749.563,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-124",
@@ -268,7 +331,10 @@
         "destination": "Canada",
         "tonnes": 2.740224,
         "valueUsd": 261032842,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-276",
@@ -280,7 +346,10 @@
         "destination": "Germany",
         "tonnes": 2.686,
         "valueUsd": 359383465.607,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-842",
@@ -292,7 +361,10 @@
         "destination": "USA",
         "tonnes": 2.64,
         "valueUsd": 363977444.581,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-702",
@@ -304,7 +376,10 @@
         "destination": "Singapore",
         "tonnes": 2.497442,
         "valueUsd": 224332725,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "344-784",
@@ -316,7 +391,10 @@
         "destination": "United Arab Emirates",
         "tonnes": 2.485,
         "valueUsd": 323029933.452,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-380",
@@ -328,7 +406,10 @@
         "destination": "Italy",
         "tonnes": 2.013,
         "valueUsd": 255605773.018,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "344-702",
@@ -340,7 +421,10 @@
         "destination": "Singapore",
         "tonnes": 1.565,
         "valueUsd": 222821011.237,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "344-757",
@@ -352,7 +436,10 @@
         "destination": "Switzerland",
         "tonnes": 1.187,
         "valueUsd": 168838332.935,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-36",
@@ -364,7 +451,10 @@
         "destination": "Australia",
         "tonnes": 1.1783299999999999,
         "valueUsd": 173571704,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-40",
@@ -376,7 +466,10 @@
         "destination": "Austria",
         "tonnes": 0.919,
         "valueUsd": 112239605.744,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-784",
@@ -388,7 +481,10 @@
         "destination": "United Arab Emirates",
         "tonnes": 0.750659,
         "valueUsd": 75335727,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-702",
@@ -400,7 +496,10 @@
         "destination": "Singapore",
         "tonnes": 0.742,
         "valueUsd": 103006267.415,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-699",
@@ -412,7 +511,10 @@
         "destination": "India",
         "tonnes": 0.714017,
         "valueUsd": 94864500,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-458",
@@ -424,7 +526,10 @@
         "destination": "Malaysia",
         "tonnes": 0.639,
         "valueUsd": 87087065.729,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "826-757",
@@ -436,7 +541,10 @@
         "destination": "Switzerland",
         "tonnes": 0.5911000000000001,
         "valueUsd": 62921277.931,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "826-784",
@@ -448,7 +556,10 @@
         "destination": "United Arab Emirates",
         "tonnes": 0.58,
         "valueUsd": 76210540.488,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-380",
@@ -460,7 +571,10 @@
         "destination": "Italy",
         "tonnes": 0.559969,
         "valueUsd": 66136641,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "344-458",
@@ -472,7 +586,10 @@
         "destination": "Malaysia",
         "tonnes": 0.374,
         "valueUsd": 53766976.429,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "344-410",
@@ -484,7 +601,10 @@
         "destination": "Rep. of Korea",
         "tonnes": 0.326,
         "valueUsd": 46531642.557,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-56",
@@ -496,7 +616,10 @@
         "destination": "Belgium",
         "tonnes": 0.28722699999999995,
         "valueUsd": 30369036,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-792",
@@ -508,7 +631,10 @@
         "destination": "Türkiye",
         "tonnes": 0.18029499999999998,
         "valueUsd": 16096650,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-276",
@@ -520,7 +646,10 @@
         "destination": "Germany",
         "tonnes": 0.166781,
         "valueUsd": 15473649,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "757-124",
@@ -532,7 +661,10 @@
         "destination": "Canada",
         "tonnes": 0.136,
         "valueUsd": 20633006.736,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "842-392",
@@ -544,7 +676,10 @@
         "destination": "Japan",
         "tonnes": 0.102973,
         "valueUsd": 9803176,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "id": "826-380",
@@ -556,7 +691,10 @@
         "destination": "Italy",
         "tonnes": 0.1025,
         "valueUsd": 10706244.249,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       }
     ],
     "direction": {
@@ -589,7 +727,8 @@
           "netEastboundTonnes": 117.05382300000002
         }
       ]
-    }
+    },
+    "sourceId": "comtrade"
   },
   "swissRefinery": {
     "importSnapshot": {
@@ -653,7 +792,10 @@
           "label": "德国",
           "tonnes": 4.594
         }
-      ]
+      ],
+      "sourceId": "bazg-import",
+      "selectedSourceId": "bazg-import",
+      "sourceState": "ready"
     },
     "exportSnapshot": {
       "period": "202608",
@@ -677,7 +819,10 @@
           "destination": "United Kingdom",
           "tonnes": 102.18600199999999,
           "valueUsd": 14477917029.265,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-156",
@@ -689,7 +834,10 @@
           "destination": "China",
           "tonnes": 26.112286,
           "valueUsd": 3557356622.172,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-842",
@@ -701,7 +849,10 @@
           "destination": "USA",
           "tonnes": 13.69,
           "valueUsd": 1971553546.98,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-682",
@@ -713,7 +864,10 @@
           "destination": "Saudi Arabia",
           "tonnes": 3.817,
           "valueUsd": 541305204.752,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-251",
@@ -725,7 +879,10 @@
           "destination": "France",
           "tonnes": 3.684174,
           "valueUsd": 492593046.826,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-699",
@@ -737,7 +894,10 @@
           "destination": "India",
           "tonnes": 3.451,
           "valueUsd": 487297402.713,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-276",
@@ -749,7 +909,10 @@
           "destination": "Germany",
           "tonnes": 3.0380030000000002,
           "valueUsd": 397850220.312,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-344",
@@ -761,7 +924,10 @@
           "destination": "China, Hong Kong SAR",
           "tonnes": 1.729,
           "valueUsd": 241520631.757,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-784",
@@ -773,7 +939,10 @@
           "destination": "United Arab Emirates",
           "tonnes": 1.393,
           "valueUsd": 197854284.279,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-764",
@@ -785,7 +954,10 @@
           "destination": "Thailand",
           "tonnes": 1.332,
           "valueUsd": 193317968.342,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-40",
@@ -797,7 +969,10 @@
           "destination": "Austria",
           "tonnes": 1.099,
           "valueUsd": 145789567.78,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-792",
@@ -809,7 +984,10 @@
           "destination": "Türkiye",
           "tonnes": 0.936,
           "valueUsd": 136672943.217,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-380",
@@ -821,7 +999,10 @@
           "destination": "Italy",
           "tonnes": 0.563,
           "valueUsd": 79342618.693,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-702",
@@ -833,7 +1014,10 @@
           "destination": "Singapore",
           "tonnes": 0.536,
           "valueUsd": 75510999.043,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-124",
@@ -845,7 +1029,10 @@
           "destination": "Canada",
           "tonnes": 0.30001,
           "valueUsd": 42654775.57,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-233",
@@ -857,7 +1044,10 @@
           "destination": "Estonia",
           "tonnes": 0.135,
           "valueUsd": 19233600.052,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-422",
@@ -869,7 +1059,10 @@
           "destination": "Lebanon",
           "tonnes": 0.107,
           "valueUsd": 14533178.015,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-788",
@@ -881,7 +1074,10 @@
           "destination": "Tunisia",
           "tonnes": 0.096,
           "valueUsd": 13553720.522,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-616",
@@ -893,7 +1089,10 @@
           "destination": "Poland",
           "tonnes": 0.07,
           "valueUsd": 9882096.119,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-410",
@@ -905,7 +1104,10 @@
           "destination": "Rep. of Korea",
           "tonnes": 0.050406,
           "valueUsd": 7511444.716,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-418",
@@ -917,7 +1119,10 @@
           "destination": "Lao People's Dem. Rep.",
           "tonnes": 0.05,
           "valueUsd": 7410916.346,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-458",
@@ -929,7 +1134,10 @@
           "destination": "Malaysia",
           "tonnes": 0.05,
           "valueUsd": 6734289.226,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-414",
@@ -941,7 +1149,10 @@
           "destination": "Kuwait",
           "tonnes": 0.04,
           "valueUsd": 5792469.373,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-440",
@@ -953,7 +1164,10 @@
           "destination": "Lithuania",
           "tonnes": 0.03,
           "valueUsd": 4447648.511,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-818",
@@ -965,7 +1179,10 @@
           "destination": "Egypt",
           "tonnes": 0.03,
           "valueUsd": 4496468.76,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-752",
@@ -977,7 +1194,10 @@
           "destination": "Sweden",
           "tonnes": 0.029,
           "valueUsd": 3741794.847,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-642",
@@ -989,7 +1209,10 @@
           "destination": "Romania",
           "tonnes": 0.022,
           "valueUsd": 2994825.225,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-246",
@@ -1001,7 +1224,10 @@
           "destination": "Finland",
           "tonnes": 0.018,
           "valueUsd": 2576886.011,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-724",
@@ -1013,7 +1239,10 @@
           "destination": "Spain",
           "tonnes": 0.017,
           "valueUsd": 2496420.486,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-56",
@@ -1025,7 +1254,10 @@
           "destination": "Belgium",
           "tonnes": 0.009,
           "valueUsd": 1188042.751,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-688",
@@ -1037,7 +1269,10 @@
           "destination": "Serbia",
           "tonnes": 0.007,
           "valueUsd": 933464.461,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-442",
@@ -1049,7 +1284,10 @@
           "destination": "Luxembourg",
           "tonnes": 0.005,
           "valueUsd": 752018.755,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-807",
@@ -1061,7 +1299,10 @@
           "destination": "North Macedonia",
           "tonnes": 0.003,
           "valueUsd": 351445.142,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-203",
@@ -1073,7 +1314,10 @@
           "destination": "Czechia",
           "tonnes": 0.002,
           "valueUsd": 297777.527,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-51",
@@ -1085,7 +1329,10 @@
           "destination": "Armenia",
           "tonnes": 0.001,
           "valueUsd": 100836.591,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-392",
@@ -1097,7 +1344,10 @@
           "destination": "Japan",
           "tonnes": 0.001,
           "valueUsd": 1487.879,
-          "estimatedWeight": false
+          "estimatedWeight": false,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-528",
@@ -1109,7 +1359,10 @@
           "destination": "Netherlands",
           "tonnes": 0.00011999999999999999,
           "valueUsd": 16943.498,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-36",
@@ -1121,7 +1374,10 @@
           "destination": "Australia",
           "tonnes": 0.000032,
           "valueUsd": 4332.426,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         },
         {
           "id": "757-608",
@@ -1133,9 +1389,15 @@
           "destination": "Philippines",
           "tonnes": 0.000008999999999999999,
           "valueUsd": 1320.771,
-          "estimatedWeight": true
+          "estimatedWeight": true,
+          "sourceId": "comtrade",
+          "selectedSourceId": "swissimpex",
+          "sourceState": "pendingValidation"
         }
-      ]
+      ],
+      "sourceId": "comtrade",
+      "selectedSourceId": "swissimpex",
+      "sourceState": "pendingValidation"
     }
   },
   "marketBalances": {
@@ -1161,7 +1423,10 @@
         "netImportsTonnes": 59.54699700000002,
         "previousNetImportsTonnes": null,
         "changeTonnes": null,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 699,
@@ -1175,7 +1440,10 @@
         "netImportsTonnes": 19.466024000000004,
         "previousNetImportsTonnes": 28.368807999999998,
         "changeTonnes": -8.902783999999993,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "tradestat",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 826,
@@ -1189,7 +1457,10 @@
         "netImportsTonnes": 40.178930000000015,
         "previousNetImportsTonnes": 42.985125000000004,
         "changeTonnes": -2.8061949999999882,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 842,
@@ -1203,7 +1474,10 @@
         "netImportsTonnes": -85.91260299999999,
         "previousNetImportsTonnes": -48.530564,
         "changeTonnes": -37.38203899999999,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 757,
@@ -1217,7 +1491,10 @@
         "netImportsTonnes": 68.705033,
         "previousNetImportsTonnes": 47.593682000000015,
         "changeTonnes": 21.111350999999985,
-        "estimatedWeight": true
+        "estimatedWeight": true,
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       }
     ],
     "unavailable": [
@@ -1259,7 +1536,10 @@
         "netImportsTonnes": 84.02398199999999,
         "previousNetImportsTonnes": 107.409914,
         "changeTonnes": -23.38593200000001,
-        "estimatedWeight": false
+        "estimatedWeight": false,
+        "sourceId": "comtrade",
+        "selectedSourceId": "gacc",
+        "sourceState": "pendingValidation"
       }
     ],
     "latestAvailable": [
@@ -1281,7 +1561,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202608&reporterCode=757&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202608&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "swissimpex",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 826,
@@ -1301,7 +1584,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=826&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "hmrc",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 842,
@@ -1321,7 +1607,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=842&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=842&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "census",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 699,
@@ -1341,7 +1630,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=699&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=699&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "tradestat",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 344,
@@ -1361,7 +1653,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=344&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=344&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "hk-idds",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 156,
@@ -1381,7 +1676,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202412&reporterCode=156&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202412&reporterCode=156&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "gacc",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 764,
@@ -1401,7 +1699,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=764&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=764&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "thai-moc",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 792,
@@ -1421,7 +1722,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202512&reporterCode=792&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202512&reporterCode=792&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "tuik",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 784,
@@ -1441,7 +1745,10 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=201912&reporterCode=784&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=201912&reporterCode=784&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "fcsc",
+        "sourceState": "pendingValidation"
       },
       {
         "code": 702,
@@ -1461,9 +1768,13 @@
         "sourceUrls": {
           "imports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202603&reporterCode=702&flowCode=M&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
           "exports": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202603&reporterCode=702&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0"
-        }
+        },
+        "sourceId": "comtrade",
+        "selectedSourceId": "singstat",
+        "sourceState": "pendingValidation"
       }
-    ]
+    ],
+    "sourceId": "comtrade"
   },
   "vaults": {
     "london": {
@@ -1542,7 +1853,10 @@
         }
       ],
       "sourceUrl": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
-      "workbookUrl": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx"
+      "workbookUrl": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx",
+      "sourceId": "lbma-vault",
+      "selectedSourceId": "lbma-vault",
+      "sourceState": "ready"
     },
     "newYork": {
       "period": "2026-07-30",
@@ -1569,7 +1883,10 @@
       "tonnes": 840.9634451967198,
       "ouncesMillions": 27.037602600000003,
       "dailyNetChangeTonnes": 0.3692530428386448,
-      "dailyChangePct": 0.04392762242295678
+      "dailyChangePct": 0.04392762242295678,
+      "sourceId": "cme-stocks",
+      "selectedSourceId": "cme-stocks",
+      "sourceState": "fetchBlocked"
     },
     "shanghai": {
       "period": "2026-09",
@@ -1583,7 +1900,10 @@
       "deliveryTonnes": 613.28868,
       "previousDeliveryTonnes": 539.45896,
       "sourceUrl": "https://www.sge.com.cn/upload/file/202610/09/9e6b4a569aeb41149beed7619cad377f.pdf",
-      "previousSourceUrl": "https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf"
+      "previousSourceUrl": "https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf",
+      "sourceId": "sge-month",
+      "selectedSourceId": "sge-month",
+      "sourceState": "ready"
     }
   },
   "priceComparison": {
@@ -1592,7 +1912,7 @@
     "sourceFetchedAt": "2026-09-29T08:39:00.000Z",
     "frequency": "daily-aligned",
     "alignment": "same-day",
-    "status": "manualSnapshot",
+    "status": "historicalSnapshot",
     "scope": "上海Au99.99收盘价、LBMA PM与ECB同日汇率的指示性换算；不含税费、运保与规格差异。",
     "shanghaiAu9999CnyPerGram": 900.89,
     "lbmaPmUsdPerOunce": 4144.55,
@@ -1604,7 +1924,16 @@
       "exchangeRates": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
     },
     "londonEquivalentCnyPerGram": 894.1758447101228,
-    "shanghaiPremiumPct": 0.750876388531152
+    "shanghaiPremiumPct": 0.750876388531152,
+    "sourceIds": {
+      "shanghai": "sge-close",
+      "london": "lbma-legacy",
+      "exchangeRates": "ecb-fx"
+    },
+    "selectedLondonSourceId": "iba-pm",
+    "sourceState": "authorizationRequired",
+    "currentSignalEligible": false,
+    "updateBlockedReason": "未有IBA许可或账户，未确认免费同口径持续获取渠道。"
   },
   "methodology": {
     "measured": "跨境路线与市场净进出口来自UN Comtrade HS 7108月度数据；标记“重量估算”的记录为官方估算重量，不等同于直接申报重量。",
@@ -1613,44 +1942,53 @@
   },
   "sources": [
     {
+      "id": "comtrade",
       "name": "UN Comtrade",
-      "detail": "HS 7108月度双边路线、进口、出口与净流入",
-      "url": "https://uncomtrade.org/docs/un-comtrade-api/"
+      "url": "https://uncomtrade.org/docs/un-comtrade-api/",
+      "detail": "有免费公开查询，预览最多500条且有限流；免费可视化等适用免许可情形，收费分发另核对条款。"
     },
     {
-      "name": "瑞士联邦海关（BAZG）",
-      "detail": "瑞士黄金月度进口来源国；商业使用需按数据条款确认许可",
-      "url": "https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv"
+      "id": "bazg-import",
+      "name": "瑞士BAZG黄金进口",
+      "url": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
+      "detail": "公开下载，须署名；商业使用需按BAZG条款事先取得数据所有者许可，不能承诺无条件免费商用。"
     },
     {
-      "name": "LBMA",
-      "detail": "伦敦金库月末黄金持有量",
-      "url": "https://www.lbma.org.uk/prices-and-data/london-vault-data"
+      "id": "lbma-vault",
+      "name": "LBMA伦敦库存",
+      "url": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
+      "detail": "公开工作簿；需标明来源。"
     },
     {
-      "name": "上海黄金交易所",
-      "detail": "月度黄金交割与出库量",
-      "url": "https://www.sge.com.cn/sjzx/hqyb"
+      "id": "cme-stocks",
+      "name": "CME Gold Stocks",
+      "url": "https://www.cmegroup.com/solutions/clearing/operations-and-deliveries/nymex-delivery-notices.html",
+      "detail": "公开库存报告；当前下载失败，保留历史存档并继续正常重试。"
     },
     {
-      "name": "CME Group",
-      "detail": "COMEX批准金库每日库存官方原始表；当前展示2026年7月30日存档",
-      "url": "https://www.cmegroup.com/clearing/operations-and-deliveries/registrar-reports.html"
+      "id": "sge-month",
+      "name": "上金所月报",
+      "url": "https://www.sge.com.cn/sjzx/hqyb",
+      "detail": "公开月报PDF；需标明来源。"
     },
     {
-      "name": "ECB / LBMA / SGE",
-      "detail": "上海—伦敦同日指示性溢价；汇率取ECB参考汇率",
-      "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html"
+      "id": "sge-close",
+      "name": "上金所Au99.99日行情",
+      "url": "https://www.sge.com.cn/sjzx/quotation_daily_new",
+      "detail": "公开日行情；需标明来源。"
     },
     {
-      "name": "LBMA Gold Price PM",
-      "detail": "2026年9月28日伦敦下午定盘价",
-      "url": "https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices"
+      "id": "lbma-legacy",
+      "name": "LBMA PM历史快照出处",
+      "url": "https://prices.lbma.org.uk/json/gold_pm.json",
+      "detail": "仅保留既有历史证据；本次403，不用于持续更新，不冒充IBA正式交付。"
     },
     {
-      "name": "上金所每日行情",
-      "detail": "2026年9月28日Au99.99收盘价",
-      "url": "https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28"
+      "id": "ecb-fx",
+      "name": "ECB参考汇率",
+      "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+      "detail": "公开免费XML；是参考汇率，不是实时成交价。"
     }
-  ]
+  ],
+  "sourcePolicyRevision": "2026-10-10"
 }

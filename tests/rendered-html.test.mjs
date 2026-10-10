@@ -57,6 +57,9 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /库存与交割/);
   assert.match(html, /CME官方日报/);
   assert.match(html, /同日对齐/);
+  assert.match(html, /当前暂不可判断/);
+  assert.match(html, /历史价格观察/);
+  assert.match(html, /此历史观察不用于判断当前/);
   assert.match(html, /非实时行情/);
   assert.match(html, /2019.12/);
   assert.match(html, /各市场最新完整观测/);

@@ -24,7 +24,16 @@ npm run lint
 
 各功能板块的数据来源、原始链接、观测期、更新周期和计算口径见 [DATA_SOURCES.md](DATA_SOURCES.md)。
 
-各来源是否合适、国家官方渠道候选、访问条件、建议抓取频次与接入验收见 [DATA_SOURCE_AUDIT.md](DATA_SOURCE_AUDIT.md)。候选渠道尚未接入，不代表当前页面已使用或取得了新黄金数据。
+统一来源方案维护在 [source-policy.json](app/data/source-policy.json)，每项列出优先接入源、当前执行源、访问条件和检查频次。demo来源标注及Word需求共同使用这份清单。国家渠道待重量和伙伴明细验证，伦敦PM待许可；美国Census密钥可免费申请，不能将IBA许可称为免费公开API。
+
+来源实际验证与限制见 [DATA_SOURCE_AUDIT.md](DATA_SOURCE_AUDIT.md)。待接入渠道不是当前数值出处，历史伦敦价格保留原始出处，当前价差标为历史观察。
+
+```bash
+node scripts/sync-source-policy.mjs
+python scripts/build-requirements.py
+```
+
+第一个命令只同步来源标注，不改变数据期或数值。第二个生成工作区的Word需求文档；需要python-docx，文档生成后需渲染检查。
 
 数据快照提交在 `app/data/gold-flows.json`，无需现场访问外部接口即可展示。更新前先核对 `scripts/fetch-gold-flows.mjs` 中的共同对比月份、各市场最近月份和 `manualSnapshots` 的官方来源数值；脚本只会自动抓取 UN Comtrade，其他来源不会随脚本自动更新。核对后运行 `node scripts/fetch-gold-flows.mjs`，检查快照变更并运行测试。数据来源和局限性在 DATA_SOURCES.md 中维护。
 

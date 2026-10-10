@@ -1,0 +1,392 @@
+{
+  "revision": "2026-10-10",
+  "principle": "每项指标只有一个当前执行源；优先接入源通过完整重量、单位、伙伴映射、至少3个月对账及使用条件验证后才统一切换所有依赖板块。未验证的源不是已使用源。",
+  "tradeScope": "非货币黄金710811、710812、710813及对应本地细分码；现有Comtrade HS7108不报告710820货币黄金，也不覆盖首饰或废料全部黄金流动。",
+  "sources": {
+    "comtrade": {
+      "name": "UN Comtrade",
+      "url": "https://uncomtrade.org/docs/un-comtrade-api/",
+      "fetchUrl": "https://comtradeapi.un.org/public/v1/preview/C/M/HS",
+      "releaseCycle": "月度，各报告市场报送及修订时间不同",
+      "access": "有免费公开查询，预览最多500条且有限流；免费可视化等适用免许可情形，收费分发另核对条款。"
+    },
+    "hmrc": {
+      "name": "英国HMRC",
+      "url": "https://www.uktradeinfo.com/api-documentation",
+      "fetchUrl": "https://api.uktradeinfo.com/OTS",
+      "releaseCycle": "月度，按HMRC发布日历",
+      "access": "免费公开API，无需密钥；60次请求每分钟。"
+    },
+    "swissimpex": {
+      "name": "瑞士SwissImpex",
+      "url": "https://www.swissimpex.admin.ch/",
+      "fetchUrl": null,
+      "releaseCycle": "月度",
+      "access": "官方查询入口；完整出口净重、导出方式及使用条件须验证。"
+    },
+    "hk-idds": {
+      "name": "中国香港统计处Trade-IDDS",
+      "url": "https://data.gov.hk/en-data/dataset/hk-censtatd-trade-idds-trade/resource/173a8d40-24ff-4e8e-b9f2-456b20208fa4",
+      "fetchUrl": "https://tradeidds.censtatd.gov.hk/api/get",
+      "releaseCycle": "月度",
+      "access": "公开API；本次应用状态拒绝访问，须按平台要求解决访问后验证完整数量。"
+    },
+    "census": {
+      "name": "美国Census",
+      "url": "https://www.census.gov/data/developers/data-sets/international-trade.html",
+      "fetchUrl": null,
+      "releaseCycle": "月度",
+      "access": "免费数据；数据API需要申请并激活免费密钥，目前未配置。"
+    },
+    "gacc": {
+      "name": "中国海关总署",
+      "url": "https://stats.customs.gov.cn/",
+      "fetchUrl": null,
+      "releaseCycle": "月度",
+      "access": "公开统计查询；最新黄金重量导出尚未验证。"
+    },
+    "tradestat": {
+      "name": "印度商务部TradeStat",
+      "url": "https://tradestat.commerce.gov.in/meidb/commoditywise_import",
+      "fetchUrl": null,
+      "releaseCycle": "月度",
+      "access": "公开查询入口；进口、出口完整数量与单位尚未验证。"
+    },
+    "thai-moc": {
+      "name": "泰国商务部",
+      "url": "https://tradereport.moc.go.th/en/documentpublish",
+      "fetchUrl": null,
+      "releaseCycle": "月度，按官方发布日表",
+      "access": "官方公开统计；完整黄金数量取数尚未验证。"
+    },
+    "tuik": {
+      "name": "土耳其TÜİK",
+      "url": "https://bi.tuik.gov.tr/extensions/tuik-mashup/index.html?lang=en",
+      "fetchUrl": null,
+      "releaseCycle": "月度",
+      "access": "官方查询入口；完整黄金月度重量尚未验证。"
+    },
+    "singstat": {
+      "name": "新加坡SingStat",
+      "url": "https://tablebuilder.singstat.gov.sg/",
+      "fetchUrl": null,
+      "releaseCycle": "月度",
+      "access": "官方免费接续平台；黄金重量与完整伙伴覆盖尚未验证。StatLink于2027年1月1日停用，不新增长期依赖。"
+    },
+    "fcsc": {
+      "name": "阿联酋FCSC",
+      "url": "https://uaestat.fcsc.gov.ae/",
+      "fetchUrl": null,
+      "releaseCycle": "有月度贸易目录",
+      "access": "公开官方目录；全国黄金月度重量及完整伙伴覆盖尚未确认，不用迪拜局部数据代替。"
+    },
+    "bazg-import": {
+      "name": "瑞士BAZG黄金进口",
+      "url": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
+      "fetchUrl": "https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv",
+      "releaseCycle": "月度，可修订",
+      "access": "公开下载，须署名；商业使用需按BAZG条款事先取得数据所有者许可，不能承诺无条件免费商用。"
+    },
+    "lbma-vault": {
+      "name": "LBMA伦敦库存",
+      "url": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
+      "fetchUrl": null,
+      "releaseCycle": "每月第5个工作日公布上月末库存",
+      "access": "公开工作簿；需标明来源。"
+    },
+    "cme-stocks": {
+      "name": "CME Gold Stocks",
+      "url": "https://www.cmegroup.com/solutions/clearing/operations-and-deliveries/nymex-delivery-notices.html",
+      "fetchUrl": "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
+      "releaseCycle": "通常按美国营业日更新，以表内活动日为准",
+      "access": "公开库存报告；当前下载失败，保留历史存档并继续正常重试。"
+    },
+    "sge-month": {
+      "name": "上金所月报",
+      "url": "https://www.sge.com.cn/sjzx/hqyb",
+      "fetchUrl": null,
+      "releaseCycle": "月度，具体发布日期以目录为准",
+      "access": "公开月报PDF；需标明来源。"
+    },
+    "sge-close": {
+      "name": "上金所Au99.99日行情",
+      "url": "https://www.sge.com.cn/sjzx/quotation_daily_new",
+      "fetchUrl": null,
+      "releaseCycle": "中国交易日",
+      "access": "公开日行情；需标明来源。"
+    },
+    "iba-pm": {
+      "name": "IBA伦敦Gold Price PM",
+      "url": "https://www.ice.com/iba/about",
+      "fetchUrl": null,
+      "releaseCycle": "英国营业日，延迟交付按许可约定",
+      "access": "正式使用和公开展示涉及许可，可能收费；目前没有账户及许可。产品页不是抓取接口，未找到经验证的免费同口径生产替代。"
+    },
+    "lbma-legacy": {
+      "name": "LBMA PM历史快照出处",
+      "url": "https://prices.lbma.org.uk/json/gold_pm.json",
+      "fetchUrl": null,
+      "releaseCycle": "停用为生产取数渠道",
+      "access": "仅保留既有历史证据；本次403，不用于持续更新，不冒充IBA正式交付。"
+    },
+    "ecb-fx": {
+      "name": "ECB参考汇率",
+      "url": "https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html",
+      "fetchUrl": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+      "releaseCycle": "TARGET工作日，通常欧洲中部时间16:00",
+      "access": "公开免费XML；是参考汇率，不是实时成交价。"
+    }
+  },
+  "markets": [
+    {
+      "code": 757,
+      "market": "瑞士",
+      "selectedSourceId": "swissimpex",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "完整出口明细、商品范围及重量待对账",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 826,
+      "market": "英国",
+      "selectedSourceId": "hmrc",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "三个月已实取；零净重附加数量、净重差异及伙伴编码仍需解释，未通过替换验收",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 842,
+      "market": "美国",
+      "selectedSourceId": "census",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待申请免费API密钥并核对完整净重及伙伴明细",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 344,
+      "market": "中国香港",
+      "selectedSourceId": "hk-idds",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待解决API访问条件并核对细分商品数量单位",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 156,
+      "market": "中国内地",
+      "selectedSourceId": "gacc",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待成功取得最新黄金进出口重量",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 699,
+      "market": "印度",
+      "selectedSourceId": "tradestat",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待核对进出口数量、单位及编码变更",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 764,
+      "market": "泰国",
+      "selectedSourceId": "thai-moc",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待成功取得完整黄金数量及伙伴表",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 792,
+      "market": "土耳其",
+      "selectedSourceId": "tuik",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待实取完整月度黄金净重",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 702,
+      "market": "新加坡",
+      "selectedSourceId": "singstat",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待确认免费接续平台黄金重量及全部伙伴覆盖",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    },
+    {
+      "code": 784,
+      "market": "阿联酋",
+      "selectedSourceId": "fcsc",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "待确认全国黄金月度净重及完整伙伴覆盖",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。"
+    }
+  ],
+  "metrics": {
+    "swiss-import": {
+      "label": "瑞士进口",
+      "selectedSourceId": "bazg-import",
+      "currentSourceId": "bazg-import",
+      "state": "ready",
+      "gap": "",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。",
+      "scope": "7108.1200与控制代码911至914，重量千克；按来源国，不等于矿山原产地。"
+    },
+    "swiss-export": {
+      "label": "瑞士出口",
+      "selectedSourceId": "swissimpex",
+      "currentSourceId": "comtrade",
+      "state": "pendingValidation",
+      "gap": "SwissImpex同口径完整出口尚未验证，当前保留Comtrade HS7108。",
+      "checkSchedule": "每日北京时间09:00检查；明确发布日当天起每6小时检查，持续48小时后恢复每日。新期才抓明细，每次回查最近3个月，每月回查18个月修订。",
+      "scope": "非货币黄金710811、710812、710813及对应本地细分码，完整出口目的地与净重。"
+    },
+    "london-vault": {
+      "label": "伦敦库存",
+      "selectedSourceId": "lbma-vault",
+      "currentSourceId": "lbma-vault",
+      "state": "ready",
+      "gap": "",
+      "checkSchedule": "每日北京时间09:00查目录；公布日另按伦敦当地10:00、16:00检查。",
+      "scope": "全伦敦专业金库与英格兰银行月末黄金持有量；不以英格兰银行子集替代。"
+    },
+    "comex-vault": {
+      "label": "COMEX库存",
+      "selectedSourceId": "cme-stocks",
+      "currentSourceId": "cme-stocks",
+      "state": "fetchBlocked",
+      "gap": "当前最新表下载未成功，demo为2026年7月存档，不参与当前趋势。",
+      "checkSchedule": "纽约当地美国营业日18:00及次日09:00检查，按当地夏令时换算。",
+      "scope": "Registered、Eligible、总量与活动日；Pledged已含在Registered中。"
+    },
+    "shanghai-physical": {
+      "label": "上海出库与交割",
+      "selectedSourceId": "sge-month",
+      "currentSourceId": "sge-month",
+      "state": "ready",
+      "gap": "",
+      "checkSchedule": "每日北京时间10:00、17:00查月报目录，新报告出现后读取。",
+      "scope": "月报黄金出库量、交割量及上月值；不是总库存或终端消费。"
+    },
+    "shanghai-price": {
+      "label": "上海黄金价格",
+      "selectedSourceId": "sge-close",
+      "currentSourceId": "sge-close",
+      "state": "ready",
+      "gap": "",
+      "checkSchedule": "中国交易日北京时间17:00、20:00检查。",
+      "scope": "Au99.99收盘价，人民币每克，取实际交易日。"
+    },
+    "london-price": {
+      "label": "伦敦黄金价格",
+      "selectedSourceId": "iba-pm",
+      "currentSourceId": "lbma-legacy",
+      "state": "authorizationRequired",
+      "gap": "未有IBA许可或账户，未确认免费同口径持续获取渠道。",
+      "checkSchedule": "有许可后按伦敦次日01:00检查PM延迟交付；实际时间按许可调整。无许可不安排抓取旧JSON。",
+      "scope": "LBMA Gold Price PM，美元每金衡盎司；目前仅历史观察，不能出当前溢价结论。"
+    },
+    "fx": {
+      "label": "人民币换算汇率",
+      "selectedSourceId": "ecb-fx",
+      "currentSourceId": "ecb-fx",
+      "state": "ready",
+      "gap": "",
+      "checkSchedule": "北京时间23:30检查；缺同日值时次日01:00复查。",
+      "scope": "同日欧元兑人民币除以欧元兑美元，三源共同自然日期齐全才更新温差。"
+    }
+  },
+  "modules": [
+    {
+      "id": "gold-compass",
+      "title": "黄金罗盘",
+      "markets": [
+        757,
+        826,
+        842,
+        344,
+        702,
+        784
+      ],
+      "metrics": [
+        "london-vault",
+        "shanghai-price",
+        "london-price",
+        "fx"
+      ]
+    },
+    {
+      "id": "market-balance",
+      "title": "全球吸金榜",
+      "markets": [
+        156,
+        344,
+        699,
+        764,
+        792,
+        784,
+        702,
+        826,
+        842,
+        757
+      ],
+      "metrics": []
+    },
+    {
+      "id": "trade-routes",
+      "title": "黄金航线",
+      "markets": [
+        757,
+        826,
+        842,
+        344,
+        702,
+        784
+      ],
+      "metrics": []
+    },
+    {
+      "id": "swiss-refinery",
+      "title": "瑞士精炼站",
+      "markets": [],
+      "metrics": [
+        "swiss-import",
+        "swiss-export"
+      ]
+    },
+    {
+      "id": "vault-crosscheck",
+      "title": "三地实物信号",
+      "markets": [
+        757,
+        826,
+        842,
+        344,
+        702,
+        784
+      ],
+      "metrics": [
+        "london-vault",
+        "comex-vault",
+        "shanghai-physical"
+      ]
+    },
+    {
+      "id": "price-gap",
+      "title": "金价温差",
+      "markets": [],
+      "metrics": [
+        "shanghai-price",
+        "london-price",
+        "fx"
+      ]
+    }
+  ]
+}

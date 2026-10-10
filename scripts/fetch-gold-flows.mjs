@@ -2,6 +2,7 @@ import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { displayMarketName } from "./market-names.mjs";
+import { applySourcePolicy, loadSourcePolicy } from "./source-policy.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(root, "app/data/gold-flows.json");
@@ -10,6 +11,7 @@ const REPORTERS =
   "https://comtradeapi.un.org/files/v1/app/reference/Reporters.json";
 const OUTPUT_VERSION = 4;
 const buildTimestamp = new Date().toISOString();
+const sourcePolicy = await loadSourcePolicy();
 const latestComparablePeriod = "202606";
 const comparisonPeriod = "202605";
 const networkPeriods = ["202604", comparisonPeriod, latestComparablePeriod];
@@ -188,6 +190,9 @@ async function queryComtrade({
   const url = `${API}?${parameters}`;
   const payload = await fetchJson(url);
   if (payload.error) throw new Error(payload.error);
+  if ((payload.data?.length ?? 0) >= 500) {
+    throw new Error("Comtrade preview may be truncated; split the query or use an approved complete delivery before publishing");
+  }
   await wait(900);
   return { url, rows: payload.data ?? [] };
 }
@@ -772,6 +777,7 @@ const output = {
   ],
 };
 
+applySourcePolicy(output, sourcePolicy);
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, `${JSON.stringify(output, null, 2)}\n`);
 console.log(
