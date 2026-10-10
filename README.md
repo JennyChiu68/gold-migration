@@ -24,7 +24,7 @@ npm run lint
 
 各功能板块的数据来源、原始链接、观测期、更新周期和计算口径见 [DATA_SOURCES.md](DATA_SOURCES.md)。
 
-统一来源方案维护在 [source-policy.json](app/data/source-policy.json)，每项列出优先接入源、当前执行源、访问条件和检查频次。demo来源标注及Word需求共同使用这份清单。本阶段以无需付费且能从公开入口实际抓取为免费可获取标准，版权和许可不作为接入前置条件。国家渠道待重量和伙伴明细验证，伦敦PM公开JSON当前返回403，保留检查和重试；美国Census密钥可免费申请。
+统一来源方案维护在 [source-policy.json](app/data/source-policy.json)，每项列出当前执行源、后续候选源、访问条件和检查频次。Word仅指定本版本实际执行源，候选渠道保留在评估记录。demo来源标注及Word需求共同使用这份清单。本阶段以无需付费且能从公开入口实际抓取为免费可获取标准，版权和许可不作为接入前置条件。国家渠道待重量和伙伴明细验证，伦敦PM公开JSON当前返回403，保留检查和重试；美国Census密钥可免费申请。
 
 来源实际验证与限制见 [DATA_SOURCE_AUDIT.md](DATA_SOURCE_AUDIT.md)。待接入渠道不是当前数值出处，历史伦敦价格保留原始出处，当前价差标为历史观察。
 
@@ -38,3 +38,5 @@ python scripts/build-requirements.py
 数据快照提交在 `app/data/gold-flows.json`，无需现场访问外部接口即可展示。更新前先核对 `scripts/fetch-gold-flows.mjs` 中的共同对比月份、各市场最近月份和 `manualSnapshots` 的官方来源数值；脚本只会自动抓取 UN Comtrade，其他来源不会随脚本自动更新。核对后运行 `node scripts/fetch-gold-flows.mjs`，检查快照变更并运行测试。数据来源和局限性在 DATA_SOURCES.md 中维护。
 
 `.openai/hosting.json`、`build/sites-vite-plugin.ts`、`vite.config.ts` 和 `worker/index.ts` 用于构建及部署这个地图应用。
+
+本次2026年10月10日核对记录见[data-checks/2026-10-10/README.md](data-checks/2026-10-10/README.md)，技术交付Word见[上线需求](docs/全球黄金迁徙地图上线需求.docx)。

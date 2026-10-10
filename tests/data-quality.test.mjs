@@ -277,7 +277,11 @@ test("Swiss import and export snapshots retain separate source boundaries", () =
     (sum, origin) => sum + origin.tonnes,
     0,
   );
-  assert.ok(topOriginTonnes <= imports.importsTonnes);
+  closeTo(topOriginTonnes, imports.importsTonnes, "full Swiss origin weights reconcile");
+  assert.equal(imports.originCount, imports.topOrigins.length);
+  assert.equal(imports.originCount, 55);
+  assert.equal(new Set(imports.topOrigins.map(origin => origin.code)).size, 55);
+  assert.equal(imports.topOrigins.find(origin => origin.iso2 === "TW").label, "中国台湾");
 });
 
 test("London, Shanghai and official COMEX calculations reconcile", () => {
@@ -328,6 +332,12 @@ test("same-day Shanghai-London price conversion reconciles", () => {
   const price = data.priceComparison;
   assert.equal(price.alignment, "same-day");
   assert.equal(price.observationPeriod, "2026-09-28");
+  assert.equal(price.currentSignalEligible, false);
+  assert.equal(price.latestInputs.shanghai.date, "2026-10-09");
+  assert.equal(price.latestInputs.shanghai.cnyPerGram, 904.48);
+  assert.equal(price.latestInputs.exchangeRates.date, "2026-10-09");
+  assert.equal(price.latestInputs.exchangeRates.cnyPerEur, 7.4992);
+  assert.equal(price.latestInputs.exchangeRates.usdPerEur, 1.1206);
   const londonEquivalent =
     (price.lbmaPmUsdPerOunce / 31.1034768) *
     (price.ecbCnyPerEur / price.ecbUsdPerEur);

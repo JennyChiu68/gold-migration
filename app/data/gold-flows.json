@@ -1,6 +1,6 @@
 {
   "version": 4,
-  "fetchedAt": "2026-10-09T07:58:13.087Z",
+  "fetchedAt": "2026-10-10T08:39:20.828Z",
   "fetchedAtMeaning": "页面数据包构建时间；各模块真实观测期与来源抓取时间见observationPeriod和sourceFetchedAt。",
   "commodity": {
     "hsCode": "7108",
@@ -728,74 +728,357 @@
         }
       ]
     },
-    "sourceId": "comtrade"
+    "sourceId": "comtrade",
+    "sourceCheckedAt": "2026-10-10T08:39:20.828Z"
   },
   "swissRefinery": {
     "importSnapshot": {
       "period": "2026-08",
       "observationPeriod": "202608",
-      "sourceFetchedAt": "2026-09-29T08:39:00.000Z",
+      "sourceFetchedAt": "2026-10-10T08:39:20.828Z",
       "frequency": "monthly",
       "status": "manualSnapshot",
       "scope": "瑞士官方7108.1200黄金进口来源国月度暂定数据；来源国不等同于矿山原产地。",
       "importsTonnes": 205.02,
       "sourceUrl": "https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv",
-      "definition": "瑞士海关7108.1200四类控制代码进口重量之和；8月数据为暂定值。",
+      "definition": "瑞士海关7108.1200控制代码911至914进口重量之和；8月数据为暂定值。保存全部55个来源地，筛选与分类占比基于完整明细。",
       "topOrigins": [
         {
           "code": 784,
-          "label": "阿联酋",
+          "iso2": "AE",
+          "label": "阿拉伯联合酋长国",
           "tonnes": 74.708
         },
         {
           "code": 842,
+          "iso2": "US",
           "label": "美国",
           "tonnes": 28.725
         },
         {
           "code": 32,
+          "iso2": "AR",
           "label": "阿根廷",
           "tonnes": 12.411
         },
         {
           "code": 380,
+          "iso2": "IT",
           "label": "意大利",
           "tonnes": 10.585
         },
         {
           "code": 152,
+          "iso2": "CL",
           "label": "智利",
           "tonnes": 9.727
         },
         {
           "code": 792,
+          "iso2": "TR",
           "label": "土耳其",
           "tonnes": 7.31
         },
         {
           "code": 604,
+          "iso2": "PE",
           "label": "秘鲁",
           "tonnes": 6.973
         },
         {
           "code": 764,
+          "iso2": "TH",
           "label": "泰国",
           "tonnes": 6.703
         },
         {
           "code": 288,
+          "iso2": "GH",
           "label": "加纳",
           "tonnes": 5.286
         },
         {
-          "code": 276,
+          "code": 280,
+          "iso2": "DE",
           "label": "德国",
           "tonnes": 4.594
+        },
+        {
+          "code": 854,
+          "iso2": "BF",
+          "label": "布基纳法索",
+          "tonnes": 3.586
+        },
+        {
+          "code": 384,
+          "iso2": "CI",
+          "label": "科特迪瓦",
+          "tonnes": 2.995
+        },
+        {
+          "code": 156,
+          "iso2": "CN",
+          "label": "中国",
+          "tonnes": 2.462
+        },
+        {
+          "code": 124,
+          "iso2": "CA",
+          "label": "加拿大",
+          "tonnes": 2.352
+        },
+        {
+          "code": 392,
+          "iso2": "JP",
+          "label": "日本",
+          "tonnes": 2.154
+        },
+        {
+          "code": 484,
+          "iso2": "MX",
+          "label": "墨西哥",
+          "tonnes": 1.975
+        },
+        {
+          "code": 558,
+          "iso2": "NI",
+          "label": "尼加拉瓜",
+          "tonnes": 1.666
+        },
+        {
+          "code": 76,
+          "iso2": "BR",
+          "label": "巴西",
+          "tonnes": 1.655
+        },
+        {
+          "code": 422,
+          "iso2": "LB",
+          "label": "黎巴嫩",
+          "tonnes": 1.404
+        },
+        {
+          "code": 686,
+          "iso2": "SN",
+          "label": "塞内加尔",
+          "tonnes": 1.317
+        },
+        {
+          "code": 608,
+          "iso2": "PH",
+          "label": "菲律宾",
+          "tonnes": 1.232
+        },
+        {
+          "code": 818,
+          "iso2": "EG",
+          "label": "埃及",
+          "tonnes": 1.23
+        },
+        {
+          "code": 344,
+          "iso2": "HK",
+          "label": "中国香港特别行政区",
+          "tonnes": 1.112
+        },
+        {
+          "code": 218,
+          "iso2": "EC",
+          "label": "厄瓜多尔",
+          "tonnes": 1.099
+        },
+        {
+          "code": 430,
+          "iso2": "LR",
+          "label": "利比里亚",
+          "tonnes": 0.961
+        },
+        {
+          "code": 740,
+          "iso2": "SR",
+          "label": "苏里南",
+          "tonnes": 0.853
+        },
+        {
+          "code": 478,
+          "iso2": "MR",
+          "label": "毛里塔尼亚",
+          "tonnes": 0.8
+        },
+        {
+          "code": 496,
+          "iso2": "MN",
+          "label": "蒙古",
+          "tonnes": 0.772
+        },
+        {
+          "code": 324,
+          "iso2": "GN",
+          "label": "几内亚",
+          "tonnes": 0.744
+        },
+        {
+          "code": 36,
+          "iso2": "AU",
+          "label": "澳大利亚",
+          "tonnes": 0.705
+        },
+        {
+          "code": 418,
+          "iso2": "LA",
+          "label": "老挝",
+          "tonnes": 0.679
+        },
+        {
+          "code": 458,
+          "iso2": "MY",
+          "label": "马来西亚",
+          "tonnes": 0.664
+        },
+        {
+          "code": 834,
+          "iso2": "TZ",
+          "label": "坦桑尼亚",
+          "tonnes": 0.646
+        },
+        {
+          "code": 31,
+          "iso2": "AZ",
+          "label": "阿塞拜疆",
+          "tonnes": 0.591
+        },
+        {
+          "code": 702,
+          "iso2": "SG",
+          "label": "新加坡",
+          "tonnes": 0.588
+        },
+        {
+          "code": 246,
+          "iso2": "FI",
+          "label": "芬兰",
+          "tonnes": 0.545
+        },
+        {
+          "code": 410,
+          "iso2": "KR",
+          "label": "韩国",
+          "tonnes": 0.543
+        },
+        {
+          "code": 56,
+          "iso2": "BE",
+          "label": "比利时",
+          "tonnes": 0.462
+        },
+        {
+          "code": 400,
+          "iso2": "JO",
+          "label": "约旦",
+          "tonnes": 0.35
+        },
+        {
+          "code": 251,
+          "iso2": "FR",
+          "label": "法国",
+          "tonnes": 0.284
+        },
+        {
+          "code": 710,
+          "iso2": "ZA",
+          "label": "南非",
+          "tonnes": 0.275
+        },
+        {
+          "code": 682,
+          "iso2": "SA",
+          "label": "沙特阿拉伯",
+          "tonnes": 0.274
+        },
+        {
+          "code": 566,
+          "iso2": "NG",
+          "label": "尼日利亚",
+          "tonnes": 0.273
+        },
+        {
+          "code": 616,
+          "iso2": "PL",
+          "label": "波兰",
+          "tonnes": 0.201
+        },
+        {
+          "code": 724,
+          "iso2": "ES",
+          "label": "西班牙",
+          "tonnes": 0.116
+        },
+        {
+          "code": 752,
+          "iso2": "SE",
+          "label": "瑞典",
+          "tonnes": 0.113
+        },
+        {
+          "code": 579,
+          "iso2": "NO",
+          "label": "挪威",
+          "tonnes": 0.107
+        },
+        {
+          "code": 170,
+          "iso2": "CO",
+          "label": "哥伦比亚",
+          "tonnes": 0.082
+        },
+        {
+          "code": 591,
+          "iso2": "PA",
+          "label": "巴拿马",
+          "tonnes": 0.05
+        },
+        {
+          "code": 40,
+          "iso2": "AT",
+          "label": "奥地利",
+          "tonnes": 0.032
+        },
+        {
+          "code": 158,
+          "iso2": "TW",
+          "label": "中国台湾",
+          "tonnes": 0.02
+        },
+        {
+          "code": 528,
+          "iso2": "NL",
+          "label": "荷兰",
+          "tonnes": 0.014
+        },
+        {
+          "code": 208,
+          "iso2": "DK",
+          "label": "丹麦",
+          "tonnes": 0.012
+        },
+        {
+          "code": 826,
+          "iso2": "GB",
+          "label": "英国",
+          "tonnes": 0.003
+        },
+        {
+          "code": 372,
+          "iso2": "IE",
+          "label": "爱尔兰",
+          "tonnes": 0
         }
       ],
       "sourceId": "bazg-import",
       "selectedSourceId": "bazg-import",
-      "sourceState": "ready"
+      "sourceState": "ready",
+      "originCount": 55,
+      "sourceCheckedAt": "2026-10-10T08:39:20.828Z"
     },
     "exportSnapshot": {
       "period": "202608",
@@ -1397,7 +1680,8 @@
       ],
       "sourceId": "comtrade",
       "selectedSourceId": "swissimpex",
-      "sourceState": "pendingValidation"
+      "sourceState": "pendingValidation",
+      "sourceCheckedAt": "2026-10-10T08:39:20.828Z"
     }
   },
   "marketBalances": {
@@ -1774,7 +2058,8 @@
         "sourceState": "pendingValidation"
       }
     ],
-    "sourceId": "comtrade"
+    "sourceId": "comtrade",
+    "sourceCheckedAt": "2026-10-10T08:39:20.828Z"
   },
   "vaults": {
     "london": {
@@ -1856,7 +2141,8 @@
       "workbookUrl": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx",
       "sourceId": "lbma-vault",
       "selectedSourceId": "lbma-vault",
-      "sourceState": "ready"
+      "sourceState": "ready",
+      "sourceCheckedAt": "2026-10-10T08:39:20.828Z"
     },
     "newYork": {
       "period": "2026-07-30",
@@ -1886,7 +2172,12 @@
       "dailyChangePct": 0.04392762242295678,
       "sourceId": "cme-stocks",
       "selectedSourceId": "cme-stocks",
-      "sourceState": "fetchBlocked"
+      "sourceState": "fetchBlocked",
+      "lastCheck": {
+        "checkedAt": "2026-10-10T08:39:20.828Z",
+        "status": "fetchBlocked",
+        "reason": "官方最新报表两次下载均连接超时，未验证新活动日。"
+      }
     },
     "shanghai": {
       "period": "2026-09",
@@ -1903,7 +2194,8 @@
       "previousSourceUrl": "https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf",
       "sourceId": "sge-month",
       "selectedSourceId": "sge-month",
-      "sourceState": "ready"
+      "sourceState": "ready",
+      "sourceCheckedAt": "2026-10-10T08:39:20.828Z"
     }
   },
   "priceComparison": {
@@ -1933,7 +2225,29 @@
     "selectedLondonSourceId": "lbma-legacy",
     "sourceState": "fetchBlocked",
     "currentSignalEligible": false,
-    "updateBlockedReason": "公开JSON实测HTTP 403；尚未验证可持续获取最新同口径PM价格，保留历史观察。"
+    "updateBlockedReason": "公开JSON实测HTTP 403；尚未验证可持续获取最新同口径PM价格，保留历史观察。",
+    "latestInputs": {
+      "shanghai": {
+        "date": "2026-10-09",
+        "cnyPerGram": 904.48,
+        "sourceId": "sge-close",
+        "sourceFetchedAt": "2026-10-10T08:39:20.828Z",
+        "sourceUrl": "https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-10-09&end_date=2026-10-09"
+      },
+      "exchangeRates": {
+        "date": "2026-10-09",
+        "cnyPerEur": 7.4992,
+        "usdPerEur": 1.1206,
+        "sourceId": "ecb-fx",
+        "sourceFetchedAt": "2026-10-10T08:39:20.828Z",
+        "sourceUrl": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml"
+      }
+    },
+    "lastCheck": {
+      "checkedAt": "2026-10-10T08:39:20.828Z",
+      "status": "fetchBlocked",
+      "reason": "官方gold_pm.json、today.json、limited/gold_pm.json均返回403；不推进同日价差。"
+    }
   },
   "methodology": {
     "measured": "跨境路线与市场净进出口来自UN Comtrade HS 7108月度数据；标记“重量估算”的记录为官方估算重量，不等同于直接申报重量。",
@@ -1990,5 +2304,6 @@
       "detail": "公开免费XML；是参考汇率，不是实时成交价。"
     }
   ],
-  "sourcePolicyRevision": "2026-10-10"
+  "sourcePolicyRevision": "2026-10-10",
+  "lastCheckedAt": "2026-10-10T08:39:20.828Z"
 }

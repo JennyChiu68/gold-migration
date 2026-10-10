@@ -1,0 +1,298 @@
+{
+  "checkedAt": "2026-10-10T08:27:50.157973+00:00",
+  "checks": [
+    {
+      "name": "availability-current.json",
+      "url": "https://comtradeapi.un.org/public/v1/getDA/C/M/HS?reporterCode=757,826,842,699,344,156,764,792,784,702&period=202604,202605,202606,202607,202608,202609",
+      "checkedAt": "2026-10-10T08:27:36.559450+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 12520,
+      "sha256": "b336e173d943f521de3e5999690f813777fa11a95571814df436c9c8000ae679",
+      "rows": 23,
+      "applicationError": "",
+      "nextLink": null
+    },
+    {
+      "name": "availability-historic.json",
+      "url": "https://comtradeapi.un.org/public/v1/getDA/C/M/HS?reporterCode=156,784&period=202001,202002,202003,202004,202005,202006,202007,202008,202009,202010,202011,202012,202101,202102,202103,202104,202105,202106,202107,202108,202109,202110,202111,202112,202201,202202,202203,202204,202205,202206,202207,202208,202209,202210,202211,202212,202301,202302,202303,202304,202305,202306,202307,202308,202309,202310,202311,202312,202401,202402,202403,202404,202405,202406,202407,202408,202409,202410,202411,202412",
+      "checkedAt": "2026-10-10T08:27:36.560774+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 32297,
+      "sha256": "707e7798c3b0b414f5495c4d6e5a525155b1064f4a4302eaebda6002bff9c421",
+      "rows": 60,
+      "applicationError": "",
+      "nextLink": null
+    },
+    {
+      "name": "availability-lagged.json",
+      "url": "https://comtradeapi.un.org/public/v1/getDA/C/M/HS?reporterCode=156,764,792,784,702&period=202412,202501,202502,202503,202504,202505,202506,202507,202508,202509,202510,202511,202512,202601,202602,202603",
+      "checkedAt": "2026-10-10T08:27:36.561036+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 24842,
+      "sha256": "c16a000fd86dce1fb83df04c956ff76af95cae879248f357bc70be53e52c8e6c",
+      "rows": 46,
+      "applicationError": "",
+      "nextLink": null
+    },
+    {
+      "name": "lbma-vault.html",
+      "url": "https://www.lbma.org.uk/prices-and-data/london-vault-data",
+      "checkedAt": "2026-10-10T08:27:36.561182+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 273433,
+      "sha256": "0d5ef9ea7385711759d5fa0d4750779b863bdb9510c24530391e8c2aaf3c059c"
+    },
+    {
+      "name": "lbma-vault-sep.xlsx",
+      "url": "https://cdn.lbma.org.uk/downloads/LBMA-London-Vault-Holdings-Data-September-2026.xlsx",
+      "checkedAt": "2026-10-10T08:27:38.458115+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 23658,
+      "sha256": "24d1fb6e41f0dd6c9071c90cd490796b34123c0678a25b284d81f132df25e91c"
+    },
+    {
+      "name": "sge-monthly.html",
+      "url": "https://www.sge.com.cn/sjzx/hqyb",
+      "checkedAt": "2026-10-10T08:27:38.462963+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 57868,
+      "sha256": "ad3f9d16544dec39efaaf19fcad775f73fec0888fe3c305d0ad0a82ed3c81b2b"
+    },
+    {
+      "name": "sge-september.pdf",
+      "url": "https://www.sge.com.cn/upload/file/202610/09/9e6b4a569aeb41149beed7619cad377f.pdf",
+      "checkedAt": "2026-10-10T08:27:38.592855+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 253906,
+      "sha256": "762e6622cf0fc5d5ef1aa6a4a5b930c9815ea0b2b156d9125a985d7f1397297b"
+    },
+    {
+      "name": "sge-daily.html",
+      "url": "https://www.sge.com.cn/sjzx/mrhqsj",
+      "checkedAt": "2026-10-10T08:27:38.623189+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 51977,
+      "sha256": "0554c422d18231d691e48a11058d967f16a2248b9adfa5b85586d32fe694b27f"
+    },
+    {
+      "name": "sge-october09.html",
+      "url": "https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-10-09&end_date=2026-10-09",
+      "checkedAt": "2026-10-10T08:27:39.287158+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 90097,
+      "sha256": "85ef4402a68d493cc7cb76f78aa116d8dfbf09a203326d2177dfc9075bde0146"
+    },
+    {
+      "name": "ecb-90d.xml",
+      "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-hist-90d.xml",
+      "checkedAt": "2026-10-10T08:27:39.533587+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 70586,
+      "sha256": "9be8fea98155a0897b7f933e982d7b5129a35369173fdd580a6d09f3369e6f5f"
+    },
+    {
+      "name": "cme-gold-stocks.xls",
+      "url": "https://www.cmegroup.com/delivery_reports/Gold_Stocks.xls",
+      "checkedAt": "2026-10-10T08:27:39.556112+00:00",
+      "httpStatus": "000",
+      "exitCode": 28,
+      "error": "curl: (28) SSL connection timeout"
+    },
+    {
+      "name": "cme-directory.html",
+      "url": "https://www.cmegroup.com/solutions/clearing/operations-and-deliveries/nymex-delivery-notices.html",
+      "checkedAt": "2026-10-10T08:27:40.136003+00:00",
+      "httpStatus": "000",
+      "exitCode": 28,
+      "error": "curl: (28) SSL connection timeout"
+    },
+    {
+      "name": "lbma-gold-pm.json",
+      "url": "https://prices.lbma.org.uk/json/gold_pm.json",
+      "checkedAt": "2026-10-10T08:27:41.193864+00:00",
+      "httpStatus": "403",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 4546,
+      "sha256": "19fa066334fca8bc8164022396200d254909e8d5a5c433602fae468ea58bd8ba"
+    },
+    {
+      "name": "swiss-import.csv",
+      "url": "https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv",
+      "checkedAt": "2026-10-10T08:27:41.225192+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 2377202,
+      "sha256": "ad37c1ac76f422735d45de1e98cd9b8424766975842f517d18aa3957c141a0cc"
+    },
+    {
+      "name": "hmrc-august.json",
+      "url": "https://api.uktradeinfo.com/OTS?%24filter=MonthId+eq+202608+and+CommodityId+ge+71080000+and+CommodityId+lt+71090000",
+      "checkedAt": "2026-10-10T08:27:41.939618+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 73,
+      "sha256": "b13ae636d6fcf73c69a79021d0974ebe55101e79cd1335d3de7b4207c7729aa6",
+      "rows": 0,
+      "applicationError": null,
+      "nextLink": null
+    },
+    {
+      "name": "hmrc-july.json",
+      "url": "https://api.uktradeinfo.com/OTS?%24filter=MonthId+eq+202607+and+CommodityId+ge+71080000+and+CommodityId+lt+71090000",
+      "checkedAt": "2026-10-10T08:27:43.648058+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 32224,
+      "sha256": "e6586f27f2e16160369131bec8039fd3c3e2814e5d672eaf6674a18028132605",
+      "rows": 180,
+      "applicationError": null,
+      "nextLink": null
+    },
+    {
+      "name": "hk-gold-august.json",
+      "url": "https://tradeidds.censtatd.gov.hk/api/get?lang=EN&sv=QCm%2CVCm&freq=M&period=202608%2C202608&ttype=4&codeclass=HKHS6&code=710812",
+      "checkedAt": "2026-10-10T08:27:45.037069+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 407,
+      "sha256": "190e8afaaa78583b6ad167f6477fe83c1d7b3edc1f3a9309c0c4781b0645f84c",
+      "rows": 0,
+      "applicationError": "Access denied（应用状态4），非数据响应",
+      "nextLink": null
+    },
+    {
+      "name": "census-august.json",
+      "url": "https://api.census.gov/data/timeseries/intltrade/exports/hs?get=ALL_VAL_MO,NET_WGT_MO,CTY_NAME&time=2026-08&E_COMMODITY=7108",
+      "checkedAt": "2026-10-10T08:27:46.287770+00:00",
+      "httpStatus": "200",
+      "exitCode": 0,
+      "error": "",
+      "bytes": 8531,
+      "sha256": "c2f4687e09b80676de7f68dec92ebea395209616dbc6f895520e547c5f68c0f5",
+      "applicationError": "HTML Missing Key，非数据响应"
+    },
+    {
+      "name": "lbma-today.json",
+      "url": "https://prices.lbma.org.uk/json/today.json",
+      "httpStatus": "403",
+      "result": "官方图表当前取数路径亦未返回可核验新PM数据"
+    },
+    {
+      "name": "lbma-limited-pm.json",
+      "url": "https://prices.lbma.org.uk/json/limited/gold_pm.json",
+      "httpStatus": "403",
+      "result": "官方图表当前取数路径亦未返回可核验新PM数据"
+    }
+  ],
+  "normalizedReview": {
+    "availability-current": {
+      "newOrRevised": [],
+      "removedKeys": []
+    },
+    "availability-lagged": {
+      "newOrRevised": [],
+      "removedKeys": []
+    },
+    "availability-historic": {
+      "newOrRevised": [],
+      "removedKeys": []
+    },
+    "swissImport": {
+      "latest": "202608",
+      "tonnes": 205.02,
+      "countries": {
+        "PE": 6.973,
+        "IT": 10.585,
+        "FI": 0.545,
+        "AZ": 0.591,
+        "GB": 0.003,
+        "SE": 0.113,
+        "EG": 1.23,
+        "AE": 74.708,
+        "GN": 0.744,
+        "DE": 4.593999999999999,
+        "US": 28.724999999999998,
+        "AU": 0.7050000000000001,
+        "HK": 1.112,
+        "MR": 0.8,
+        "AT": 0.032,
+        "TW": 0.02,
+        "TR": 7.3100000000000005,
+        "NI": 1.666,
+        "CL": 9.727,
+        "EC": 1.099,
+        "BE": 0.462,
+        "ZA": 0.275,
+        "JO": 0.35,
+        "PH": 1.232,
+        "CA": 2.352,
+        "CI": 2.995,
+        "FR": 0.284,
+        "TH": 6.703,
+        "KR": 0.543,
+        "MN": 0.772,
+        "NO": 0.107,
+        "AR": 12.411,
+        "SG": 0.5880000000000001,
+        "CO": 0.082,
+        "PL": 0.201,
+        "NL": 0.014,
+        "ES": 0.11599999999999999,
+        "GH": 5.286,
+        "LB": 1.404,
+        "BR": 1.655,
+        "TZ": 0.646,
+        "SA": 0.274,
+        "JP": 2.154,
+        "NG": 0.273,
+        "MX": 1.975,
+        "LA": 0.679,
+        "SN": 1.317,
+        "DK": 0.012,
+        "LR": 0.961,
+        "IE": 0.0,
+        "SR": 0.853,
+        "BF": 3.586,
+        "CN": 2.462,
+        "MY": 0.664,
+        "PA": 0.05
+      },
+      "updated": [
+        "2026-09-10T00:00:00.000+02:00"
+      ],
+      "status": [
+        "prov"
+      ]
+    },
+    "ecbLatest": {
+      "date": "2026-10-09",
+      "USD": "1.1206",
+      "CNY": "7.4992"
+    }
+  }
+}

@@ -1,0 +1,190 @@
+[
+  {
+    "name": "latest-757.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202608&reporterCode=757&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "latest-826.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=826&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 2,
+    "applicationError": "",
+    "statusCode": null,
+    "actual": {
+      "M": 114.164583,
+      "X": 43.102852
+    },
+    "expected": {
+      "M": 114.164583,
+      "X": 43.102852
+    },
+    "matches": true
+  },
+  {
+    "name": "latest-842.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=842&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "latest-699.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=699&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 2,
+    "applicationError": "",
+    "statusCode": null,
+    "actual": {
+      "M": 45.403059,
+      "X": null
+    },
+    "expected": {
+      "M": 45.403059,
+      "X": null
+    },
+    "matches": true
+  },
+  {
+    "name": "latest-344.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202607&reporterCode=344&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "latest-156.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202412&reporterCode=156&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 2,
+    "applicationError": "",
+    "statusCode": null,
+    "actual": {
+      "M": 104.287436,
+      "X": 20.263454000000003
+    },
+    "expected": {
+      "M": 104.287436,
+      "X": 20.263454000000003
+    },
+    "matches": true
+  },
+  {
+    "name": "latest-764.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202605&reporterCode=764&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "latest-792.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202512&reporterCode=792&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "latest-784.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=201912&reporterCode=784&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 2,
+    "applicationError": "",
+    "statusCode": null,
+    "actual": {
+      "M": 65.457,
+      "X": 123.02841000000001
+    },
+    "expected": {
+      "M": 65.457,
+      "X": 123.02841000000001
+    },
+    "matches": true
+  },
+  {
+    "name": "latest-702.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202603&reporterCode=702&flowCode=M%2CX&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500&partnerCode=0",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "routes-757.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=757&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 43,
+    "applicationError": "",
+    "statusCode": null,
+    "worldTonnes": 106.717742,
+    "mappedRoutesMatch": true
+  },
+  {
+    "name": "routes-826.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=826&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "routes-842.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=842&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 58,
+    "applicationError": "",
+    "statusCode": null,
+    "worldTonnes": 95.357734,
+    "mappedRoutesMatch": true
+  },
+  {
+    "name": "routes-344.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=344&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 20,
+    "applicationError": "",
+    "statusCode": null,
+    "worldTonnes": 90.93700299999999,
+    "mappedRoutesMatch": true
+  },
+  {
+    "name": "routes-702.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=702&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500",
+    "httpStatus": "429",
+    "error": "",
+    "rows": 0,
+    "applicationError": null,
+    "statusCode": 429
+  },
+  {
+    "name": "routes-784.json",
+    "url": "https://comtradeapi.un.org/public/v1/preview/C/M/HS?period=202606&reporterCode=784&flowCode=X&partner2Code=0&cmdCode=7108&customsCode=C00&motCode=0&maxRecords=500",
+    "httpStatus": "200",
+    "error": "",
+    "rows": 0,
+    "applicationError": "",
+    "statusCode": null,
+    "worldTonnes": null,
+    "mappedRoutesMatch": true
+  }
+]

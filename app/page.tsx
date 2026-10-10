@@ -172,6 +172,10 @@ type GoldData = {
     };
   };
   priceComparison: {
+    latestInputs: {
+      shanghai: { date: string; cnyPerGram: number };
+      exchangeRates: { date: string; cnyPerEur: number; usdPerEur: number };
+    };
     currentSignalEligible: boolean;
     date: string;
     shanghaiAu9999CnyPerGram: number;
@@ -1449,6 +1453,9 @@ export default function Home() {
         <p>
           这是同日收盘价与定盘价的指示性对齐，不是实时价差。价格用于验证实物流方向，不把价差直接等同于运输套利空间；换算不含税费、运保与规格差异。
           {!data.priceComparison.currentSignalEligible && " 伦敦价格尚未更新，此历史观察不用于判断当前上海溢价或折价。"}
+        </p>
+        <p>
+          上海行情已更新至 {data.priceComparison.latestInputs.shanghai.date}，汇率已更新至 {data.priceComparison.latestInputs.exchangeRates.date}；同日伦敦 PM 尚待核实，价差保留上述历史日期。
         </p>
       </section>
 
