@@ -26,6 +26,6 @@ npm run lint
 
 各来源是否合适、国家官方渠道候选、访问条件、建议抓取频次与接入验收见 [DATA_SOURCE_AUDIT.md](DATA_SOURCE_AUDIT.md)。候选渠道尚未接入，不代表当前页面已使用或取得了新黄金数据。
 
-数据快照提交在 `app/data/gold-flows.json`，无需现场访问外部接口即可展示。更新前先核对 `scripts/fetch-gold-flows.mjs` 中的共同对比月份、各市场最近月份和 `manualSnapshots` 的官方来源数值；脚本只会自动抓取 UN Comtrade，其他来源不会随脚本自动更新。核对后运行 `node scripts/fetch-gold-flows.mjs`，检查快照变更并运行测试。页面的数据来源和局限性可在“数据底稿”部分查看。
+数据快照提交在 `app/data/gold-flows.json`，无需现场访问外部接口即可展示。更新前先核对 `scripts/fetch-gold-flows.mjs` 中的共同对比月份、各市场最近月份和 `manualSnapshots` 的官方来源数值；脚本只会自动抓取 UN Comtrade，其他来源不会随脚本自动更新。核对后运行 `node scripts/fetch-gold-flows.mjs`，检查快照变更并运行测试。数据来源和局限性在 DATA_SOURCES.md 中维护。
 
 `.openai/hosting.json`、`build/sites-vite-plugin.ts`、`vite.config.ts` 和 `worker/index.ts` 用于构建及部署这个地图应用。

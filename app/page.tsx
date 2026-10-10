@@ -1445,45 +1445,6 @@ export default function Home() {
         </p>
       </section>
 
-      <details className="method-card" id="method">
-        <summary>
-          <div>
-            <h2>数据底稿</h2>
-            <small>数据来源、口径与限制</small>
-          </div>
-          <b>＋</b>
-        </summary>
-        <div className="method-body">
-          <h3>直接观测</h3>
-          <p>{data.methodology.measured}</p>
-          <h3>同期比较</h3>
-          <p>{data.methodology.comparability}</p>
-          <h3>数据质量标签</h3>
-          <p>
-            “官方总计”表示直接采用官方接口的市场合计重量；“重量估算”表示官方接口将该重量标记为估算；伙伴明细求和、镜像推算和二次解析必须单独标注，不能与直接总计混用。
-          </p>
-          <h3>方向指标</h3>
-          <p>{data.methodology.inferred}</p>
-          <h3>商品边界</h3>
-          <p>
-            HS {data.commodity.hsCode}：{data.commodity.label}
-            。不包含首饰与私人非申报库存；同一批黄金经转口时可能重复出现在不同国家报关记录中。
-          </p>
-          <div className="source-list">
-            {data.sources.map((source) => (
-              <a
-                key={source.name}
-                href={source.url}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span>{source.name}</span>
-                <small>{source.detail}</small>
-              </a>
-            ))}
-          </div>
-        </div>
-      </details>
 
       <footer>
         <span>GLOBAL GOLD MIGRATION · V6</span>

@@ -20,7 +20,6 @@
 | 05 三地实物信号—上金所 | 黄金出库量、交割量及出库环比：`vaults.shanghai` | [上金所月报目录](https://www.sge.com.cn/sjzx/hqyb)；[2026-09 月报 PDF](https://www.sge.com.cn/upload/file/202610/09/9e6b4a569aeb41149beed7619cad377f.pdf)；[2026-08 月报 PDF](https://www.sge.com.cn/upload/file/202609/03/31e71479a1e44d81a6f2c6167fa61a8e.pdf) | 2026-09，环比基期 2026-08 | 月度月报，具体发布日期以月报目录为准 |
 | 05 多市场解读 | 将 `network.direction`、`vaults.london`、`vaults.shanghai` 并列展示；COMEX 仅提示历史存档 | 继承本表相应来源；没有独立原始数据 | 各来源数据期不同 | 随各来源快照更新 |
 | 06 金价温差 | 上海 Au99.99 对伦敦 PM 的指示性溢价：`priceComparison` | [上金所 2026-09-28 每日行情](https://www.sge.com.cn/sjzx/quotation_daily_new?start_date=2026-09-28&end_date=2026-09-28)；[LBMA 价格页面](https://www.lbma.org.uk/prices-and-data/lbma-precious-metal-prices)；[ECB 欧元参考汇率](https://www.ecb.europa.eu/stats/policy_and_exchange_rates/euro_reference_exchange_rates/html/index.en.html) | 三项均取 2026-09-28 | 上金所按交易日、LBMA 在英国营业日定盘、ECB 在 TARGET 工作日发布 |
-| 07 数据底稿 | 商品范围、来源清单、计算口径与限制：`commodity`、`methodology`、`sources` | 本文件所列官方来源及本项目计算规则 | 随当前快照 | 随文档和快照人工维护 |
 
 ## 二、UN Comtrade 具体查询与市场期次
 

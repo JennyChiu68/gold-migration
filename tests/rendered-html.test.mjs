@@ -41,7 +41,8 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /瑞士精炼站/);
   assert.match(html, /三地实物信号/);
   assert.match(html, /金价温差/);
-  assert.match(html, /数据底稿/);
+  assert.doesNotMatch(html, /数据底稿/);
+  assert.doesNotMatch(html, /id="method"/);
   assert.match(html, /href="#gold-compass"/);
   assert.match(html, /href="#market-balance"/);
   assert.match(html, /href="#price-gap"/);
@@ -52,10 +53,11 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.match(html, /金融及转口枢纽/);
   assert.match(html, /排行榜/);
   assert.match(html, /迁徙地图/);
-  assert.match(html, /重量估算/);
+  assert.match(html, /含估算/);
   assert.match(html, /库存与交割/);
   assert.match(html, /CME官方日报/);
   assert.match(html, /同日对齐/);
+  assert.match(html, /非实时行情/);
   assert.match(html, /2019.12/);
   assert.match(html, /各市场最新完整观测/);
   assert.equal((html.match(/class="latest-market-card/g) ?? []).length, 7);
@@ -70,17 +72,4 @@ test("server-renders the global gold migration dashboard", async () => {
   assert.doesNotMatch(html, /同期全景/);
   assert.doesNotMatch(html, /section-content"[^>]*hidden/);
   assert.doesNotMatch(html, /Your site is taking shape/);
-});
-
-test("publishes methodology and official source context", async () => {
-  const response = await render();
-  const html = await response.text();
-
-  assert.match(html, /HS 7108/);
-  assert.match(html, /UN Comtrade/);
-  assert.match(html, /瑞士联邦海关/);
-  assert.match(html, /LBMA/);
-  assert.match(html, /CME Group/);
-  assert.match(html, /上海黄金交易所/);
-  assert.match(html, /非实时行情/);
 });

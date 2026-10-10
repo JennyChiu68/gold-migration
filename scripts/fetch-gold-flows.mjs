@@ -1,6 +1,7 @@
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { displayMarketName } from "./market-names.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const outputPath = resolve(root, "app/data/gold-flows.json");
@@ -202,7 +203,7 @@ function safeNet(importsTonnes, exportsTonnes) {
 
 const references = await fetchJson(REPORTERS);
 const countryNames = new Map(
-  references.results.map((country) => [country.id, country.text]),
+  references.results.map((country) => [country.id, displayMarketName(country.text)]),
 );
 
 const originDefinitions = [

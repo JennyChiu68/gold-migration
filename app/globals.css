@@ -493,18 +493,13 @@ footer {
   order: 9;
 }
 
-.method-card {
-  order: 10;
-}
-
 footer {
   order: 11;
 }
 
 .hero,
 .dashboard-section,
-.premium-card,
-.method-card {
+.premium-card {
   scroll-margin-top: 82px;
 }
 
@@ -1822,99 +1817,6 @@ footer {
   margin: 18px 0 0;
   font-size: 13px;
   line-height: 1.65;
-}
-
-.method-card {
-  margin-top: 16px;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: var(--surface);
-}
-
-.method-card summary {
-  display: flex;
-  min-height: 72px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 18px;
-  cursor: pointer;
-  list-style: none;
-}
-
-.method-card summary::-webkit-details-marker {
-  display: none;
-}
-
-.method-card summary > div {
-  display: grid;
-  gap: 4px;
-}
-
-.method-card summary h2 {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.method-card summary small {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.method-card summary b {
-  color: var(--gold-text);
-  font-size: 19px;
-  font-weight: 400;
-  transition: transform 180ms ease;
-}
-
-.method-card[open] summary b {
-  transform: rotate(45deg);
-}
-
-.method-body {
-  padding: 2px 18px 18px;
-  border-top: 1px solid var(--line);
-}
-
-.method-body h3 {
-  margin: 17px 0 6px;
-  font-size: 13px;
-}
-
-.method-body p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.68;
-}
-
-.source-list {
-  display: grid;
-  gap: 8px;
-  margin-top: 17px;
-}
-
-.source-list a {
-  display: grid;
-  gap: 4px;
-  padding: 12px 13px;
-  border-radius: 12px;
-  background: var(--surface-soft);
-  color: var(--ink);
-  text-decoration: none;
-}
-
-.source-list span {
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.source-list small {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.55;
 }
 
 footer {
