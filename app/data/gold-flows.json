@@ -1930,10 +1930,10 @@
       "london": "lbma-legacy",
       "exchangeRates": "ecb-fx"
     },
-    "selectedLondonSourceId": "iba-pm",
-    "sourceState": "authorizationRequired",
+    "selectedLondonSourceId": "lbma-legacy",
+    "sourceState": "fetchBlocked",
     "currentSignalEligible": false,
-    "updateBlockedReason": "未有IBA许可或账户，未确认免费同口径持续获取渠道。"
+    "updateBlockedReason": "公开JSON实测HTTP 403；尚未验证可持续获取最新同口径PM价格，保留历史观察。"
   },
   "methodology": {
     "measured": "跨境路线与市场净进出口来自UN Comtrade HS 7108月度数据；标记“重量估算”的记录为官方估算重量，不等同于直接申报重量。",
@@ -1945,13 +1945,13 @@
       "id": "comtrade",
       "name": "UN Comtrade",
       "url": "https://uncomtrade.org/docs/un-comtrade-api/",
-      "detail": "有免费公开查询，预览最多500条且有限流；免费可视化等适用免许可情形，收费分发另核对条款。"
+      "detail": "免费公开查询；预览最多500条且有限流，必须核验完整性。"
     },
     {
       "id": "bazg-import",
       "name": "瑞士BAZG黄金进口",
       "url": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
-      "detail": "公开下载，须署名；商业使用需按BAZG条款事先取得数据所有者许可，不能承诺无条件免费商用。"
+      "detail": "公开CSV可直接下载，无需付费或账户。"
     },
     {
       "id": "lbma-vault",
@@ -1979,9 +1979,9 @@
     },
     {
       "id": "lbma-legacy",
-      "name": "LBMA PM历史快照出处",
+      "name": "LBMA Gold Price PM公开JSON",
       "url": "https://prices.lbma.org.uk/json/gold_pm.json",
-      "detail": "仅保留既有历史证据；本次403，不用于持续更新，不冒充IBA正式交付。"
+      "detail": "既有历史快照来自此公开入口；2026年10月10日实测HTTP 403，当前未取到新数据。保留检查和重试，不视为已可持续抓取。"
     },
     {
       "id": "ecb-fx",

@@ -741,7 +741,7 @@ const output = {
     },
     {
       name: "瑞士联邦海关（BAZG）",
-      detail: "瑞士黄金月度进口来源国；商业使用需按数据条款确认许可",
+      detail: "瑞士黄金月度进口来源国；公开CSV直接下载",
       url: manualSnapshots.swissImport.sourceUrl,
     },
     {

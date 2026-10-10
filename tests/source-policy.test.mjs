@@ -18,16 +18,19 @@ test("preferred national sources never replace actual Comtrade provenance premat
   assert.throws(() => applySourcePolicy(structuredClone(data), changed), /national adapter/);
 });
 
-test("unauthorized London benchmark remains historical with original evidence", () => {
+test("failed public London price fetch remains historical with original evidence", () => {
   assert.equal(data.priceComparison.sourceIds.london, "lbma-legacy");
-  assert.equal(data.priceComparison.selectedLondonSourceId, "iba-pm");
+  assert.equal(data.priceComparison.selectedLondonSourceId, "lbma-legacy");
+  assert.equal(data.priceComparison.sourceState, "fetchBlocked");
   assert.equal(data.priceComparison.currentSignalEligible, false);
   assert.equal(data.priceComparison.status, "historicalSnapshot");
   assert.equal(data.priceComparison.sourceUrls.london, "https://prices.lbma.org.uk/json/gold_pm.json");
   assert.equal(data.priceComparison.date, "2026-09-28");
-  const changed = structuredClone(policy);
-  changed.metrics["london-price"].currentSourceId = "iba-pm";
-  assert.throws(() => applySourcePolicy(structuredClone(data), changed), /unauthorized/);
+  const snapshot = structuredClone(data);
+  snapshot.priceComparison.currentSignalEligible = true;
+  applySourcePolicy(snapshot, policy);
+  assert.equal(snapshot.priceComparison.currentSignalEligible, false);
+  assert.match(snapshot.priceComparison.updateBlockedReason, /403/);
 });
 
 test("source annotation sync preserves observation and fetch timestamps and values", () => {

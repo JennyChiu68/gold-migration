@@ -18,8 +18,8 @@ export function applySourcePolicy(data, policy) {
     }
   }
   for (const metric of Object.values(policy.metrics)) {
-    if (metric.currentSourceId === metric.selectedSourceId && ["pendingValidation", "authorizationRequired"].includes(metric.state)) {
-      throw new Error(`${metric.label}: unverified or unauthorized source cannot be activated`);
+    if (metric.currentSourceId === metric.selectedSourceId && ["pendingValidation"].includes(metric.state)) {
+      throw new Error(`${metric.label}: unverified source cannot be activated`);
     }
   }
   data.sourcePolicyRevision = policy.revision;
@@ -50,7 +50,7 @@ export function applySourcePolicy(data, policy) {
   };
   price.selectedLondonSourceId = policy.metrics["london-price"].selectedSourceId;
   price.sourceState = policy.metrics["london-price"].state;
-  if (price.sourceState === "authorizationRequired") {
+  if (["fetchBlocked", "pendingValidation"].includes(price.sourceState)) {
     price.status = "historicalSnapshot";
     price.currentSignalEligible = false;
     price.updateBlockedReason = policy.metrics["london-price"].gap;

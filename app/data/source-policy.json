@@ -1,6 +1,6 @@
 {
   "revision": "2026-10-10",
-  "principle": "每项指标只有一个当前执行源；优先接入源通过完整重量、单位、伙伴映射、至少3个月对账及使用条件验证后才统一切换所有依赖板块。未验证的源不是已使用源。",
+  "principle": "每项指标只有一个当前执行源；优先接入源通过完整重量、单位、伙伴映射、至少3个月对账及实际抓取验证后才统一切换所有依赖板块。未验证的源不是已使用源。",
   "tradeScope": "非货币黄金710811、710812、710813及对应本地细分码；现有Comtrade HS7108不报告710820货币黄金，也不覆盖首饰或废料全部黄金流动。",
   "sources": {
     "comtrade": {
@@ -8,7 +8,7 @@
       "url": "https://uncomtrade.org/docs/un-comtrade-api/",
       "fetchUrl": "https://comtradeapi.un.org/public/v1/preview/C/M/HS",
       "releaseCycle": "月度，各报告市场报送及修订时间不同",
-      "access": "有免费公开查询，预览最多500条且有限流；免费可视化等适用免许可情形，收费分发另核对条款。"
+      "access": "免费公开查询；预览最多500条且有限流，必须核验完整性。"
     },
     "hmrc": {
       "name": "英国HMRC",
@@ -22,7 +22,7 @@
       "url": "https://www.swissimpex.admin.ch/",
       "fetchUrl": null,
       "releaseCycle": "月度",
-      "access": "官方查询入口；完整出口净重、导出方式及使用条件须验证。"
+      "access": "官方公开查询入口；完整出口净重与导出方式须实取验证。"
     },
     "hk-idds": {
       "name": "中国香港统计处Trade-IDDS",
@@ -85,7 +85,7 @@
       "url": "https://www.bazg.admin.ch/en/swiss-foreign-trade-statistics-gold-silver-and-coins",
       "fetchUrl": "https://ocean.nivel.bazg.admin.ch/open-data-reports/TN8_controlCode_Gold_IMP_en_v1/TN8_controlCode_Gold_IMP_en_v1.csv",
       "releaseCycle": "月度，可修订",
-      "access": "公开下载，须署名；商业使用需按BAZG条款事先取得数据所有者许可，不能承诺无条件免费商用。"
+      "access": "公开CSV可直接下载，无需付费或账户。"
     },
     "lbma-vault": {
       "name": "LBMA伦敦库存",
@@ -115,19 +115,12 @@
       "releaseCycle": "中国交易日",
       "access": "公开日行情；需标明来源。"
     },
-    "iba-pm": {
-      "name": "IBA伦敦Gold Price PM",
-      "url": "https://www.ice.com/iba/about",
-      "fetchUrl": null,
-      "releaseCycle": "英国营业日，延迟交付按许可约定",
-      "access": "正式使用和公开展示涉及许可，可能收费；目前没有账户及许可。产品页不是抓取接口，未找到经验证的免费同口径生产替代。"
-    },
     "lbma-legacy": {
-      "name": "LBMA PM历史快照出处",
+      "name": "LBMA Gold Price PM公开JSON",
       "url": "https://prices.lbma.org.uk/json/gold_pm.json",
-      "fetchUrl": null,
-      "releaseCycle": "停用为生产取数渠道",
-      "access": "仅保留既有历史证据；本次403，不用于持续更新，不冒充IBA正式交付。"
+      "fetchUrl": "https://prices.lbma.org.uk/json/gold_pm.json",
+      "releaseCycle": "英国交易日；公开接口实际更新延迟须抓取验证",
+      "access": "既有历史快照来自此公开入口；2026年10月10日实测HTTP 403，当前未取到新数据。保留检查和重试，不视为已可持续抓取。"
     },
     "ecb-fx": {
       "name": "ECB参考汇率",
@@ -286,11 +279,11 @@
     },
     "london-price": {
       "label": "伦敦黄金价格",
-      "selectedSourceId": "iba-pm",
+      "selectedSourceId": "lbma-legacy",
       "currentSourceId": "lbma-legacy",
-      "state": "authorizationRequired",
-      "gap": "未有IBA许可或账户，未确认免费同口径持续获取渠道。",
-      "checkSchedule": "有许可后按伦敦次日01:00检查PM延迟交付；实际时间按许可调整。无许可不安排抓取旧JSON。",
+      "state": "fetchBlocked",
+      "gap": "公开JSON实测HTTP 403；尚未验证可持续获取最新同口径PM价格，保留历史观察。",
+      "checkSchedule": "英国交易日后按伦敦次日01:00检查公开PM入口；失败按统一重试规则处理，不推进价差日期。",
       "scope": "LBMA Gold Price PM，美元每金衡盎司；目前仅历史观察，不能出当前溢价结论。"
     },
     "fx": {
@@ -388,5 +381,6 @@
         "fx"
       ]
     }
-  ]
+  ],
+  "availabilityRule": "本阶段以无需付费、能从公开入口实际抓取作为免费可获取标准；版权和许可不作为来源筛选或接入前置条件。免费注册、密钥、限流、访问失败、覆盖范围与更新时效分别标明；付费服务不纳入当前抓取方案。"
 }
